@@ -1,0 +1,51 @@
+.Main {
+  text-align: center;
+  
+}
+.Kirjautumisboksi {
+  display: flex;
+  flex-wrap: wrap;
+  
+  height: 600px;
+  padding: 20px;
+  justify-content: center;
+  
+}
+.Kirjautumisboksi > .Asiakaskirjautuminen{
+  margin: 20px;
+  padding: 20px;
+ 
+  align-items: flex-start;
+  width: 300px;
+  max-height: 300px;
+}
+.Kirjautumisboksi > .Ravintoloitsijakirjautuminen{
+  margin: 20px;
+  margin-left: 100px;
+  padding: 20px;
+  
+  width: 300px;
+  max-height: 300px;
+}
+.käyttäjänimi {
+  text-align: left;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.buttonlayout{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.kirjaudu{
+  margin-bottom: 10px;
+  width: 100px;
+}
+.rekisteröidy{
+  width: 100px;
+}
+.input{
+  width: 290px;
+}
