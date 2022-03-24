@@ -1,0 +1,269 @@
+body{
+    margin: 0;
+}
+
+.stickyHeader{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #a9d5ee;
+    border-bottom: 3px solid #750b0b;
+}
+
+.headerUpper{
+    height: 90px;
+    width: auto;
+}
+
+.headerLower{
+    height: 30px;
+    text-align: center;
+    color: white;
+}
+
+.whiteText{
+    color: white;
+}
+
+.W230{
+    width:230px;
+    height:100%
+}
+
+.menuElement{
+    align-self: center;
+    align-items: center;
+}
+
+h2{
+    margin: 15px;
+    margin-left: 20px;
+}
+
+h3{
+    margin: 15px;
+    margin-left: 20px;
+    margin-bottom: 5px;
+}
+
+h4{
+    margin: 5px;
+    margin-left: 25px;
+}
+
+.searchBar{
+    font-size: 20px;
+    width: 68%;
+    height: 43px;
+    padding: 0px 15px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.searchBarButton{
+    font-size: 22px;
+    width: 12%;
+    height: 47px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    cursor: pointer;
+  
+    color:rgb(15, 15, 15)
+}
+
+.searchBarButton:hover{
+    background-color: orange;
+    border: solid 2px rgb(236, 183, 84);
+    color:rgb(0, 0, 0)
+}
+
+.categorySelect{
+    background-color:rgb(250, 219, 181);
+    padding-left: 5px;
+    font-size: 16px;
+    width: 20%;
+    height: 45px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    cursor: pointer;
+}
+
+.adminMode{
+    height: max-content;
+    text-align: right;
+}
+
+.adminModeButton{
+    background-color: #232f3e;
+    color: #ebe9e9;
+    font-size: 18px;
+    border-radius: 10px;
+    height: 50px;
+    padding: 10px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.adminModeButton:hover{
+    background-color: #172a41;
+    border-color: white;
+    color: white;
+}
+
+.specialInfo{
+    height:60px;
+}
+
+.marginLT10{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.marginT120{
+    margin-top: 130px;
+}
+
+.margin0{
+    margin:0px;
+}
+
+.orangeBG{
+    background-color: rgb(245, 169, 29);
+}
+
+.marginL30{
+    margin-left:20px;
+}
+
+.pinkBG{
+    background-color: pink;
+}
+
+.noMarkers{
+    list-style-type: none;
+}
+
+.W700{
+    width:700px;
+}
+
+.orange{
+    color: orange;
+}
+
+.marginB2{
+    margin-bottom:3px;
+}
+
+.wrapContainer{
+    flex-wrap: wrap;
+    flex-direction:row;
+    margin: 20px;
+}
+
+.productInfoContainer{
+    padding: 35px;
+    width: 380px;
+    height: 500px;
+    border-bottom: 1px solid rgb(214, 209, 209);
+    margin-bottom: -1px;
+    transition-duration: 0.4s;
+}
+
+.productInfoContainer:hover{
+    border: solid 5px rgb(103, 145, 153);
+    border-radius: 20px;
+    margin: -5px;
+}
+
+.productImg{
+    height: 250px;
+    max-height: 250px;
+    width: auto;
+    max-width: 350px;
+}
+
+.justifyCenter{
+    justify-content: center;
+}
+
+.justifySpaceAround{
+    justify-content: space-evenly;
+}
+
+.flex{
+    display: flex;
+}
+
+.filterPanel{
+    width: 200px;
+    border-right: solid 2px gray;
+    flex: none;
+}
+
+img{
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+}
+
+.review{
+    margin: 20px;
+    margin-left:25px;
+}
+
+.hidden{
+    visibility: hidden;
+}
+
+.logoContainer{
+    margin-left: 50px;
+    margin-right: 10px;
+    align-self: center;
+}
+
+
+.shoppinCartItems{
+    background-color: red;
+    border-radius: 50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+}
+
+.shoppingCart{
+    height: max-content;
+    text-align: right;
+}
+
+
+
+.shoppingCartButton{
+    width: 160px;
+    font-size: 18px;
+    border-radius: 10px;
+    height: 50px;
+    padding: 10px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.shoppingCartButton:hover{
+
+    border-color: white;
+
+}
+
+
+.restaurantInfoContainer{
+    height: 200px;
+    margin-left: 50px;
+    margin-bottom: 10px;
+    border: solid 2px black;
+    padding: 6px;
+}
+
+.restaurantInfoContainer:hover{
+    padding: 4px;
+    border: solid 4px black;
+    background-color: rgb(230, 237, 238);
+}
