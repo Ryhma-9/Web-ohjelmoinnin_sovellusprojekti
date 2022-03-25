@@ -6,7 +6,7 @@ import axios from 'axios';
 
 export default function CitySelection(props) {
 
-  const citys = [         // Hardkoodattu muutama kaupunki kehistysvaiheen toiminnan testailuja varten
+  const cityes = [         // Hardkoodattu muutama kaupunki kehistysvaiheen toiminnan testailuja varten
     { 
       city : "Oulu"
     },
@@ -61,7 +61,7 @@ export default function CitySelection(props) {
   // Funktiolla tullaan hakemaan tietokannasta kaupungit. Testivaiheessa palauttaa hardkkoodatut tiedot
   async function getData() {
     //const results = await axios.get('http://rajapinnanOsoite/');
-    return citys;
+    return cityes;
   }
 
   // Hakutoiminnon eventhandler-funktio
