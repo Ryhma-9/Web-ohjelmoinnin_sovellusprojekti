@@ -9,7 +9,10 @@ import com.group9.leipajono.security.PasswordEncoder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CustomerService extends PasswordEncoder {
@@ -20,9 +23,9 @@ public class CustomerService extends PasswordEncoder {
     public void init(){
 
     
-        Customer c = new Customer("Sasdasd", "asdasdasd", "Seppokatu 6", "kallunen666", "666666666", "sheppomies2", passwordEncoder("password"), Role.CUSTOMER);
+        Customer c = new Customer("Samuli", "Salmi", "Rajakylä 666", "samulijytää@gmail.com", "05066666666", "Mahtisompe", passwordEncoder("salasana"), Role.ADMIN);
         customerRepo.save(c);
-        //System.out.println("*******************************"+c.password);
+        System.out.println("*******************************"+c.password);
 
         // Customer c = customerRepo.findById(3L).orElse(null);
         // if (c!=null){
@@ -45,5 +48,14 @@ public class CustomerService extends PasswordEncoder {
         Customer c = customerRepo.findById(userName).orElse(null);
         System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx:" + c.password);
         return c;
+    }
+    public Map<String, Object> getCustomCustomer(String userName){
+        Customer c = this.getCustomer(userName);
+
+        Map<String, Object> json = new HashMap<>();
+        json.put("username", c.userName);
+        json.put("firstname", c.firstName);
+
+        return json;
     }
 }
