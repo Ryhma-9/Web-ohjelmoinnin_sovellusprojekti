@@ -12,11 +12,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "customer")
 public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customerid")
-    public Long customerId;
-    
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @Column(name = "customerid")
+    // public Long customerId;
+    // public Long count = 2L;
+
     @Column(name = "firstname")
     public String firstName;
     
@@ -32,6 +32,7 @@ public class Customer {
     @Column(name = "phonenumber")
     public String phoneNumber;
     
+    @Id
     @Column(name = "username")
     public String userName;
 
@@ -60,12 +61,12 @@ public class Customer {
     public Customer() {
     }
 
-    public Long getCustomerId(String userName) {
-        if (userName == this.userName){
-            return this.customerId;
-        }
-        return null;
-    }
+    // public Long getCustomerId(String userName) {
+    //     if (userName == this.userName){
+    //         return this.customerId;
+    //     }
+    //     return null;
+    // }
 
     public String getFirstName() {
         return this.firstName;
