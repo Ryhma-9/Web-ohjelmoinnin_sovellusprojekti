@@ -23,9 +23,9 @@ public class CustomerService extends PasswordEncoder {
     public void init(){
 
     
-        Customer c = new Customer("Samuli", "Salmi", "Rajakylä 666", "samulijytää@gmail.com", "05066666666", "Mahtisompe", passwordEncoder("salasana"), Role.ADMIN);
-        customerRepo.save(c);
-        System.out.println("*******************************"+c.password);
+        // Customer c = new Customer("Kalja", "Kaljanen", "Kaljatie 16", "kalja@gmail.com", "3453546456", "Kalja", passwordEncoder("kalja"), Role.CUSTOMER);
+        // customerRepo.save(c);
+        // System.out.println("*******************************"+c.password);
 
         // Customer c = customerRepo.findById(3L).orElse(null);
         // if (c!=null){

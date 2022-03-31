@@ -10,6 +10,8 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.group9.leipajono.Service.CustomerService;
 import com.group9.leipajono.data.Customer;
+import com.group9.leipajono.data.Role;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -17,8 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import net.bytebuddy.asm.Advice.This;
 
 @Service
 public class CustomerSecurityService {
@@ -55,7 +55,7 @@ public class CustomerSecurityService {
         .sign(alg);
     }
 
-    public String validateBearerToken(String bearerHeader){
+    public Customer validateBearerToken(String bearerHeader){
         if(bearerHeader.startsWith("Bearer")){
             String token = bearerHeader.substring("Bearer".length() +1);
             return this.validateJwt(token);
@@ -63,16 +63,21 @@ public class CustomerSecurityService {
         return null;
     }
     
-    public String validateJwt(String jwtToken){
+    public Customer validateJwt(String jwtToken){
         Algorithm algorithm = Algorithm.HMAC256(jwtSecret);
         JWTVerifier verifier = JWT.require(algorithm).build();
+        Customer customer = null;
         try {
             DecodedJWT jwt = verifier.verify(jwtToken);
-            return jwt.getSubject();
+            customer = new Customer(null,null,null,null,null,
+                jwt.getSubject(),
+                null,
+                Role.valueOf(jwt.getClaim("role").asString()));
+        // lisätään tyhjä customer ja sen jälkeen voidaan lisätä ne tiedot, mitä halutaan
         } catch (JWTVerificationException exception){
             //Invalid signature/claims
         }
-        return null;
+        return customer;
     }
 
     @Bean // tämän idea on helpottaa mahdollisissa axios-cors-yhteensopivuusongelmissa
