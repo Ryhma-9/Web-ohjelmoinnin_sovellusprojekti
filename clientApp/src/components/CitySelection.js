@@ -89,7 +89,7 @@ export default function CitySelection(props) {
 
   return (
     <div>
-      <Header onSearchButtonClick={ searchHandler } />
+      <Header onSearchButtonClick={ searchHandler } logIn={ props.loggedIn } logOut={ props.logOut } onHeaderButtonClick={ props.headerButtons }/>
       <div className="marginT120 flex cityBoxContainer">
         { 
           cityList.map((item, index) => {

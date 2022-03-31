@@ -9,17 +9,15 @@ export default function MenuBrowser(props) {
 
   let selectedCity = props.city;
   let selectedRestaurant = props.restaurant.name;
-  let menuCategories = ['appetizer', 'main dish', 'dessert', 'drink', 'extras', 'other'];   // tuotekategoriat, jonka mukaan asettelu on rakennettu
-  const [ categoryQty, setCategoryQty ] = useState(1);          // En varmaan vaan osaa, mut joutu tekemään tän Vakioannostyypien määrälle. categoryQty > 1 on tuotekategorioiden filtteröinti käytössä
-  
-
-  const [ menu, setMenu ] = useState([]);         // Tähän asetetaan näytölle tulostettavat annokset
+  let menuCategories = ['appetizer', 'main dish', 'dessert', 'drink', 'extras', 'other'];   // tuotekategoriat, jonka mukaan asettelu on rakennettu. Tuotteet tulostetaan kategoriossa taulukon järjestyksessä
+  const [ categoryQty, setCategoryQty ] = useState(1);      // En varmaan vaan osaa, mut joutu tekemään tän Vakioannostyypien määrälle. categoryQty > 1 on tuotekategorioiden filtteröinti käytössä
+  const [ menu, setMenu ] = useState([]);                   // Tähän asetetaan näytölle tulostettavat annokset
   const [ menuCategory, setMenuCategory ] = useState([]);   // Ja tähän tuotekategoriat. Tätä käytetään myös tuotekategorioiden filtteröintiin  
 
 
   // Tuotteiden valinnan toimintojen hahmottelua
   const [ shoppingCartItems, setShoppingCartItems ] = useState([]);
-  
+  // Funktio, jolla lisätään tuote ostoskoriin tai jos tuote on jo korissa lisätään sen määrää
   const shoppingCartTesting = (item) => { 
   let newShoppingCartItems = [...shoppingCartItems];
   let itemClickedIndex = newShoppingCartItems.findIndex(i => item.productId === i.productId)
@@ -40,16 +38,21 @@ export default function MenuBrowser(props) {
     newShoppingCartItems = newElement;
   }
   setShoppingCartItems(newShoppingCartItems);
-
   console.log(item.productName + " added to cart");
   console.log(newShoppingCartItems);
 }
+
+  function passShoppingCartToApp() {
+    console.log("päivvää")
+    props.addItemsToCart(shoppingCartItems)
+  }
 
 
   // Näkymän ensimäisen renderöinnin yhteydessä haetaan valitun ravintolan ruokalista ja tuotekategoriat ja tallennetaan ne useState-hookkeihin
   useEffect(() => {
     getData().then(setMenu);
     getData().then(listCategories).then(setMenuCategory);
+    setShoppingCartItems(props.shoppingCartItems)
     getData().then(listCategories).then((res) => {
       setCategoryQty(res.length);
     });
@@ -69,11 +72,15 @@ export default function MenuBrowser(props) {
       return categoryList.add(item.type)
     });
     for (const x of categoryList.values()) {
-      menuCategories.includes(x.toLowerCase()) ? menuCategoryList.push(x.toLowerCase()) : menuCategoryList.push('other');
+      if (menuCategories.includes(x.toLowerCase())) {
+        menuCategoryList.push(x.toLowerCase());
+      }
+      else if (menuCategoryList.includes(!'Other')) {
+        menuCategoryList.push('Other');
+      }
     }
     return menuCategoryList;
   }
-
 
   // Funktiolla lisätään headeriin valintojen postonapit sekä napit menufilttereille
   const manageHeaderContent = (props) => {
@@ -162,7 +169,7 @@ export default function MenuBrowser(props) {
             { 
               menu.map((item, index) => {
                 return item.type.toLowerCase().includes(category) ? 
-                  <div className="menuItemContainer flex" key={index} >
+                  <div className="menuItemContainer flex" key={index} > 
                     <div className="restaurantImg">
                       <img alt={ item.productName } width="100%" src={ item.productImg }/>
                     </div>
@@ -192,7 +199,10 @@ export default function MenuBrowser(props) {
 
   return (
     <div>
-      <Header addContentToHeader={ manageHeaderContent } shoppingCartItems={ shoppingCartItems }/>
+      <Header 
+        addContentToHeader={ manageHeaderContent } shoppingCartItems={ shoppingCartItems } passShoppingCartToApp={ passShoppingCartToApp }
+        logIn={ props.loggedIn } logOut={ props.logOut } onHeaderButtonClick={ props.headerButtons }
+      />
       <div className="marginT120">
         <MenuItemHandler/>
       </div>

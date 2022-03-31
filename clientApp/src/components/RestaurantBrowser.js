@@ -100,7 +100,7 @@ export default function RestaurantBrowser(props) {
 
   let selectedCity = props.city;
   const [ restaurantList, setRestaurantList ] = useState([]);   // Tähän asetetaan näytölle tulostettavat ravintolat
-  const [ restauranStyle, setRestauranStyle ] = useState([]);   // Tähän asetetaan käyttäjän tekemä ravintolatyyppi filtteröinti
+  const [ restauranStyle, setRestauranStyle ] = useState([]);   // Tähän asetetaan käyttäjän tekemä ravintolatyyppifiltteröinti
 
   // Näkymän ensimäisen renderöinnin yhteydessä haetaan valitun kaupungin ravintolat ja tallennetaan ne useState-hookkiin
   useEffect(() => {
@@ -197,7 +197,9 @@ export default function RestaurantBrowser(props) {
 
   return (
     <div>
-      <Header onSearchButtonClick={ searchHandler } addContentToHeader={ manageHeaderContent }/>
+      <Header onSearchButtonClick={ searchHandler } addContentToHeader={ manageHeaderContent } 
+        logIn={ props.loggedIn } logOut={ props.logOut } onHeaderButtonClick={ props.headerButtons }
+      />
       <div className="marginT120">
         { // Ravintoloiden listauksen mappauksen yhteyteen on lisätty ravintolatyylifiltteröinti
           restaurantList.filter(item => item.style.includes(restauranStyle.length === 1 ? restauranStyle : "")).map((item, index) => {
