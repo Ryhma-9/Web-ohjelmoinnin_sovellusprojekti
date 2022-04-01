@@ -43,10 +43,6 @@ public class Customer {
     @Enumerated(EnumType.STRING)
     public Role role;
 
-    public Customer getCustomer(){
-        return this;
-    }
-
     public Customer(String firstName, String lastName, String address, String email, String phoneNumber, String userName, String password, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -60,13 +56,6 @@ public class Customer {
 
     public Customer() {
     }
-
-    // public Long getCustomerId(String userName) {
-    //     if (userName == this.userName){
-    //         return this.customerId;
-    //     }
-    //     return null;
-    // }
 
     public String getFirstName() {
         return this.firstName;

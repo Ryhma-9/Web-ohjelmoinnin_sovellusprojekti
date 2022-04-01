@@ -10,6 +10,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.group9.leipajono.Service.CustomerService;
 import com.group9.leipajono.data.Customer;
+import com.group9.leipajono.data.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -17,8 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import net.bytebuddy.asm.Advice.This;
 
 @Service
 public class CustomerSecurityService {
@@ -43,19 +42,17 @@ public class CustomerSecurityService {
     //Metodi autentikoi ja palauttaa tokenin, jos käyttäjä löytyy
     public String checkAuthentication(String userName, String password){
         Customer c = customerService.getCustomer(userName);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!"+ password +" | " + c.password);
         return encoder.matches(password, c.password) ? createToken(c) :  null;
     }
     public String createToken(Customer c){
         Algorithm alg = Algorithm.HMAC256(jwtSecret);
-        System.out.println("******************* mentiin create tokeniin");
         return JWT.create()
         .withSubject(c.userName)
         .withClaim("role", c.role.toString())
         .sign(alg);
     }
 
-    public String validateBearerToken(String bearerHeader){
+    public Customer validateBearerToken(String bearerHeader){
         if(bearerHeader.startsWith("Bearer")){
             String token = bearerHeader.substring("Bearer".length() +1);
             return this.validateJwt(token);
@@ -63,16 +60,21 @@ public class CustomerSecurityService {
         return null;
     }
     
-    public String validateJwt(String jwtToken){
+    public Customer validateJwt(String jwtToken){
         Algorithm algorithm = Algorithm.HMAC256(jwtSecret);
         JWTVerifier verifier = JWT.require(algorithm).build();
+        Customer customer = null;
         try {
             DecodedJWT jwt = verifier.verify(jwtToken);
-            return jwt.getSubject();
+            customer = new Customer(null,null,null,null,null,
+                jwt.getSubject(),
+                null,
+                Role.valueOf(jwt.getClaim("role").asString()));
+        // palauttaa tokenin, jossa on ainoastaan tieto usernamesta ja roolista. Muuta ei liene tarvita front endissä
         } catch (JWTVerificationException exception){
             //Invalid signature/claims
         }
-        return null;
+        return customer;
     }
 
     @Bean // tämän idea on helpottaa mahdollisissa axios-cors-yhteensopivuusongelmissa

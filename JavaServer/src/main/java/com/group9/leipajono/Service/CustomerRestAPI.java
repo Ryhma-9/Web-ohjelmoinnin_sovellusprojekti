@@ -1,7 +1,6 @@
 package com.group9.leipajono.Service;
 
 import java.util.Map;
-
 import com.group9.leipajono.data.Customer;
 import com.group9.leipajono.data.Role;
 import com.group9.leipajono.security.CustomerSecurityService;
@@ -28,7 +27,6 @@ public class CustomerRestAPI {
             credentials.get("password"));
 
         if(token == null){
-            System.out.println("token on null");
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         return new ResponseEntity<>(Map.of("token", token), HttpStatus.OK);
@@ -36,7 +34,6 @@ public class CustomerRestAPI {
     @PostMapping("/loginbasic")
     public ResponseEntity<Map<String,String>> loginBasic(@RequestHeader("authorization") String basicAuthHeader){
         String token = customerSecurity.checkBasicAuthentication(basicAuthHeader);
-        System.out.println(basicAuthHeader);
 
         if(token == null){
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -45,17 +42,15 @@ public class CustomerRestAPI {
         return new ResponseEntity<>(Map.of("token", token), HttpStatus.OK);
     }
     @GetMapping("/private")
-    public ResponseEntity<String> getPrivate(@RequestHeader("authorization") String bearer){
-        String c = customerSecurity.validateBearerToken(bearer);
-        System.out.println(bearer);
+    public ResponseEntity<Customer> getPrivate(@RequestHeader("authorization") String bearer){
+        Customer custo = customerSecurity.validateBearerToken(bearer);
         
-        if (c==null){
+        if (custo.role == Role.ADMIN || custo.role == Role.RESTAURANT){
+            return new ResponseEntity<>(custo, HttpStatus.OK);
+        }
+        else{
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        // if (c. == Role.ADMIN){
-        //     //tähän adminin oikeudella juttuja
-        // }
-        return new ResponseEntity<>(c, HttpStatus.OK);
     }
 
     @GetMapping("/customers")
