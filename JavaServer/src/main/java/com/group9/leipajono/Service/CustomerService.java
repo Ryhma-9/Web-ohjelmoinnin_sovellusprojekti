@@ -3,8 +3,6 @@ package com.group9.leipajono.Service;
 import javax.annotation.PostConstruct;
 import com.group9.leipajono.data.Customer;
 import com.group9.leipajono.data.CustomerRepository;
-import com.group9.leipajono.data.Role;
-import com.group9.leipajono.security.CustomerPwEncoder;
 import com.group9.leipajono.security.PasswordEncoder;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,15 +41,11 @@ public class CustomerService extends PasswordEncoder {
         return customerRepo.findAll();
     } 
     public Customer getCustomer(String userName){
-        System.out.println("******************* tultiin serviceen");
-        System.out.println(userName);
         Customer c = customerRepo.findById(userName).orElse(null);
-        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx:" + c.password);
         return c;
     }
     public Map<String, Object> getCustomCustomer(String userName){
         Customer c = this.getCustomer(userName);
-
         Map<String, Object> json = new HashMap<>();
         json.put("username", c.userName);
         json.put("firstname", c.firstName);
