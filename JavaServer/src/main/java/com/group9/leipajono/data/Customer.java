@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.group9.leipajono.enums.Role;
+
 @Entity
 @Table(name = "customer")
 public class Customer {
@@ -23,7 +25,7 @@ public class Customer {
     @Column(name = "lastname")
     public String lastName;
     
-    @Column(name = "addr")
+    @Column(name = "customeraddress")
     public String address;
     
     @Column(name = "email")
@@ -43,7 +45,15 @@ public class Customer {
     @Enumerated(EnumType.STRING)
     public Role role;
 
-    public Customer(String firstName, String lastName, String address, String email, String phoneNumber, String userName, String password, Role role) {
+    public Customer(
+        String firstName, 
+        String lastName, 
+        String address, String email, 
+        String phoneNumber, 
+        String userName, 
+        String password, 
+        Role role) 
+    {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;

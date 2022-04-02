@@ -1,8 +1,10 @@
-package com.group9.leipajono.Service;
+package com.group9.leipajono.controllers;
 
 import java.util.Map;
+
+import com.group9.leipajono.Service.CustomerService;
 import com.group9.leipajono.data.Customer;
-import com.group9.leipajono.data.Role;
+import com.group9.leipajono.enums.Role;
 import com.group9.leipajono.security.CustomerSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
