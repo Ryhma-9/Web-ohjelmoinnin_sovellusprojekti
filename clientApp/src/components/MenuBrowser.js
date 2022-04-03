@@ -1,9 +1,11 @@
 import React from 'react'
+import './Shop.css';
 import { useEffect, useState } from 'react';
 import Header from './Header';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faXmark, faBasketShopping } from '@fortawesome/free-solid-svg-icons'
+import { faXmark, faBasketShopping, faInfo } from '@fortawesome/free-solid-svg-icons'
+
 
 export default function MenuBrowser(props) {
 
@@ -14,6 +16,18 @@ export default function MenuBrowser(props) {
   const [ menu, setMenu ] = useState([]);                   // Tähän asetetaan näytölle tulostettavat annokset
   const [ menuCategory, setMenuCategory ] = useState([]);   // Ja tähän tuotekategoriat. Tätä käytetään myös tuotekategorioiden filtteröintiin  
 
+  // Hakutoiminnon eventhandler-funktio. Funktiolla tällä hetkellä päivitetään hardkoodatuista ravintoloista suoritettu haku headerin hakukenttään annetun teksin perusteella
+  const searchHandler = (searchBarText) => {
+    getData().then( function(res){ setMenu( searchEngine(res,searchBarText) ) });
+  }
+  // Hakufunktio, jolla haetaan siihen syötetyn tietueen oliot, joiden arvoista löytyy annettu hakusana
+  const searchEngine = (items, searchArgument) => {
+    var search = searchArgument.toString().toLowerCase().trim();
+    var searchResult = items.filter(item => {
+      return Object.keys(item).some(key => item[key].toString().toLowerCase().includes(search));
+    });
+    return searchResult;
+  }
 
   // Tuotteiden valinnan toimintojen hahmottelua
   const [ shoppingCartItems, setShoppingCartItems ] = useState([]);
@@ -21,12 +35,12 @@ export default function MenuBrowser(props) {
   const shoppingCartTesting = (item) => { 
   let newShoppingCartItems = [...shoppingCartItems];
   let itemClickedIndex = newShoppingCartItems.findIndex(i => item.productId === i.productId)
-  if(itemClickedIndex != -1){
+  if (itemClickedIndex !== -1) {
     let newElement = {...newShoppingCartItems[itemClickedIndex]}
     newElement.qty += 1;
     newShoppingCartItems[itemClickedIndex] = newElement;
   }
-  else{
+  else {
     let newElement = [...newShoppingCartItems,
     {
       id : shoppingCartItems.length + 1,
@@ -41,18 +55,21 @@ export default function MenuBrowser(props) {
   console.log(item.productName + " added to cart");
   console.log(newShoppingCartItems);
 }
-
+  // Ehkä tyhmä idea, mutta jotta saa näkymän toiminnot toimimaan oikeen käytetään funktion omaa statehookkia ja päivitetään ostoskori vain hallitusti App.js:ään
   function passShoppingCartToApp() {
-    console.log("päivvää")
     props.addItemsToCart(shoppingCartItems)
   }
+  // Liittyy edelliseen funktioon. Näkymän vaihdon yhteydessä päivitetään ostoskorin sisältö App.js
+  const headerButtonHandler = (buttonValue) => {
+    passShoppingCartToApp();
+    props.headerButtons(buttonValue);
+  }
 
-
-  // Näkymän ensimäisen renderöinnin yhteydessä haetaan valitun ravintolan ruokalista ja tuotekategoriat ja tallennetaan ne useState-hookkeihin
+  // Näkymän ensimäisen renderöinnin yhteydessä haetaan valitun ravintolan ruokalista, tuotekategoriat, ostoskorin sisältö App.js:stä ja tallennetaan ne useState-hookkeihin
   useEffect(() => {
     getData().then(setMenu);
     getData().then(listCategories).then(setMenuCategory);
-    setShoppingCartItems(props.shoppingCartItems)
+    setShoppingCartItems(props.shoppingCart)
     getData().then(listCategories).then((res) => {
       setCategoryQty(res.length);
     });
@@ -121,54 +138,93 @@ export default function MenuBrowser(props) {
 
   // Viritelmä valintojen poistoa varten
   const removeSelection = (item) => {
+    if (shoppingCartItems.length > 0) {   // Jos ostoskoriin on lisätty tavaraa, se tyhjennettään jos peruutetaan ravintola-/kaupinkivalinta
+      alert("Ostoskori on tyhjennetty");
+      props.addItemsToCart([])
+    }
     switch (item) {
-      case 'city' :    
-        return props.unSelectCity("");
-      case 'restaurant': 
-        return props.unSelectRestaurant("");
+      case 'city' :  
+        props.unSelectCity("");
+        return
+      case 'restaurant':
+        props.unSelectRestaurant("");
+        return
       default : 
         return console.log("react ei ehkä ookkaan niin mukavaa");
     }
   }
 
-
   // Täällä tapahtuu itse ruokalistan käsittely ja "tulostaminen"
   const MenuItemHandler = () => {    
 
-    const AddToShopingcart = (props) => {
-
+    const AddToShopingcart = (props) => { // Tässä luodaan lisää ostoskoriin nappi
       return (
-        <div onClick={ ()=> shoppingCartTesting(props.productInfo) }>
+        <div className="menuHandlebutton" onClick={ ()=> shoppingCartTesting(props.productInfo) }>
           <h3> Add to Cart <FontAwesomeIcon icon={ faBasketShopping }/> </h3>
         </div>
       )
     }
-    const AllergyInfo = (props) => {
-      
+
+    const AllergyInfo = (props) => {  // Tässä allergiainfo.  Tulostetaan lihenteet tuotteen allergioista ja nappi jolla tulostetaan lyhenbteiden selitykset
+      function printAllergyIcon(allergy) {
+        switch (allergy) {
+          case 1 :  
+            return <div className="allergyIcon"> CE </div>
+          case 2 :  
+            return <div className="allergyIcon"> CR </div>
+          case 3 :  
+            return <div className="allergyIcon"> E </div>
+          case 4 :  
+            return <div className="allergyIcon"> F </div>
+          case 5 :  
+            return <div className="allergyIcon"> G </div>
+          case 6 :  
+            return <div className="allergyIcon"> L </div>
+          case 7 :  
+            return <div className="allergyIcon"> MI </div>
+          case 8 :  
+            return <div className="allergyIcon"> MO </div>
+          case 9 :  
+            return <div className="allergyIcon"> MU </div>
+          case 10 :  
+            return <div className="allergyIcon"> P </div>
+          case 11 :  
+            return <div className="allergyIcon"> SE </div>
+          case 12 :  
+            return <div className="allergyIcon"> SO </div>
+          case 13 :  
+            return <div className="allergyIcon"> SU </div>
+          case 14 :  
+            return <div className="allergyIcon"> T </div>
+          default : 
+            return null
+        }
+      }
       return (
-        <div className="marginL200" onClick={ () => alert("G=Glutreeniton ja sitä rataa") }>
-          <span>TÄHÄN ALLERGEENIT </span>
-        </div>
-      )
-    }
-    const ProductInfoButton = (props) => {
-      
-      return (
-        <div className="marginL200">
-          <span> JA TÄHÄN LISÄINFONAPPI</span>
+        <div className="marginL200 flex">
+          <div>Allergy information: </div>
+          { props.productInfo.map((item) => { return printAllergyIcon(item) }) }
+          <div className="allergyInfoIcon" onClick={ ()=> setAllergyInfoVisibility(!allergyInfoVisibility) }> <FontAwesomeIcon icon={ faInfo } size="1x"/></div>
         </div>
       )
     }
 
+    const ProductInfoButton = (props) => {  // Tulostetaan lisäinfonappi. Nappia painamalla asetetaa lisäinfo näkyväksi ja asetetaan statehookkiin tuotteen lisätiedot
+      return (
+        <div className="menuHandlebutton marginL200 " onClick={ ()=> setMoreInfo({visibility: !moreInfo.visibility, ingredients: props.ingredients, energyContent: props.energy}) }>
+          More information
+        </div>
+      )
+    }
 
     return (
       menuCategories.map((category) => {
-        return menuCategory.includes(category) ? 
+        return menuCategory.includes(category) ? // Tarkastetaan onko ko kategoriassa tuotteita, jos ei niin kategoriaa ei tulosteta
           <div className="menuCategoryContainer">
             <div className="title"><h2>{ category.toUpperCase() }</h2></div>
             { 
               menu.map((item, index) => {
-                return item.type.toLowerCase().includes(category) ? 
+                return item.type.toLowerCase().includes(category) ?   // Tässä käydään tuotteet läpi ja tulostetaan ne kategoriottain
                   <div className="menuItemContainer flex" key={index} > 
                     <div className="restaurantImg">
                       <img alt={ item.productName } width="100%" src={ item.productImg }/>
@@ -182,29 +238,71 @@ export default function MenuBrowser(props) {
                       <div className="productAdditionalInfo flex">
                         <div><h3>{ item.price  } €</h3></div>
                         <AllergyInfo productInfo={ item.allergens }/>
-                        <ProductInfoButton productInfo={ item.ingredients }/>
+                        <ProductInfoButton ingredients={ item.ingredients } energy={ item.energyContent }/>
                       </div>
                     </div>
-                  </div>:null
+                  </div> 
+                  : null
               })
             }
-          </div>:null
+          </div> 
+          : null
       })
+      
     )    
   }
 
+  const [ allergyInfoVisibility, setAllergyInfoVisibility ] = useState(false); // Allergiainfo pop-up hallinta
+  function allergensInfo() {  // Allergialyheteiden selosteet. Näytetään kun painetaan infopainiketta
+    return (
+      <div className="allergyInfoPopUp">
+        <h4>Allergens:</h4>
+        <pre>{`
+          CE = Cellery
+          CR = Crustaceans
+          E  = Eggs
+          F  = Fish
+          G  = Gluten
+          L  = Lupin
+          MI = Milk
+          MO = Molluscs
+          MU = Mustard
+          P  = Peanuts
+          SE = Sesame seeds
+          SO = Soybeans
+          SU = Sulfur dioxide and sulphites
+          t  = Tree nuts
+        `}</pre>
+        <div>
+          <button className="" onClick={ ()=> setAllergyInfoVisibility(false) }> OK </button>
+        </div>
+    </div>
+    )
+  }
 
-
-
+  const [ moreInfo, setMoreInfo ] = useState({visibility: false, ingredients: "", energyContent: ""}); // Lisäinfo pop-up hallinta. Tähän tallennetaan näkyvyys ja lisätiedot
+  function printMoreInfo() {  // Lisäinfonjon tulostus. Tiedot haetaan statehookista
+    return (
+      <div className="allergyInfoPopUp">
+        <h4>Ingredients: { moreInfo.ingredients }</h4>
+        <h4>Energy: { moreInfo.energyContent } kCal</h4>
+        <div>
+          <button className="" onClick={ ()=> setMoreInfo({visibility: false, ingredients: "", energyContent: ""}) }> OK </button>
+        </div>
+    </div>
+    )
+  }
 
   return (
     <div>
       <Header 
         addContentToHeader={ manageHeaderContent } shoppingCartItems={ shoppingCartItems } passShoppingCartToApp={ passShoppingCartToApp }
-        logIn={ props.loggedIn } logOut={ props.logOut } onHeaderButtonClick={ props.headerButtons }
+        logIn={ props.loggedIn } logOut={ props.logOut } onHeaderButtonClick={ headerButtonHandler } onSearchButtonClick={ searchHandler }
       />
       <div className="marginT120">
         <MenuItemHandler/>
+        { allergyInfoVisibility ? allergensInfo() : null }
+        { moreInfo.visibility ? printMoreInfo() : null }
       </div>
     </div>
   )

@@ -1,4 +1,5 @@
 import React from 'react'
+import './Shop.css';
 import { useEffect, useState } from 'react';
 import Header from './Header';
 import axios from 'axios';
@@ -86,10 +87,13 @@ export default function CitySelection(props) {
     return "rgb(" + r + ", " + g + ", " + b + ")";
   }
 
-
+  
   return (
     <div>
-      <Header onSearchButtonClick={ searchHandler } logIn={ props.loggedIn } logOut={ props.logOut } onHeaderButtonClick={ props.headerButtons }/>
+      <Header 
+        onSearchButtonClick={ searchHandler } logIn={ props.loggedIn } logOut={ props.logOut } 
+        onHeaderButtonClick={ props.headerButtons } shoppingCartItems={ props.shoppingCart }
+      />
       <div className="marginT120 flex cityBoxContainer">
         { 
           cityList.map((item, index) => {
