@@ -1,4 +1,4 @@
-package com.group9.leipajono.data;
+package com.group9.leipajono.enums;
 
 public enum Role {
     CUSTOMER, ADMIN, RESTAURANT

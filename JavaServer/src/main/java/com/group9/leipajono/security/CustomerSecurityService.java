@@ -10,7 +10,8 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.group9.leipajono.Service.CustomerService;
 import com.group9.leipajono.data.Customer;
-import com.group9.leipajono.data.Role;
+import com.group9.leipajono.enums.Role;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
