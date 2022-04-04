@@ -1,4 +1,5 @@
 import React from 'react';
+import './Shop.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faCog, faSignInAlt, faSignOutAlt, faShoppingCart, faUser, faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
@@ -13,16 +14,6 @@ export default function Header(props) {
     setSearchBarText(event.target.value);
   }
 
-
-  const [ loggedIn, setLoggedIn ] = useState(false);          // Tää on vain kehistysvaiheen toiminnan testailuja varten
-  const [ dropDownMenu, setDropDownMenu ] = useState(false);  // Tää on vain kehistysvaiheen toiminnan testailuja varten
-
-  // Testailua. Yritys tulostaa jotenkin ostoskorin tuotteiden lukumäärää
-  // Tää on vaa tämmönen turha näkymän testailu
-  const [ test, setTest ] = useState(0);
-  function setShoppingCartItemsNumber() {
-    setTest(test + 1);
-  }
   // Tällä funktiolla haetaan ostoskorin tuotteet ja lasketaan tuotteiden lukumäärä
   function itemsInCart() {
     let sum = 0;
@@ -32,16 +23,15 @@ export default function Header(props) {
     return sum;
   }
 
-
-  // Hallitaan näkymien headeriin asettamaa sisältöä
+  // Hallitaan näkymien headerin alaosaan asettamaa sisältöä
   const AddLowerHeaderContent = (props) => {
     return (
       props.content ? props.content() :  null
     )
   }
 
-  const DropDownMenu = () => {
-    // En osannu käyttää valmiita kirjastoja / ne jotka sain toimaan oli kökköjä niin tässä ite värkätty alavetovalikko
+  const [ dropDownMenu, setDropDownMenu ] = useState(false);  // Tällä ohjataan profiilialasvetovalikon näkyvyyttä
+  const DropDownMenu = () => {    // En osannu käyttää valmiita kirjastoja / ne jotka sain toimaan oli kökköjä niin tässä ite värkätty alavetovalikko
     return (
       <div className="dropdown">
         <a>Logged in as:</a>
@@ -73,11 +63,12 @@ export default function Header(props) {
             </div>
           </form> 
           <div className="menuElement W230 shoppingCart">
-            <button className="shoppingCartButton" type="button" onClick={ () => [ props.passShoppingCartToApp(), props.onHeaderButtonClick("ShopingCart")] }>
+            <button className="shoppingCartButton" type="button" 
+            onClick={ ()=> props.passShoppingCartToApp ? [props.passShoppingCartToApp(), props.onHeaderButtonClick("ShopingCart")] : props.onHeaderButtonClick("ShopingCart") }>
                 <span>Shoping Cart <FontAwesomeIcon icon={ faShoppingCart }/>{ props.shoppingCartItems && props.shoppingCartItems.length > 0 ? 
                   <span className="shoppinCartItems">{ itemsInCart() }</span> 
                   : 
-                  test == 0 ? null : <span className="shoppinCartItems">{ test }</span> /*Tää on vaan testailua varten ja itse asiassa jo nyt joutaisi poistaa*/ }
+                  null }
                 </span>   
             </button>
           </div>
@@ -93,7 +84,7 @@ export default function Header(props) {
                 <span>Log In <FontAwesomeIcon icon={ faSignInAlt }/></span> 
               </button>
             }
-            { dropDownMenu == true ?      // Jotakin hahmotelmaa valikolle, joka avautuu käyttäjän ollessa kirjautuneena ja kun klikataan profiilipainiketta
+            { dropDownMenu === true ?      // Jotakin hahmotelmaa valikolle, joka avautuu käyttäjän ollessa kirjautuneena ja kun klikataan profiilipainiketta
               <DropDownMenu/>
               : 
               null

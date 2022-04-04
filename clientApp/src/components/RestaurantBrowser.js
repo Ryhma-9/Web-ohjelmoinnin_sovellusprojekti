@@ -1,4 +1,5 @@
 import React from 'react'
+import './Shop.css';
 import { useEffect, useState } from 'react';
 import Header from './Header';
 import axios from 'axios';
@@ -25,8 +26,9 @@ export default function RestaurantBrowser(props) {
         productId : 1,
         productName : "Gustavo's chicken",
         price : 12.5,
-        allergens : 1,
+        allergens : [],
         ingredients : "",
+        energyContent : 1950,
         description : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
         type : 'Main dish',
         productImg : "https://media-cdn.tripadvisor.com/media/photo-s/1a/bd/74/6e/los-pollos-hermanos-crispy.jpg",
@@ -35,8 +37,9 @@ export default function RestaurantBrowser(props) {
         productId : 2,
         productName : 'Icy suprice',
         price : 150,
-        allergens : "",
+        allergens : [],
         ingredients : "",
+        energyContent : 550,
         description : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
         type : 'extras',
         productImg : 'http://thx-trailer.com/replica/Breaking_bad/los2.jpg',
@@ -45,8 +48,9 @@ export default function RestaurantBrowser(props) {
         productId : 3,
         productName : "Wings'n chips",
         price : 15,
-        allergens : "1",
+        allergens : [],
         ingredients : "",
+        energyContent : 1500,
         description : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
         type : 'appetizer',
         productImg : 'http://nerdist.com/wp-content/uploads/2015/05/Los-Pollos-Hermanos-chicken-by-Geek-Plate-05022015.jpg',
@@ -55,8 +59,9 @@ export default function RestaurantBrowser(props) {
         productId : 4,
         productName : 'Illegally good Cupcace',
         price : 5,
-        allergens : "2",
+        allergens : [],
         ingredients : "",
+        energyContent : 1200,
         description : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
         type : 'dessert',
         productImg : 'http://nerdist.com/wp-content/uploads/2015/05/Breaking-Bad-Cupcake-by-Semi-Sweet-Mike-05022015.jpg',
@@ -78,8 +83,9 @@ export default function RestaurantBrowser(props) {
         productId : 1,
         productName : 'Pieni ja kallis annos lihaa',
         price : 100,
-        allergens : 1, 
-        ingredients : "Wagyū beef",
+        allergens : [5, 7, 9],
+        ingredients : "100% lihaan verrattavissa olevia aineita",
+        energyContent : 1550,
         description : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
         type : 'Main dish',
         productImg : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD2VQz9ZEG3DJiOOhpdyHy4dMUhqSzLKgZgKicvmZbcrEtGsv9k8YIcDgVLIfx_tKSMuo&usqp=CAU',
@@ -88,8 +94,9 @@ export default function RestaurantBrowser(props) {
         productId : 2,
         productName : 'Pieni ja kallis annos kalaa',
         price : 120,
-        allergens : 2,
-        ingredients : "potatoes, fish and something else",
+        allergens : [1, 3, 4],
+        ingredients : "potatoes, fish and other shit",
+        energyContent : 1230,
         description : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
         type : 'Main dish',
         productImg : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1JzT_6RR8fL9U5y-FuTcZn5v5UMi0ZThWHjoj2CkmkGXV34Ixm36WWV9I953TBDkEBm8&usqp=CAU',
@@ -153,12 +160,10 @@ export default function RestaurantBrowser(props) {
     )
   }
 
-
   // Testailua kaupungin valinnan poistoon
   const removeSelection = () => {
     props.unSelectCity("");
   }
-
 
   // Funktiolla lisätään headeriin kaupungin valinnan postonappi sekä napit ravintolatyylifiltteröintiin
   const manageHeaderContent = (props) => {
@@ -194,10 +199,43 @@ export default function RestaurantBrowser(props) {
     )
   }
 
+  const DeliveryTime = (props) => {
+    function openOrders() {
+      // Tähän joskus joku koodi joka hakee ravintolan avoimet toimittamattomat tilaukset
+      // Testailun vuoksi arvotaan random numero
+      return Math.round((Math.random() * 10 +1));
+    }
+    function basicDeliveryTime(restaurantType) {  // Tässä määritellään ravintolatyypeille toimitusarvio
+      console.log(restaurantType);
+      switch (restaurantType) {
+        case 'Fastfood' :  
+          return 15
+        case 'Fine dining' :  
+          return 35
+        case "Buffet" :  
+          return  25
+        case 'Fast casual' :  
+        return 20
+        case 'Casual dining' :  
+          return 30
+        default : 
+          return null
+      }
+    }
+    
+    let orders =  openOrders();
+    let t  = basicDeliveryTime(props.productInfo.style)
+    
+    return (
+      <div><span>Delivery: { parseInt(t + t * 0.1 * orders) } minutes</span></div>  // tässä lasketaan toimitusaika-arvioon avoimet tilaukset mukaan
+    )
+  }
+
+<div><span>PLACEHOLDER, toimitusaika</span></div>
 
   return (
     <div>
-      <Header onSearchButtonClick={ searchHandler } addContentToHeader={ manageHeaderContent } 
+      <Header onSearchButtonClick={ searchHandler } addContentToHeader={ manageHeaderContent } shoppingCartItems={ props.shoppingCart }
         logIn={ props.loggedIn } logOut={ props.logOut } onHeaderButtonClick={ props.headerButtons }
       />
       <div className="marginT120">
@@ -215,7 +253,7 @@ export default function RestaurantBrowser(props) {
                   </div>
                   <div className="restaurantAdditionalInfo flex">
                     <div><span>{ item.priceRange }</span></div>
-                    <div><span>PLACEHOLDER, toimitusaika</span></div>
+                    <DeliveryTime productInfo={ item }/>
                     { ratings(item) }
                   </div>
                 </div>

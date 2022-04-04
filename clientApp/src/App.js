@@ -4,27 +4,28 @@ import axios from 'axios';
 import CitySelection from './components/CitySelection';
 import RestaurantBrowser from './components/RestaurantBrowser';
 import MenuBrowser from './components/MenuBrowser';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleInfo, faInfo } from '@fortawesome/free-solid-svg-icons'
 
 
 function App() {
 
-  // Jotain alkeelista yritystä kaupungin valinnan hallintaan
-  const [ selectedCity, setSelectedCity ] = useState("");
+  // Jotain toiminnallisuutta kaupungin valinnan hallintaan
+  const [ selectedCity, setSelectedCity ] = useState(""); // valittu kaupunki
   const citySelectHandler = (selection) => {
-    if (selection === "") {
+    if (selection === "") {     // poistetaan kaupungin valinta. Samalla myös poistetaan ravintolan valinta
       setSelectedCity(selection);
       setSelectedRestaurant(selection);
-      setScene("CitySelection");
+      setScene("CitySelection");  // asetetaan näkymäksi kaupungin valinta
     }
     else {
-      setSelectedCity(selection);
+      setSelectedCity(selection); // Asetetaan statehookkiin valittu kaupunki ja siirryttän ravintolavalintanäkymään
       setScene("RestaurantBrowser");
     }
   }
 
   // Toiminnallisuuksia ravintolan valintaan
-  const [ selectedRestaurant, setSelectedRestaurant ] = useState("");
+  const [ selectedRestaurant, setSelectedRestaurant ] = useState(""); // Ravintolan valintatieto
   const restaurantSelectHandler = (selection) => {
     if (selection === "") {
       setSelectedRestaurant(selection);
@@ -36,36 +37,35 @@ function App() {
     }
   }
 
-  const [ logIn, setLogIn ] = useState("");   // Kirjautumistiedot. Testivaiheessa oon tallentanut vaan nimen
-
-  // Testailua
+  const [ logIn, setLogIn ] = useState("");   // Kirjautumistiedot. Testivaiheessa oon tallentanut vaan nimen. Toteutuksessa nimi + rooli??
   const [ shoppingCartItems, setShoppingCartItems ] = useState([]);    // Ostoskorin sisältö tallennetaan tähän. Ainakin testien ajaksi
-  console.log(shoppingCartItems)
+
 
   // Jotain räpellystä näkymän hallintaa liittyen
   const [ scene, setScene ] = useState("CitySelection");  // Statehook, jolla asetellaan näkymä
   const ViewhHandler = () => {    // switchcase rakenne, josta haetaan asetetun näkymän react-komponentti
     switch (scene) {
       case 'CitySelection' :    
-        return <CitySelection onSelectClick={ citySelectHandler } loggedIn={ logIn } logOut={ setLogIn } headerButtons={ setScene }/>;
+        return <CitySelection onSelectClick={ citySelectHandler } loggedIn={ logIn } logOut={ setLogIn } headerButtons={ setScene }
+                              shoppingCart={ shoppingCartItems }/>;
       case 'RestaurantBrowser': 
         return <RestaurantBrowser onSelectClick={ restaurantSelectHandler } loggedIn={ logIn } logOut={ setLogIn } headerButtons={ setScene }
-                                  city={ selectedCity } unSelectCity={ citySelectHandler }/>;
+                                  city={ selectedCity } unSelectCity={ citySelectHandler } shoppingCart={ shoppingCartItems }/>;
       case 'MenuBrowser' :
         return <MenuBrowser city={ selectedCity } unSelectCity={ citySelectHandler } loggedIn={ logIn } logOut={ setLogIn } headerButtons={ setScene }
-                            restaurant={ selectedRestaurant } unSelectRestaurant={ restaurantSelectHandler } shoppingCartItems={ shoppingCartItems } addItemsToCart={ setShoppingCartItems }/>;
-      case 'LogIn': // Testailua
+                            restaurant={ selectedRestaurant } unSelectRestaurant={ restaurantSelectHandler } shoppingCart={ shoppingCartItems } addItemsToCart={ setShoppingCartItems }/>;
+      case 'LogIn': // Tämän hetkinen tuloste vain toiminnan testailua varten. Oikea tulossa
         return (
           <div>
             <h2>Coming Soon</h2>
             <button onClick={ ()=> [setLogIn("Seppo Taalasmaa"), setScene(prevScene)] }>Mutta sillä välin kirjaudu Seppona sisään</button>
           </div>
         )
-      case 'ShopingCart': // Testailua
+      case 'ShopingCart': // Tämän hetkinen tuloste vain toiminnan testailua varten. Oikea tulossa
       return (
         <div>
           <h2>Coming Soon</h2>
-          <h2>Ostoskorin sisältö:</h2>
+          <a>Ostoskorin sisältö:</a>
           {
             shoppingCartItems.map((item) => {
               return <div>{item.name } { item.qty }</div>
@@ -74,10 +74,17 @@ function App() {
           <button onClick={ ()=> setScene(prevScene) }>Takaisin</button>
         </div>
       )
-      default : 
-        return "react ompi mukavaa! \n Näkymää " + scene + " ei löydy";
+      default :  // Tuloste virheelisesta näkymävalinnasta
+        return(
+          <div>
+            <h2>React ompi mukavaa!</h2>
+            <h2>Virhe! Näkymää "{ scene }" ei löydy</h2>
+            <button onClick={ ()=> setScene(prevScene) }>Takaisin</button>
+          </div>
+        )
     }
   }
+
   // Funktio, jolla palautetaan statehookin edellinen arvo
   function usePrevious(value) {
     const ref = useRef();
@@ -86,7 +93,7 @@ function App() {
     });
     return ref.current ? ref.current.toString() : null;
   }
-  const prevScene = usePrevious(scene);   // Edellinen näkymä. Hyödynnetään palatessa näkymästä edelliseen
+  let prevScene = usePrevious(scene);   // Tähän tallennetaan edellinen näkymä. Hyödynnetään palatessa näkymästä edelliseen
 
 
   return (
