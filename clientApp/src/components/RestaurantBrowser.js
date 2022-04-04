@@ -222,13 +222,12 @@ export default function RestaurantBrowser(props) {
           return null
       }
     }
+    
     let orders =  openOrders();
     let t  = basicDeliveryTime(props.productInfo.style)
-    console.log(t);
-    console.log(orders);
-    console.log(props.productInfo.style);
+    
     return (
-      <div><span>Delivery: { t + t * 0.1 * orders } minutes</span></div>  // tässä lasketaan toimitusaika-arvioon avoimet tilaukset mukaan
+      <div><span>Delivery: { parseInt(t + t * 0.1 * orders) } minutes</span></div>  // tässä lasketaan toimitusaika-arvioon avoimet tilaukset mukaan
     )
   }
 

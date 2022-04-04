@@ -4,6 +4,8 @@ import axios from 'axios';
 import CitySelection from './components/CitySelection';
 import RestaurantBrowser from './components/RestaurantBrowser';
 import MenuBrowser from './components/MenuBrowser';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleInfo, faInfo } from '@fortawesome/free-solid-svg-icons'
 
 
 function App() {

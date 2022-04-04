@@ -14,12 +14,6 @@ export default function Header(props) {
     setSearchBarText(event.target.value);
   }
 
-  const [ dropDownMenu, setDropDownMenu ] = useState(false);  // Tää on vain kehistysvaiheen toiminnan testailuja varten
-
-  // Testailua. Yritys tulostaa jotenkin ostoskorin tuotteiden lukumäärää
-  // Tää on vaa tämmönen turha näkymän testailu
-  const [ test, setTest ] = useState(0);
-
   // Tällä funktiolla haetaan ostoskorin tuotteet ja lasketaan tuotteiden lukumäärä
   function itemsInCart() {
     let sum = 0;
@@ -29,16 +23,15 @@ export default function Header(props) {
     return sum;
   }
 
-
-  // Hallitaan näkymien headeriin asettamaa sisältöä
+  // Hallitaan näkymien headerin alaosaan asettamaa sisältöä
   const AddLowerHeaderContent = (props) => {
     return (
       props.content ? props.content() :  null
     )
   }
 
-  const DropDownMenu = () => {
-    // En osannu käyttää valmiita kirjastoja / ne jotka sain toimaan oli kökköjä niin tässä ite värkätty alavetovalikko
+  const [ dropDownMenu, setDropDownMenu ] = useState(false);  // Tällä ohjataan profiilialasvetovalikon näkyvyyttä
+  const DropDownMenu = () => {    // En osannu käyttää valmiita kirjastoja / ne jotka sain toimaan oli kökköjä niin tässä ite värkätty alavetovalikko
     return (
       <div className="dropdown">
         <a>Logged in as:</a>
@@ -75,7 +68,7 @@ export default function Header(props) {
                 <span>Shoping Cart <FontAwesomeIcon icon={ faShoppingCart }/>{ props.shoppingCartItems && props.shoppingCartItems.length > 0 ? 
                   <span className="shoppinCartItems">{ itemsInCart() }</span> 
                   : 
-                  test == 0 ? null : <span className="shoppinCartItems">{ test }</span> /*Tää on vaan testailua varten ja itse asiassa jo nyt joutaisi poistaa*/ }
+                  null }
                 </span>   
             </button>
           </div>
