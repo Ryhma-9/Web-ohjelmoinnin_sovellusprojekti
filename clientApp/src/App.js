@@ -51,6 +51,7 @@ function App() {
       case 'RestaurantBrowser': 
         return <RestaurantBrowser onSelectClick={ restaurantSelectHandler } loggedIn={ logIn } logOut={ setLogIn } headerButtons={ setScene }
                                   city={ selectedCity } unSelectCity={ citySelectHandler } shoppingCart={ shoppingCartItems }/>;
+                                  
       case 'MenuBrowser' :
         return <MenuBrowser city={ selectedCity } unSelectCity={ citySelectHandler } loggedIn={ logIn } logOut={ setLogIn } headerButtons={ setScene }
                             restaurant={ selectedRestaurant } unSelectRestaurant={ restaurantSelectHandler } shoppingCart={ shoppingCartItems } addItemsToCart={ setShoppingCartItems }/>;
