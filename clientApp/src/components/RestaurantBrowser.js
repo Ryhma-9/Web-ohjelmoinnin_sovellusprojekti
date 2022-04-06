@@ -108,7 +108,7 @@ export default function RestaurantBrowser(props) {
   let selectedCity = props.city;
   const [ restaurantList, setRestaurantList ] = useState([]);   // Tähän asetetaan näytölle tulostettavat ravintolat
   const [ restauranStyle, setRestauranStyle ] = useState([]);   // Tähän asetetaan käyttäjän tekemä ravintolatyyppifiltteröinti
-
+  console.log(restauranStyle)
   // Näkymän ensimäisen renderöinnin yhteydessä haetaan valitun kaupungin ravintolat ja tallennetaan ne useState-hookkiin
   useEffect(() => {
     getData().then(setRestaurantList);
@@ -118,14 +118,16 @@ export default function RestaurantBrowser(props) {
   // Funktiolla tullaan hakemaan tietokannasta valitun kaupungin ravintolat. Testivaiheessa palauttaa hardkkoodatut ravintolat
   async function getData() {
     //const results = await axios.get('http://rajapinnanOsoite/'+selectedCity);
-    return restaurants;
+    const results = await axios.get('http://localhost:8080/restaurants/');
+    console.log(results.data)
+    return results.data;
   }
 
   // Listataan ravintoloiden tyypit
   function listStyles(restaurants) {
     var restauranStyleList = [];
     restaurants.map((item) => {
-      return restauranStyleList.includes(item.style) ? null : restauranStyleList.push(item.style)
+      return restauranStyleList.includes(item.restaurantStyle) ? null : restauranStyleList.push(item.restaurantStyle)
     });
     setRestauranStyle(restauranStyleList);
   }
@@ -215,7 +217,7 @@ export default function RestaurantBrowser(props) {
         case "Buffet" :  
           return  25
         case 'Fast casual' :  
-        return 20
+          return 20
         case 'Casual dining' :  
           return 30
         default : 
@@ -231,8 +233,6 @@ export default function RestaurantBrowser(props) {
     )
   }
 
-<div><span>PLACEHOLDER, toimitusaika</span></div>
-
   return (
     <div>
       <Header onSearchButtonClick={ searchHandler } addContentToHeader={ manageHeaderContent } shoppingCartItems={ props.shoppingCart }
@@ -240,7 +240,7 @@ export default function RestaurantBrowser(props) {
       />
       <div className="marginT120">
         { // Ravintoloiden listauksen mappauksen yhteyteen on lisätty ravintolatyylifiltteröinti
-          restaurantList.filter(item => item.style.includes(restauranStyle.length === 1 ? restauranStyle : "")).map((item, index) => {
+          restaurantList.filter(item => item.restaurantStyle.includes(restauranStyle.length === 1 ? restauranStyle : "")).map((item, index) => {
             return( 
               <div className="restaurantInfoContainer flex" key={index} onClick={ ()=> props.onSelectClick(item) } >
                 <div className="restaurantImg">
@@ -248,11 +248,11 @@ export default function RestaurantBrowser(props) {
                 </div>
                 <div className="restaurantInfo">
                   <div className="restaurantMainInfo flex">
-                  <div><h2>{ item.name }</h2></div>
-                    <div><h3>{ item.style }</h3></div>
+                  <div><h2>{ item.restaurantName }</h2></div>
+                    <div><h3>{ item.restaurantStyle }</h3></div>
                   </div>
                   <div className="restaurantAdditionalInfo flex">
-                    <div><span>{ item.priceRange }</span></div>
+                    <div><span>{ item.restaurantPriceRange }</span></div>
                     <DeliveryTime productInfo={ item }/>
                     { ratings(item) }
                   </div>

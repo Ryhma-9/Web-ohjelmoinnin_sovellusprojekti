@@ -184,20 +184,13 @@ export default function MenuBrowser(props) {
             return <div className="allergyIcon"> MI </div>
           case 8 :  
             return <div className="allergyIcon"> MO </div>
-          case 9 :  
-            return <div className="allergyIcon"> MU </div>
-          case 10 :  
-            return <div className="allergyIcon"> P </div>
-          case 11 :  
-            return <div className="allergyIcon"> SE </div>
-          case 12 :  
-            return <div className="allergyIcon"> SO </div>
-          case 13 :  
-            return <div className="allergyIcon"> SU </div>
-          case 14 :  
-            return <div className="allergyIcon"> T </div>
-          default : 
-            return null
+          case 9 :  return <div className="allergyIcon"> MU </div>
+          case 10 : return <div className="allergyIcon"> P </div>
+          case 11 : return <div className="allergyIcon"> SE </div>
+          case 12 : return <div className="allergyIcon"> SO </div>
+          case 13 : return <div className="allergyIcon"> SU </div>
+          case 14 : return <div className="allergyIcon"> T </div>
+          default : return null
         }
       }
       return (

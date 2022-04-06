@@ -64,12 +64,12 @@ export default function Header(props) {
           </form> 
           <div className="menuElement W230 shoppingCart">
             <button className="shoppingCartButton" type="button" 
-            onClick={ ()=> props.passShoppingCartToApp ? [props.passShoppingCartToApp(), props.onHeaderButtonClick("ShopingCart")] : props.onHeaderButtonClick("ShopingCart") }>
-                <span>Shoping Cart <FontAwesomeIcon icon={ faShoppingCart }/>{ props.shoppingCartItems && props.shoppingCartItems.length > 0 ? 
-                  <span className="shoppinCartItems">{ itemsInCart() }</span> 
-                  : 
-                  null }
-                </span>   
+              onClick={ ()=> props.passShoppingCartToApp ? [props.passShoppingCartToApp(), props.onHeaderButtonClick("ShopingCart")] : props.onHeaderButtonClick("ShopingCart") }>
+              <span>Shoping Cart <FontAwesomeIcon icon={ faShoppingCart }/>{ props.shoppingCartItems && props.shoppingCartItems.length > 0 ? 
+                <span className="shoppinCartItems">{ itemsInCart() }</span> 
+                : 
+                null }
+              </span>   
             </button>
           </div>
           <div className="menuElement W230 profile">
@@ -89,6 +89,9 @@ export default function Header(props) {
               : 
               null
             }
+          </div>
+          <div>
+            <button className='takaisinButton'>Takaisin</button>
           </div>
         </div>
         <div className="headerLower">
