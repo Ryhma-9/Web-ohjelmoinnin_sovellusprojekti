@@ -10,7 +10,7 @@ import { faXmark, faBasketShopping, faInfo } from '@fortawesome/free-solid-svg-i
 export default function MenuBrowser(props) {
 
   let selectedCity = props.city;
-  let selectedRestaurant = props.restaurant.name;
+  let selectedRestaurant = props.restaurant.restaurantName;
   let menuCategories = ['appetizer', 'main dish', 'dessert', 'drink', 'extras', 'other'];   // tuotekategoriat, jonka mukaan asettelu on rakennettu. Tuotteet tulostetaan kategoriossa taulukon järjestyksessä
   const [ categoryQty, setCategoryQty ] = useState(1);      // En varmaan vaan osaa, mut joutu tekemään tän Vakioannostyypien määrälle. categoryQty > 1 on tuotekategorioiden filtteröinti käytössä
   const [ menu, setMenu ] = useState([]);                   // Tähän asetetaan näytölle tulostettavat annokset
@@ -77,8 +77,9 @@ export default function MenuBrowser(props) {
 
   // Funktiolla tullaan hakemaan tietokannasta valitun ravintolan menu / tiedot. Testivaiheessa vähän oiotaan mutkia
   async function getData() {
-    //const results = await axios.get('http://rajapinnanOsoite/'+props.restaurant.restaurantId);
-    return props.restaurant.menu;
+    const results = await axios.get('http://localhost:8080/menusByRestaurantId/'+props.restaurant.restaurantId);
+    console.log(results.data)
+    return results.data;
   }
 
   // Listataan menun tuotekategoriat
@@ -168,28 +169,20 @@ export default function MenuBrowser(props) {
     const AllergyInfo = (props) => {  // Tässä allergiainfo.  Tulostetaan lihenteet tuotteen allergioista ja nappi jolla tulostetaan lyhenbteiden selitykset
       function printAllergyIcon(allergy) {
         switch (allergy) {
-          case 1 :  
-            return <div className="allergyIcon"> CE </div>
-          case 2 :  
-            return <div className="allergyIcon"> CR </div>
-          case 3 :  
-            return <div className="allergyIcon"> E </div>
-          case 4 :  
-            return <div className="allergyIcon"> F </div>
-          case 5 :  
-            return <div className="allergyIcon"> G </div>
-          case 6 :  
-            return <div className="allergyIcon"> L </div>
-          case 7 :  
-            return <div className="allergyIcon"> MI </div>
-          case 8 :  
-            return <div className="allergyIcon"> MO </div>
-          case 9 :  return <div className="allergyIcon"> MU </div>
-          case 10 : return <div className="allergyIcon"> P </div>
-          case 11 : return <div className="allergyIcon"> SE </div>
-          case 12 : return <div className="allergyIcon"> SO </div>
-          case 13 : return <div className="allergyIcon"> SU </div>
-          case 14 : return <div className="allergyIcon"> T </div>
+          case "celery"       : return <div className="allergyIcon"> CE </div>
+          case "crustaceans"  : return <div className="allergyIcon"> CR </div>
+          case "eggs"         : return <div className="allergyIcon"> E </div>
+          case "fish"         : return <div className="allergyIcon"> F </div>
+          case "gluten"       : return <div className="allergyIcon"> G </div>
+          case "lupin"        : return <div className="allergyIcon"> L </div>
+          case "milk"         : return <div className="allergyIcon"> MI </div>
+          case "molluscs"     : return <div className="allergyIcon"> MO </div>
+          case "mustard"      : return <div className="allergyIcon"> MU </div>
+          case "peanuts"      : return <div className="allergyIcon"> P </div>
+          case "sesame"       : return <div className="allergyIcon"> SE </div>
+          case "soybeans"     : return <div className="allergyIcon"> SO </div>
+          case "sulphur_dioxide_and_sulphates" : return <div className="allergyIcon"> SU </div>
+          case "tree_nuts"    : return <div className="allergyIcon"> T </div>
           default : return null
         }
       }

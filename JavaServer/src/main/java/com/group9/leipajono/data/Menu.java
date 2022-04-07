@@ -36,4 +36,8 @@ public class Menu {
             this.productId = productId;
             this.menuNumber = menuNumber;
     }
+
+    public Long getProductId() {
+        return productId;
+    }
 }

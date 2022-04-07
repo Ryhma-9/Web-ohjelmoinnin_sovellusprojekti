@@ -21,6 +21,8 @@ public class Product {
     @Column(name="price")
     public Double price;
 
+    @Column(name="type")
+    public String type;
     // @Column(name="type")
     // public Types_enum type;
 
@@ -28,11 +30,27 @@ public class Product {
 
     public Product(
         String productName,
-        Double price
+        Double price,
+        String type
         // Types_enum type
     ){
             this.productName = productName;
             this.price = price;
-            // this.type = type;
+            this.type = type;
     }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+
+
 }
