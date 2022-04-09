@@ -7,51 +7,6 @@ import axios from 'axios';
 
 export default function CitySelection(props) {
 
-  const citys = [         // Hardkoodattu muutama kaupunki kehistysvaiheen toiminnan testailuja varten
-    { 
-      city : "Oulu"
-    },
-    { 
-      city : "Tampesteri"
-    },
-    { 
-      city : "Hulsinki"
-    },
-    { 
-      city : "Hoopovesi"
-    },
-    { 
-      city : "Utsjoki"
-    },
-    { 
-      city : "Turku"
-    },
-    { 
-      city : "Kempele"
-    },
-    { 
-      city : "Lumijoki"
-    },
-    { 
-      city : "Kemi"
-    },
-    { 
-      city : "Vantaa"
-    },
-    { 
-      city : "Espoo"
-    },
-    { 
-      city : "Mikkeli"
-    },
-    { 
-      city : "Jyväskylä"
-    },
-    { 
-      city : "Kärsämäki"
-    },
-  ];
-
   const [ cityList, setCityList ] = useState([]);   // Tässä hallitaan näytettävät kaupungit
 
   // Näkymän ensimäisen renderöinnin yhteydessä haetaan kaikki kaupungit, joissa on ravintoloita ja tallennetaan ne useState-hookkiin
@@ -59,10 +14,10 @@ export default function CitySelection(props) {
     getData().then(setCityList);
   }, [] );
 
-  // Funktiolla tullaan hakemaan tietokannasta kaupungit. Testivaiheessa palauttaa hardkkoodatut tiedot
+  // Funktiolla tullaan heataan tietokannasta kaupungit
   async function getData() {
-    //const results = await axios.get('http://rajapinnanOsoite/');
-    return citys;
+    const results = await axios.get('http://localhost:8080/restaurantcities');
+    return results.data;
   }
 
   // Hakutoiminnon eventhandler-funktio
@@ -98,8 +53,8 @@ export default function CitySelection(props) {
         { 
           cityList.map((item, index) => {
             return ( 
-              <div className="citySelectionBox" style={{ backgroundColor: randomColor() }} key={index} onClick={ ()=> props.onSelectClick(item.city) }>
-                <h2 className="marginT40p">{ item.city }</h2>
+              <div className="citySelectionBox" style={{ backgroundColor: randomColor() }} key={index} onClick={ ()=> props.onSelectClick(item) }>
+                <h2 className="marginT40p">{ item }</h2>
               </div>
             )
           })

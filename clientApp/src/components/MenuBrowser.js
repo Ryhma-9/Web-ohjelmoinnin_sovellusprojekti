@@ -52,8 +52,6 @@ export default function MenuBrowser(props) {
     newShoppingCartItems = newElement;
   }
   setShoppingCartItems(newShoppingCartItems);
-  console.log(item.productName + " added to cart");
-  console.log(newShoppingCartItems);
 }
   // Ehkä tyhmä idea, mutta jotta saa näkymän toiminnot toimimaan oikeen käytetään funktion omaa statehookkia ja päivitetään ostoskori vain hallitusti App.js:ään
   function passShoppingCartToApp() {
@@ -78,7 +76,6 @@ export default function MenuBrowser(props) {
   // Funktiolla tullaan hakemaan tietokannasta valitun ravintolan menu / tiedot. Testivaiheessa vähän oiotaan mutkia
   async function getData() {
     const results = await axios.get('http://localhost:8080/menusByRestaurantId/'+props.restaurant.restaurantId);
-    console.log(results.data)
     return results.data;
   }
 

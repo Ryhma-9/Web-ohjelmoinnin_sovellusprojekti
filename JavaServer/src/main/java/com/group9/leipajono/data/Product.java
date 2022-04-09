@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.group9.leipajono.enums.Types_enum;
+//import com.group9.leipajono.enums.Types_enum;
 
 @Entity
 @Table(name="product")
@@ -23,7 +23,6 @@ public class Product {
 
     @Column(name="type")
     public String type;
-    // @Column(name="type")
     // public Types_enum type;
 
     public Product(){}
@@ -50,7 +49,5 @@ public class Product {
     public String getType() {
         return type;
     }
-
-
 
 }

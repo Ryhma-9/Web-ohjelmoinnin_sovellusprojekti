@@ -1,21 +1,21 @@
 {
     "database.connections": {
-        "1649242454318": {
-            "host": "ec2-63-32-248-14.eu-west-1.compute.amazonaws.com",
+        "1649329472054": {
+            "host": "ec2-63-35-156-160.eu-west-1.compute.amazonaws.com",
             "dbPath": "",
             "port": 5432,
-            "user": "uhcgwmbbojbqpv",
+            "user": "cyjgjjfiisaoss",
             "authType": "default",
-            "password": "eb766102863960f38070c66dc88c58b451057ecea1c3c9d81b9d1d27cd188988",
+            "password": "1b357cbb2c0109cb247ca4d5bd608a979974d3911dcb4e8c1036475519ff8c50",
             "encoding": "utf8",
             "clientKeyPath": null,
             "clientCertPath": null,
             "caPath": null,
-            "database": "ddf9buhoih0b30",
+            "database": "dajjq2kqlkmpav",
             "useSSL": true,
             "usingSSH": false,
             "showHidden": false,
-            "includeDatabases": "ddf9buhoih0b30",
+            "includeDatabases": "dajjq2kqlkmpav",
             "dbType": "PostgreSQL",
             "encrypt": false,
             "isCluster": false,
@@ -23,7 +23,7 @@
             "srv": false,
             "esAuth": "none",
             "global": false,
-            "key": "1649242454318",
+            "key": "1649329472054",
             "timezone": "+00:00",
             "ssh": {
                 "host": "",
@@ -36,9 +36,10 @@
                     "cipher": []
                 }
             },
-            "name": "leipajono",
-            "connectionKey": "database.connections",
-            "hideSystemSchema": true
+            "name": "Leipajono",
+            "hideSystemSchema": true,
+            "connectionKey": "database.connections"
         }
-    }
+    },
+    "nosql.connections": []
 }

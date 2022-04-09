@@ -37,6 +37,15 @@ public class Restaurant {
     @Column(name = "restaurantpricerange")
     public String restaurantPriceRange;
 
+    @Column(name = "restaurantcity")
+    public String restaurantCity;
+
+    @Column(name = "openinghours")
+    public String openinghours;
+
+    @Column(name = "restaurantrating")
+    public int restaurantRating;
+
     public Restaurant(){}
 
     public Restaurant(
@@ -46,8 +55,11 @@ public class Restaurant {
         String restaurantEmail,
         String restaurantPhoneNumber, 
         String restaurantStyle, 
-        String restaurantPriceRange){
-
+        String restaurantPriceRange,
+        String restaurantCity,
+        String openinghours,
+        int restaurantRating
+        ) {
             this.restaurantName = restaurantName;
             this.restaurantAddress = restaurantAddress;
             this.restaurantUserName = restaurantUserName;
@@ -55,6 +67,13 @@ public class Restaurant {
             this.restaurantPhoneNumber = restaurantPhoneNumber;
             this.restaurantStyle = restaurantStyle;
             this.restaurantPriceRange = restaurantPriceRange;
+            this.restaurantCity = restaurantCity;
+            this.openinghours = openinghours;
+            this.restaurantRating = restaurantRating;
+    }
+
+    public String getRestaurantCity() {
+        return restaurantCity;
     }
 
 }
