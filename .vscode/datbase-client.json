@@ -1,0 +1,45 @@
+{
+    "database.connections": {
+        "1649329472054": {
+            "host": "ec2-63-35-156-160.eu-west-1.compute.amazonaws.com",
+            "dbPath": "",
+            "port": 5432,
+            "user": "cyjgjjfiisaoss",
+            "authType": "default",
+            "password": "1b357cbb2c0109cb247ca4d5bd608a979974d3911dcb4e8c1036475519ff8c50",
+            "encoding": "utf8",
+            "clientKeyPath": null,
+            "clientCertPath": null,
+            "caPath": null,
+            "database": "dajjq2kqlkmpav",
+            "useSSL": true,
+            "usingSSH": false,
+            "showHidden": false,
+            "includeDatabases": "dajjq2kqlkmpav",
+            "dbType": "PostgreSQL",
+            "encrypt": false,
+            "isCluster": false,
+            "connectionUrl": "",
+            "srv": false,
+            "esAuth": "none",
+            "global": false,
+            "key": "1649329472054",
+            "timezone": "+00:00",
+            "ssh": {
+                "host": "",
+                "privateKeyPath": "C:\\Users\\Tero\\.ssh\\id_rsa",
+                "port": 22,
+                "username": "root",
+                "type": "password",
+                "connectTimeout": 10000,
+                "algorithms": {
+                    "cipher": []
+                }
+            },
+            "name": "Leipajono",
+            "hideSystemSchema": true,
+            "connectionKey": "database.connections"
+        }
+    },
+    "nosql.connections": []
+}

@@ -9,6 +9,8 @@ import com.group9.leipajono.repositories.PaymentRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 @Service
 public class PaymentService {
@@ -29,5 +31,23 @@ public class PaymentService {
 
     public List<Payment> getPayments(){
         return myPaymentRepository.findAll();
+    }
+
+    public List<Payment> getPaymentssByCustomerId(Long customerId){
+        //return myPaymentRepository.findPaymentByCustomerId(customerId);
+        return null;
+    }
+
+    public String addNewPayment(Long orderId, String paymentMethod, Double totalPrice){
+        try {
+            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            Payment p = new Payment(orderId, timestamp, paymentMethod, totalPrice);
+            myPaymentRepository.save(p);
+            return "Payment added successfully";
+        }
+        catch (Exception e){
+            return "Payment addition failed";
+        }        
     }
 }
