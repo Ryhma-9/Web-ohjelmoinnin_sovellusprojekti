@@ -39,7 +39,6 @@ public class PaymentService {
 
     public String addNewPayment(Long orderId, String paymentMethod, Double totalPrice){
         try {
-            //SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             Payment p = new Payment(myPaymentRepository.getMaxPaymentId()+1, orderId, timestamp, paymentMethod, totalPrice);
             myPaymentRepository.save(p);
