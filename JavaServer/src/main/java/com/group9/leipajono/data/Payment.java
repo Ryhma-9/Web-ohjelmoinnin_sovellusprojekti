@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class Payment {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "paymentid")
     public Long paymentId;
 
@@ -33,11 +33,13 @@ public class Payment {
     public Payment(){}
 
     public Payment(
+        Long paymentId,
         Long orderId,
         Timestamp dateTimeOfPayment,
         String paymentMethod,
         Double totalPrice
     ){
+            this.paymentId = paymentId;
             this.orderId = orderId;
             this.dateTimeOfPayment = dateTimeOfPayment;
             this.paymentMethod = paymentMethod;

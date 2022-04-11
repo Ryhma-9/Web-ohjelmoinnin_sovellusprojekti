@@ -33,16 +33,15 @@ public class PaymentService {
         return myPaymentRepository.findAll();
     }
 
-    public List<Payment> getPaymentssByCustomerId(Long customerId){
-        //return myPaymentRepository.findPaymentByCustomerId(customerId);
-        return null;
+    public List<Payment> getPaymentssByOrderNumber(Long orderNumber){
+        return myPaymentRepository.findPaymentByOrderId(orderNumber);
     }
 
     public String addNewPayment(Long orderId, String paymentMethod, Double totalPrice){
         try {
             //SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            Payment p = new Payment(orderId, timestamp, paymentMethod, totalPrice);
+            Payment p = new Payment(myPaymentRepository.getMaxPaymentId()+1, orderId, timestamp, paymentMethod, totalPrice);
             myPaymentRepository.save(p);
             return "Payment added successfully";
         }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
-   // @Query("SELECT coalesce(max(p.id), 0) FROM Payment p")
-   // Long getMaxPaymentId();
-   // List<Payment> findPaymentByCustomerId(Long customerid);
+   @Query("SELECT coalesce(max(p.id), 0) FROM Payment p")
+   Long getMaxPaymentId();
+   List<Payment> findPaymentByOrderId(Long orderId);
 }

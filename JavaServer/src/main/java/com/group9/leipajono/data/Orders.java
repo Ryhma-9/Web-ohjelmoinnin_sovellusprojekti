@@ -51,6 +51,10 @@ public class Orders {
         return toBeDelivered;
     }
 
+    public void setToBeDelivered(Boolean toBeDelivered) {
+        this.toBeDelivered = toBeDelivered;
+    }
+
     public Long getOrderNumber() {
         return orderNumber;
     }

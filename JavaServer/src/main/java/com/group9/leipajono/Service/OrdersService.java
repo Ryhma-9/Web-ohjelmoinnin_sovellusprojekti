@@ -127,7 +127,9 @@ public class OrdersService {
         try {
             List<Orders> order = myOrdersRepository.findOrdersByOrderNumber(orderNumber);
             for (Orders o : order) {
-                myOrdersRepository.setDeliveryStatusByOrderId(true, o.getOrderId());
+                Orders orderToUpdate = myOrdersRepository.getById(o.getOrderId());
+                orderToUpdate.setToBeDelivered(true);
+                myOrdersRepository.save(orderToUpdate);
             }
             return "Delivery status updated successfully";
         }
@@ -138,15 +140,11 @@ public class OrdersService {
 
     public String addNewOrder(Long customerId, Long restaurantId, Long[] productIds, Long[] quantityes){
         try {
-            //List<Orders> orders = new ArrayList<>();
             Long orderNumber = myOrdersRepository.getMaxOrderNumber()+1;
             for (int i = 0; i < productIds.length; i++) {
                 Orders o = new Orders(myOrdersRepository.getMaxOrderId()+1, customerId, restaurantId, productIds[i], false, orderNumber, quantityes[i]);
                 myOrdersRepository.save(o);
-                //orders.add(o);
             }
-            // myOrdersRepository.saveAll(orders); 
-            // Jostain syystä saveAll tallenna kuin listan viimeisen rivin tietokantaan, siksi nyt kommentoitu pois ja tallennetaan rivit erikseen
             return "Order added successfully";
         }
         catch (Exception e){

@@ -22,12 +22,12 @@ public class PaymentRestAPI {
     public List<Payment> getRestaurants(){
         return myPaymentService.getPayments();
     }
-    // Ei toimi vielä
-    @GetMapping("/paymentsbycustomerid/{customerId}")
-    public List<Payment> getPaymentssByCustomerId(@PathVariable Long customerId){
-        return myPaymentService.getPaymentssByCustomerId(customerId);
+    
+    @GetMapping("/paymentsbyordernumber/{orderNumber}")
+    public List<Payment> getPaymentssByOrderNumber(@PathVariable Long orderNumber){
+        return myPaymentService.getPaymentssByOrderNumber(orderNumber);
     }
-    // Tämäkään ei toimi vielä
+    
     @PostMapping("addpayment")
     public String addNewPayment(
         @RequestParam Long orderId,
