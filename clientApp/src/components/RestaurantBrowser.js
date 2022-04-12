@@ -1,6 +1,7 @@
 import React from 'react'
 import './Shop.css';
 import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import Header from './Header';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -9,6 +10,9 @@ import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
 
 
 export default function RestaurantBrowser(props) {
+
+  const location = useLocation();
+  const city = location.state;
 
   let selectedCity = props.city;
   const [ restaurantList, setRestaurantList ] = useState([]);   // Tähän asetetaan näytölle tulostettavat ravintolat
@@ -22,7 +26,7 @@ export default function RestaurantBrowser(props) {
 
   // Funktiolla tullaan haetaan tietokannasta valitun kaupungin ravintolat.
   async function getData() {
-    const results = await axios.get('http://localhost:8080/restaurantsByCity/'+selectedCity);
+    const results = await axios.get('http://localhost:8080/restaurantsByCity/'+city);
     console.log(results)
     console.log(results.data)
     return results.data;
@@ -38,18 +42,18 @@ export default function RestaurantBrowser(props) {
   }
 
   // Hakutoiminnon eventhandler-funktio. Funktiolla tällä hetkellä päivitetään hardkoodatuista ravintoloista suoritettu haku headerin hakukenttään annetun teksin perusteella
-  const searchHandler = (searchBarText) => {
-    getData().then( function(res){ setRestaurantList( searchEngine(res,searchBarText) ) });
-  }
+  // const searchHandler = (searchBarText) => {
+  //   getData().then( function(res){ setRestaurantList( searchEngine(res,searchBarText) ) });
+  // }
 
-  // Hakufunktio, jolla haetaan siihen syötetyn tietueen oliot, joiden arvoista löytyy annettu hakusana
-  const searchEngine = (restaurants, searchArgument) => {
-    var search = searchArgument.toString().toLowerCase().trim();
-    var searchResult = restaurants.filter(item => {
-      return Object.keys(item).some(key => item[key].toString().toLowerCase().includes(search));
-    });
-    return searchResult;
-  }
+  // // Hakufunktio, jolla haetaan siihen syötetyn tietueen oliot, joiden arvoista löytyy annettu hakusana
+  // const searchEngine = (restaurants, searchArgument) => {
+  //   var search = searchArgument.toString().toLowerCase().trim();
+  //   var searchResult = restaurants.filter(item => {
+  //     return Object.keys(item).some(key => item[key].toString().toLowerCase().includes(search));
+  //   });
+  //   return searchResult;
+  // }
 
   // Funktiolla luodaan visuaalinen tähtiarvio 0 - 5 tähteä. Funtio tulostaa olion rating-arvon verran täysiä tähtiä ja 5-rating tyhjiä tähtiä
   const ratings = (props) => {
@@ -131,30 +135,32 @@ export default function RestaurantBrowser(props) {
   }
 
   return (
-    <div>
-      <Header onSearchButtonClick={ searchHandler } addContentToHeader={ manageHeaderContent } shoppingCartItems={ props.shoppingCart }
+    <div>{ props.isCitySelected( city )}
+      {/* <Header /* onSearchButtonClick={ searchHandler }  addContentToHeader={ manageHeaderContent } shoppingCartItems={ props.shoppingCart }
         logIn={ props.loggedIn } logOut={ props.logOut } onHeaderButtonClick={ props.headerButtons }
-      />
+      /> */}
       <div className="marginT120">
         { // Ravintoloiden listauksen mappauksen yhteyteen on lisätty ravintolatyylifiltteröinti
           restaurantList.filter(item => item.restaurantStyle.includes(restauranStyle.length === 1 ? restauranStyle : "")).map((item, index) => {
             return( 
-              <div className="restaurantInfoContainer flex" key={index} onClick={ ()=> props.onSelectClick(item) } >
-                <div className="restaurantImg">
-                  <img alt={ item.name } width="100%" src={ item.restaurantImg }/>
-                </div>
-                <div className="restaurantInfo">
-                  <div className="restaurantMainInfo flex">
-                  <div><h2>{ item.restaurantName }</h2></div>
-                    <div><h3>{ item.restaurantStyle }</h3></div>
+              <Link to="/menubrowser" state={ item }>
+                <div className="restaurantInfoContainer flex" key={index} /* onClick={ ()=> props.onSelectClick(item) } */ >
+                  <div className="restaurantImg">
+                    <img alt={ item.name } width="100%" src={ item.restaurantImg }/>
                   </div>
-                  <div className="restaurantAdditionalInfo flex">
-                    <div><span>{ item.restaurantPriceRange }</span></div>
-                    <DeliveryTime productInfo={ item }/>
-                    { ratings(item) }
+                  <div className="restaurantInfo">
+                    <div className="restaurantMainInfo flex">
+                    <div><h2>{ item.restaurantName }</h2></div>
+                      <div><h3>{ item.restaurantStyle }</h3></div>
+                    </div>
+                    <div className="restaurantAdditionalInfo flex">
+                      <div><span>{ item.restaurantPriceRange }</span></div>
+                      <DeliveryTime productInfo={ item }/>
+                      { ratings(item) }
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             )
           })
         }

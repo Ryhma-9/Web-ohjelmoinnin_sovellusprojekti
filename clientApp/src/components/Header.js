@@ -3,6 +3,7 @@ import './Shop.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faCog, faSignInAlt, faSignOutAlt, faShoppingCart, faUser, faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
+import { Link } from 'react-router-dom'
 
 
 export default function Header(props) {
@@ -47,7 +48,7 @@ export default function Header(props) {
     <div className="stickyHeader flex ">
 
       <div className="logoContainer W230">
-        <img className="logo" alt="LOGO PLACEHOLDER"  width="100%" src="placeholder.jpg"/>
+        <Link to="/"><img className="logo" alt="LOGO PLACEHOLDER"  width="100%" src="placeholder.jpg"/></Link>
       </div>
       <div>
         <div className="headerUpper flex ">
@@ -64,14 +65,14 @@ export default function Header(props) {
             </form> : null
           }   
           <div className="menuElement W230 shoppingCart">
-            <button className="shoppingCartButton" type="button" 
+            <Link to="/shoppingcart"><button className="shoppingCartButton" type="button" 
               onClick={ ()=> props.passShoppingCartToApp ? [props.passShoppingCartToApp(), props.onHeaderButtonClick("ShopingCart")] : props.onHeaderButtonClick("ShopingCart") }>
-              <span>Shoping Cart <FontAwesomeIcon icon={ faShoppingCart }/>{ props.shoppingCartItems && props.shoppingCartItems.length > 0 ? 
-                <span className="shoppinCartItems">{ itemsInCart() }</span> 
-                : 
-                null }
-              </span>   
-            </button>
+                <span>Shoping Cart <FontAwesomeIcon icon={ faShoppingCart }/>{ props.shoppingCartItems && props.shoppingCartItems.length > 0 ? 
+                  <span className="shoppinCartItems">{ itemsInCart() }</span> 
+                  : 
+                  null }
+                </span>   
+            </button></Link>
           </div>
           <div className="menuElement W230 profile">
             { props.logIn !== "" ?         // Renderöidään kirjaudupainike, jos käyttäjä on kirjautunut renderöidään profiilipainike
@@ -92,11 +93,13 @@ export default function Header(props) {
             }
           </div>
           <div>
-          <button className='takaisinButton'>Takaisin</button>
+          {/* <button className='takaisinButton'>Takaisin</button> */}
           </div>
         </div>
         <div className="headerLower">
-          <AddLowerHeaderContent content={ props.addContentToHeader }/>
+          <p>{ props.isCitySelected }</p>
+          <p>{ props.isRestaurantSelected }</p>
+          {/* <AddLowerHeaderContent city={props.isCitySelected}/* content={ props.addContentToHeader } */}
         </div>
       </div> 
     </div>
