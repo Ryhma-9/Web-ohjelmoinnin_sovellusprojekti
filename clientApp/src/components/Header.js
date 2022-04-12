@@ -91,6 +91,9 @@ export default function Header(props) {
               null
             }
           </div>
+          <div>
+          <button className='takaisinButton'>Takaisin</button>
+          </div>
         </div>
         <div className="headerLower">
           <AddLowerHeaderContent content={ props.addContentToHeader }/>
