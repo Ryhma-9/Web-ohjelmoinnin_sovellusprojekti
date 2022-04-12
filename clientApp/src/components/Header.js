@@ -3,7 +3,6 @@ import './Shop.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faCog, faSignInAlt, faSignOutAlt, faShoppingCart, faUser, faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
-import axios from 'axios';
 
 
 export default function Header(props) {
@@ -52,24 +51,26 @@ export default function Header(props) {
       </div>
       <div>
         <div className="headerUpper flex ">
-          <form className="menuElement"> 
-            <div className="menuElement flex W700">
-              <input className="searchBar" type="text" name="search" 
-                onChange={ handleSearchBarTextChange } value={ searchBarText } placeholder="Search"
-              />
-              <button className="searchBarButton orangeBG" type="button" onClick={ ()=> props.onSearchButtonClick(searchBarText) }>
-                <FontAwesomeIcon icon={ faSearch } size="1x"/>
-              </button>
-            </div>
-          </form> 
+          { props.onSearchButtonClick ? 
+            <form className="menuElement"> 
+              <div className="menuElement flex W700">
+                <input className="searchBar" type="text" name="search" 
+                  onChange={ handleSearchBarTextChange } value={ searchBarText } placeholder="Search"
+                />
+                <button className="searchBarButton orangeBG" type="button" onClick={ ()=> props.onSearchButtonClick(searchBarText) }>
+                  <FontAwesomeIcon icon={ faSearch } size="1x"/>
+                </button>
+              </div>
+            </form> : null
+          }   
           <div className="menuElement W230 shoppingCart">
             <button className="shoppingCartButton" type="button" 
-            onClick={ ()=> props.passShoppingCartToApp ? [props.passShoppingCartToApp(), props.onHeaderButtonClick("ShopingCart")] : props.onHeaderButtonClick("ShopingCart") }>
-                <span>Shoping Cart <FontAwesomeIcon icon={ faShoppingCart }/>{ props.shoppingCartItems && props.shoppingCartItems.length > 0 ? 
-                  <span className="shoppinCartItems">{ itemsInCart() }</span> 
-                  : 
-                  null }
-                </span>   
+              onClick={ ()=> props.passShoppingCartToApp ? [props.passShoppingCartToApp(), props.onHeaderButtonClick("ShopingCart")] : props.onHeaderButtonClick("ShopingCart") }>
+              <span>Shoping Cart <FontAwesomeIcon icon={ faShoppingCart }/>{ props.shoppingCartItems && props.shoppingCartItems.length > 0 ? 
+                <span className="shoppinCartItems">{ itemsInCart() }</span> 
+                : 
+                null }
+              </span>   
             </button>
           </div>
           <div className="menuElement W230 profile">

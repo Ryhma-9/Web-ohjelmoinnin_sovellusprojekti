@@ -48,4 +48,20 @@ public class Contents {
             this.description = description;
             this.allergens = allergens;
     }
+
+    public int getEnergyContents() {
+        return energyContents;
+    }
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getAllergens() {
+        return allergens;
+    }
 }

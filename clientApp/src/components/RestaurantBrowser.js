@@ -10,101 +10,6 @@ import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
 
 export default function RestaurantBrowser(props) {
 
-  const restaurants = [         // Hardkoodattu pari ravintolaa kehistysvaiheen toiminnan testailuja varten
-  { 
-    restaurantId : 1,
-    name: 'Los Pollos Hermanos',
-    restaurantAddress: 'Kirkkokatu 14, 90100 Oulu',
-    email: "orders@pollos.com",
-    phoneNumber: '123123123',
-    style: 'Fastfood',
-    priceRange: '€€',
-    rating: 5,
-    restaurantImg: 'https://muropaketti.com/dome/wp-content/uploads/images/domefi/viihde/ajankohtaista/2015/ZZ2D326A3E.jpg',
-    menu: [
-      {
-        productId : 1,
-        productName : "Gustavo's chicken",
-        price : 12.5,
-        allergens : [],
-        ingredients : "",
-        energyContent : 1950,
-        description : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-        type : 'Main dish',
-        productImg : "https://media-cdn.tripadvisor.com/media/photo-s/1a/bd/74/6e/los-pollos-hermanos-crispy.jpg",
-      },
-      {
-        productId : 2,
-        productName : 'Icy suprice',
-        price : 150,
-        allergens : [],
-        ingredients : "",
-        energyContent : 550,
-        description : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-        type : 'extras',
-        productImg : 'http://thx-trailer.com/replica/Breaking_bad/los2.jpg',
-      },
-      {
-        productId : 3,
-        productName : "Wings'n chips",
-        price : 15,
-        allergens : [],
-        ingredients : "",
-        energyContent : 1500,
-        description : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-        type : 'appetizer',
-        productImg : 'http://nerdist.com/wp-content/uploads/2015/05/Los-Pollos-Hermanos-chicken-by-Geek-Plate-05022015.jpg',
-      },
-      {
-        productId : 4,
-        productName : 'Illegally good Cupcace',
-        price : 5,
-        allergens : [],
-        ingredients : "",
-        energyContent : 1200,
-        description : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-        type : 'dessert',
-        productImg : 'http://nerdist.com/wp-content/uploads/2015/05/Breaking-Bad-Cupcake-by-Semi-Sweet-Mike-05022015.jpg',
-      },
-    ]
-  },
-  { 
-    restaurantId : 2,
-    name: 'Uleåborg 1881',
-    restaurantAddress: 'Aittatori 4-5, 90100 Oulu',
-    email: "",
-    phoneNumber: '088811188',
-    style: 'Fine dining',
-    priceRange: '€€€€',
-    rating: 4,
-    restaurantImg: 'https://media-cdn.tripadvisor.com/media/photo-s/05/90/b8/b4/ravintola-uleaborg-1881.jpg',
-    menu: [
-      {
-        productId : 1,
-        productName : 'Pieni ja kallis annos lihaa',
-        price : 100,
-        allergens : [5, 7, 9],
-        ingredients : "100% lihaan verrattavissa olevia aineita",
-        energyContent : 1550,
-        description : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-        type : 'Main dish',
-        productImg : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD2VQz9ZEG3DJiOOhpdyHy4dMUhqSzLKgZgKicvmZbcrEtGsv9k8YIcDgVLIfx_tKSMuo&usqp=CAU',
-      },
-      {
-        productId : 2,
-        productName : 'Pieni ja kallis annos kalaa',
-        price : 120,
-        allergens : [1, 3, 4],
-        ingredients : "potatoes, fish and other shit",
-        energyContent : 1230,
-        description : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-        type : 'Main dish',
-        productImg : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1JzT_6RR8fL9U5y-FuTcZn5v5UMi0ZThWHjoj2CkmkGXV34Ixm36WWV9I953TBDkEBm8&usqp=CAU',
-      },
-    ]
-    },
-  ];
-
   let selectedCity = props.city;
   const [ restaurantList, setRestaurantList ] = useState([]);   // Tähän asetetaan näytölle tulostettavat ravintolat
   const [ restauranStyle, setRestauranStyle ] = useState([]);   // Tähän asetetaan käyttäjän tekemä ravintolatyyppifiltteröinti
@@ -115,17 +20,19 @@ export default function RestaurantBrowser(props) {
     getData().then(listStyles);
   }, [] );
 
-  // Funktiolla tullaan hakemaan tietokannasta valitun kaupungin ravintolat. Testivaiheessa palauttaa hardkkoodatut ravintolat
+  // Funktiolla tullaan haetaan tietokannasta valitun kaupungin ravintolat.
   async function getData() {
-    //const results = await axios.get('http://rajapinnanOsoite/'+selectedCity);
-    return restaurants;
+    const results = await axios.get('http://localhost:8080/restaurantsByCity/'+selectedCity);
+    console.log(results)
+    console.log(results.data)
+    return results.data;
   }
 
   // Listataan ravintoloiden tyypit
   function listStyles(restaurants) {
     var restauranStyleList = [];
     restaurants.map((item) => {
-      return restauranStyleList.includes(item.style) ? null : restauranStyleList.push(item.style)
+      return restauranStyleList.includes(item.restaurantStyle) ? null : restauranStyleList.push(item.restaurantStyle)
     });
     setRestauranStyle(restauranStyleList);
   }
@@ -147,10 +54,10 @@ export default function RestaurantBrowser(props) {
   // Funktiolla luodaan visuaalinen tähtiarvio 0 - 5 tähteä. Funtio tulostaa olion rating-arvon verran täysiä tähtiä ja 5-rating tyhjiä tähtiä
   const ratings = (props) => {
     var rating = [];
-    for (let i = 0; i < props.rating ; i++) { 
+    for (let i = 0; i < props.restaurantRating ; i++) { 
       rating.push(<div> <FontAwesomeIcon icon={ faStar }/>&nbsp;</div>);
     }; 
-    for (let i = 0; i < 5 - props.rating; i++) {
+    for (let i = 0; i < 5 - props.restaurantRating; i++) {
       rating.push(<div> <FontAwesomeIcon icon={ farStar }/>&nbsp;</div>);
     };
     return (
@@ -206,32 +113,22 @@ export default function RestaurantBrowser(props) {
       return Math.round((Math.random() * 10 +1));
     }
     function basicDeliveryTime(restaurantType) {  // Tässä määritellään ravintolatyypeille toimitusarvio
-      console.log(restaurantType);
       switch (restaurantType) {
-        case 'Fastfood' :  
-          return 15
-        case 'Fine dining' :  
-          return 35
-        case "Buffet" :  
-          return  25
-        case 'Fast casual' :  
-        return 20
-        case 'Casual dining' :  
-          return 30
-        default : 
-          return null
+        case 'Fastfood'       :  return 15
+        case 'Fine dining'    :  return 35
+        case "Buffet"         :  return 25
+        case 'Fast casual'    :  return 20
+        case 'Casual dining'  :  return 30
+        default               :  return null
       }
     }
-    
     let orders =  openOrders();
-    let t  = basicDeliveryTime(props.productInfo.style)
+    let t  = basicDeliveryTime(props.productInfo.restaurantStyle)
     
     return (
       <div><span>Delivery: { parseInt(t + t * 0.1 * orders) } minutes</span></div>  // tässä lasketaan toimitusaika-arvioon avoimet tilaukset mukaan
     )
   }
-
-<div><span>PLACEHOLDER, toimitusaika</span></div>
 
   return (
     <div>
@@ -240,7 +137,7 @@ export default function RestaurantBrowser(props) {
       />
       <div className="marginT120">
         { // Ravintoloiden listauksen mappauksen yhteyteen on lisätty ravintolatyylifiltteröinti
-          restaurantList.filter(item => item.style.includes(restauranStyle.length === 1 ? restauranStyle : "")).map((item, index) => {
+          restaurantList.filter(item => item.restaurantStyle.includes(restauranStyle.length === 1 ? restauranStyle : "")).map((item, index) => {
             return( 
               <div className="restaurantInfoContainer flex" key={index} onClick={ ()=> props.onSelectClick(item) } >
                 <div className="restaurantImg">
@@ -248,11 +145,11 @@ export default function RestaurantBrowser(props) {
                 </div>
                 <div className="restaurantInfo">
                   <div className="restaurantMainInfo flex">
-                  <div><h2>{ item.name }</h2></div>
-                    <div><h3>{ item.style }</h3></div>
+                  <div><h2>{ item.restaurantName }</h2></div>
+                    <div><h3>{ item.restaurantStyle }</h3></div>
                   </div>
                   <div className="restaurantAdditionalInfo flex">
-                    <div><span>{ item.priceRange }</span></div>
+                    <div><span>{ item.restaurantPriceRange }</span></div>
                     <DeliveryTime productInfo={ item }/>
                     { ratings(item) }
                   </div>

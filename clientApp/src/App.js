@@ -1,11 +1,8 @@
 import './App.css';
 import { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
 import CitySelection from './components/CitySelection';
 import RestaurantBrowser from './components/RestaurantBrowser';
 import MenuBrowser from './components/MenuBrowser';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo, faInfo } from '@fortawesome/free-solid-svg-icons'
 
 
 function App() {
@@ -50,8 +47,8 @@ function App() {
                               shoppingCart={ shoppingCartItems }/>;
       case 'RestaurantBrowser': 
         return <RestaurantBrowser onSelectClick={ restaurantSelectHandler } loggedIn={ logIn } logOut={ setLogIn } headerButtons={ setScene }
-                                  city={ selectedCity } unSelectCity={ citySelectHandler } shoppingCart={ shoppingCartItems }/>;
-                                  
+                                  city={ selectedCity } unSelectCity={ citySelectHandler } shoppingCart={ shoppingCartItems }/>;                           
+
       case 'MenuBrowser' :
         return <MenuBrowser city={ selectedCity } unSelectCity={ citySelectHandler } loggedIn={ logIn } logOut={ setLogIn } headerButtons={ setScene }
                             restaurant={ selectedRestaurant } unSelectRestaurant={ restaurantSelectHandler } shoppingCart={ shoppingCartItems } addItemsToCart={ setShoppingCartItems }/>;

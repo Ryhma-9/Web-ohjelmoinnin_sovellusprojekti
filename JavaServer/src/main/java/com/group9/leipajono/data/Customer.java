@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import com.group9.leipajono.enums.Role;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "users")
 public class Customer {
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     // @Column(name = "customerid")
@@ -25,7 +25,7 @@ public class Customer {
     @Column(name = "lastname")
     public String lastName;
     
-    @Column(name = "customeraddress")
+    @Column(name = "addr")
     public String address;
     
     @Column(name = "email")
@@ -48,7 +48,8 @@ public class Customer {
     public Customer(
         String firstName, 
         String lastName, 
-        String address, String email, 
+        String address, 
+        String email, 
         String phoneNumber, 
         String userName, 
         String password, 

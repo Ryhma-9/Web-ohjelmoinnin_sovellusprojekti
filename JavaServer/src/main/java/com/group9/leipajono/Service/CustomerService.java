@@ -4,7 +4,7 @@ import javax.annotation.PostConstruct;
 import com.group9.leipajono.data.Customer;
 import com.group9.leipajono.repositories.CustomerRepository;
 import com.group9.leipajono.security.PasswordEncoder;
-
+import com.group9.leipajono.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +21,9 @@ public class CustomerService extends PasswordEncoder {
     public void init(){
 
     
-        // Customer c = new Customer("Kalja", "Kaljanen", "Kaljatie 16", "kalja@gmail.com", "3453546456", "Kalja", passwordEncoder("kalja"), Role.CUSTOMER);
-        // customerRepo.save(c);
-        // System.out.println("*******************************"+c.password);
+        Customer c = new Customer("Kalja", "Kaljanen", "Kaljatie 6", "kaljanen@gmail.com", "05066666666", "Kalja", passwordEncoder("Kalja"), Role.ADMIN);
+        customerRepo.save(c);
+        System.out.println("*******************************"+c.password);
 
         // Customer c = customerRepo.findById(3L).orElse(null);
         // if (c!=null){

@@ -24,18 +24,61 @@ public class Orders {
 
     @Column(name = "tobedelivered")
     public Boolean toBeDelivered;
+    
+    @Column(name = "ordernumber")
+    public Long orderNumber;
+
+    @Column(name = "quantity")
+    public Long quantity;
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public Long getRestaurantId() {
+        return restaurantId;
+    }
+
+    public Boolean getToBeDelivered() {
+        return toBeDelivered;
+    }
+
+    public void setToBeDelivered(Boolean toBeDelivered) {
+        this.toBeDelivered = toBeDelivered;
+    }
+
+    public Long getOrderNumber() {
+        return orderNumber;
+    }
+
+    public Long getQuantity() {
+        return quantity;
+    }
 
     public Orders(){}
 
     public Orders(
+        Long orderId,
         Long customerId,
         Long restaurantId, 
         Long productId,
-        Boolean toBeDelivered){
-
+        Boolean toBeDelivered,
+        Long orderNumber,
+        Long quantity){
+            this.orderId = orderId;
             this.customerId = customerId;
             this.restaurantId = restaurantId;
             this.productId = productId;
             this.toBeDelivered = toBeDelivered;
+            this.orderNumber = orderNumber;
+            this.quantity = quantity;
         }
 }

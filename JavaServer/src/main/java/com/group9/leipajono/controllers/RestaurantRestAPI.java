@@ -7,6 +7,7 @@ import com.group9.leipajono.Service.RestaurantService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -21,7 +22,22 @@ public class RestaurantRestAPI {
         for (Restaurant r : restaurants) {
             System.out.println("Hei maailma, terveisiä ravintolasta " + r.restaurantName);
         }
-
         return restaurants;
     }
+
+    @GetMapping("/restaurantcities")
+    public String[] getCities() {
+        String[] cities = myRestaurantService.getRestaurantsCities();
+        return cities;
+    }
+
+    @GetMapping("/restaurantsByCity/{city}")
+    public List<Restaurant> getRestaurantsByCity(@PathVariable String city){
+        List<Restaurant> restaurants = myRestaurantService.getRestaurantsByCity(city);
+        for (Restaurant r : restaurants) {
+            System.out.println("Hei maailma, terveisiä ravintolasta " + r.restaurantName);
+        }
+        return restaurants;
+    }
+
 }

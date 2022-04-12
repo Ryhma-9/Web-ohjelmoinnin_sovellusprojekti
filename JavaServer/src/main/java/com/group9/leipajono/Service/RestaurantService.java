@@ -30,4 +30,21 @@ public class RestaurantService {
     public List<Restaurant> getRestaurants(){
         return myRestaurantRepository.findAll();
     }
+
+    public String[] getRestaurantsCities() {
+        List<Restaurant> restaurants = getRestaurants();
+        String[] cities = new String[restaurants.size()];
+        int i = 0;
+        for (Restaurant r : restaurants) {
+            cities[i] = (r.getRestaurantCity());
+            i++;
+        }
+        return cities;
+    }
+
+    public List<Restaurant> getRestaurantsByCity(String city){
+        return myRestaurantRepository.findRestaurantsByRestaurantCity(city);
+    }
+
+
 }
