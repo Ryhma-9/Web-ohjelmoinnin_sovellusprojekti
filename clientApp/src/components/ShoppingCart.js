@@ -2,10 +2,13 @@ import React from 'react';
 import './Shop.css';
 import Header from './Header';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function ShoppingCart(props) {
     
+    const location = useLocation();
+    const cartItems = location.state;
+
     // let itemArray = new Array();
     // let i = 0;
 
@@ -23,7 +26,7 @@ export default function ShoppingCart(props) {
         return totalItemPrice;
     } 
 
-    const listItems = props.shoppingCartItems.map((item) => 
+    const listItems = cartItems.shoppingCartItems.map((item) => 
         <tr>
             <td id="itemName"> { item.name }</td> 
             <td>{ item.price }</td>

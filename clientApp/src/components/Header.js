@@ -16,19 +16,25 @@ export default function Header(props) {
 
   // Tällä funktiolla haetaan ostoskorin tuotteet ja lasketaan tuotteiden lukumäärä
   function itemsInCart() {
-    let sum = 0;
-    props.shoppingCartItems.forEach(function(item){
-      sum += item.qty;
-    });
-    return sum;
+
+    // let cartItems = [];
+    // cartItems = JSON.parse(localStorage.getItem('cartItems'));
+    // let sum = cartItems.length;
+    // props.shoppingCartItems.forEach(function(item){
+    //   sum += item.qty;
+    // });
+    // console.log(sum);
+    // return sum;
   }
 
-  // Hallitaan näkymien headerin alaosaan asettamaa sisältöä
-  const AddLowerHeaderContent = (props) => {
-    return (
-      props.content ? props.content() :  null
-    )
-  }
+  // console.log(props.isCitySelected);
+  // console.log(props.isRestaurantSelected);
+
+  localStorage.setItem('selectedCity', props.isCitySelected);
+  
+  localStorage.setItem('selectedRestaurant', props.isRestaurantSelected);
+
+  
 
   const [ dropDownMenu, setDropDownMenu ] = useState(false);  // Tällä ohjataan profiilialasvetovalikon näkyvyyttä
   const DropDownMenu = () => {    // En osannu käyttää valmiita kirjastoja / ne jotka sain toimaan oli kökköjä niin tässä ite värkätty alavetovalikko
@@ -48,7 +54,9 @@ export default function Header(props) {
     <div className="stickyHeader flex ">
 
       <div className="logoContainer W230">
-        <Link to="/"><img className="logo" alt="LOGO PLACEHOLDER"  width="100%" src="placeholder.jpg"/></Link>
+        <Link to="/" onClick={localStorage.clear}>
+          <img className="logo" alt="LOGO PLACEHOLDER"  width="100%" src="placeholder.jpg"/>
+          </Link>
       </div>
       <div>
         <div className="headerUpper flex ">
@@ -65,9 +73,9 @@ export default function Header(props) {
             </form> : null
           }   
           <div className="menuElement W230 shoppingCart">
-            <Link to="/shoppingcart"><button className="shoppingCartButton" type="button" 
-              onClick={ ()=> props.passShoppingCartToApp ? [props.passShoppingCartToApp(), props.onHeaderButtonClick("ShopingCart")] : props.onHeaderButtonClick("ShopingCart") }>
-                <span>Shoping Cart <FontAwesomeIcon icon={ faShoppingCart }/>{ props.shoppingCartItems && props.shoppingCartItems.length > 0 ? 
+            <Link to="/shoppingcart" ><button className="shoppingCartButton" type="button" 
+              /* onClick={ ()=> props.passShoppingCartToApp ? [props.passShoppingCartToApp(), props.onHeaderButtonClick("ShopingCart")] : props.onHeaderButtonClick("ShopingCart") } */>
+                <span>Shoping Cart <FontAwesomeIcon icon={ faShoppingCart }/>{ itemsInCart() > 0 && itemsInCart() !== null  ? 
                   <span className="shoppinCartItems">{ itemsInCart() }</span> 
                   : 
                   null }
@@ -97,8 +105,10 @@ export default function Header(props) {
           </div>
         </div>
         <div className="headerLower">
-          <p>{ props.isCitySelected }</p>
-          <p>{ props.isRestaurantSelected }</p>
+          <p>{localStorage.getItem('selectedCity')}</p>
+          <p>{localStorage.getItem('selectedRestaurant')}</p>
+          {/* <p>{ props.isCitySelected }</p>
+          <p>{ props.isRestaurantSelected }</p> */}
           {/* <AddLowerHeaderContent city={props.isCitySelected}/* content={ props.addContentToHeader } */}
         </div>
       </div> 

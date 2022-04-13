@@ -11,10 +11,22 @@ import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
 
 export default function RestaurantBrowser(props) {
 
+  // sessionStorage.setItem('selectedCity', props.city);
+
   const location = useLocation();
   const city = location.state;
+  let selectedCity = "";
 
-  let selectedCity = props.city;
+  // if (sessionStorage.getItem('selectedCity' === ""))
+  // {
+  //   selectedCity = props.city;
+  //   sessionStorage.setItem('selectedCity', selectedCity);
+  // } else {
+  //   selectedCity = sessionStorage.getItem('selectedCity');
+  // }
+  
+  
+  // console.log(sessionStorage.getItem('selectedCity'))
   const [ restaurantList, setRestaurantList ] = useState([]);   // Tähän asetetaan näytölle tulostettavat ravintolat
   const [ restauranStyle, setRestauranStyle ] = useState([]);   // Tähän asetetaan käyttäjän tekemä ravintolatyyppifiltteröinti
 
@@ -143,7 +155,7 @@ export default function RestaurantBrowser(props) {
         { // Ravintoloiden listauksen mappauksen yhteyteen on lisätty ravintolatyylifiltteröinti
           restaurantList.filter(item => item.restaurantStyle.includes(restauranStyle.length === 1 ? restauranStyle : "")).map((item, index) => {
             return( 
-              <Link to="/menubrowser" state={ item }>
+              <Link to="/menubrowser" state={ item } props={ item }>
                 <div className="restaurantInfoContainer flex" key={index} /* onClick={ ()=> props.onSelectClick(item) } */ >
                   <div className="restaurantImg">
                     <img alt={ item.name } width="100%" src={ item.restaurantImg }/>

@@ -31,12 +31,10 @@ function App() {
         <Routes>
           <Route path="/" element={<CitySelection loggedIn={ logIn } logOut={ setLogIn } 
                               shoppingCart={ shoppingCartItems } /> } />
-          <Route path="/restaurantbrowser" element={<RestaurantBrowser /* loggedIn={ logIn } logOut={ setLogIn } */  
-                                  isCitySelected = { (selectedCity) => { setSelectedCity(selectedCity)} } /* shoppingCart={ shoppingCartItems } *//> } />
-          <Route path="/menubrowser" element={<MenuBrowser /* city={ selectedCity } */ /* unSelectCity={ citySelectHandler } */ /* loggedIn={ logIn } logOut={ setLogIn } */  
-                            isRestaurantSelected = { (selectedRestaurant) => { setSelectedRestaurant(selectedRestaurant)}} /* restaurant={ selectedRestaurant } */ /* shoppingCart={ shoppingCartItems } addItemsToCart={ setShoppingCartItems } *//>} />
-          <Route path="/shoppingcart" element={<ShoppingCart /* city={ selectedCity } */ /* unSelectCity={ citySelectHandler } */ /* loggedIn={ logIn } logOut={ setLogIn } */ /* shoppingCartItems = { shoppingCartItems } restaurant={ selectedRestaurant } */ />} />
-          <Route path="/payment" element={ <Payment /* city={ selectedCity } */ /* unSelectCity={ citySelectHandler } *//*  loggedIn={ logIn } logOut={ setLogIn } */ /* shoppingCartItems = { shoppingCartItems }  restaurant={ selectedRestaurant } */ />}/>
+          <Route path="/restaurantbrowser" element={<RestaurantBrowser isCitySelected = { (selectedCity) => { setSelectedCity(selectedCity)} }/>}/>
+          <Route path="/menubrowser" element={<MenuBrowser isRestaurantSelected = { (selectedRestaurant) => { setSelectedRestaurant(selectedRestaurant)}}/>}/>
+          <Route path="/shoppingcart" element={<ShoppingCart  Shoppings={ (shoppingCartItems) => { setShoppingCartItems(shoppingCartItems)}}/>} />
+          <Route path="/payment" element={ <Payment  />}/>
         </Routes>
       </BrowserRouter>
     </div>

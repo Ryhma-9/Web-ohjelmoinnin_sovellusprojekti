@@ -10,10 +10,25 @@ import { useLocation } from 'react-router-dom'
 
 export default function MenuBrowser(props) {
 
+  let selectedCity = "";
+
   const location = useLocation();
   const restaurant = location.state;
   const restaurantName = location.state.restaurantName;
+  const restaurantCity = location.state.restaurantCity;
+  // console.log("sessionstorage" + sessionStorage.getItem('selectedCity'))
 
+  // if (sessionStorage.getItem('selectedCity' !== ""))
+  // {
+  //   selectedCity = sessionStorage.getItem('selectedCity');
+
+  // } else {
+
+  //   selectedCity = restaurantCity;
+  //   sessionStorage.setItem('selectedCity', selectedCity);
+  // }
+
+  // console.log(selectedCity);
   // let selectedCity = props.city;
   // let selectedRestaurant = props.restaurant.restaurantName;
   let menuCategories = ['appetizer', 'main dish', 'dessert', 'drink', 'extras', 'other'];   // tuotekategoriat, jonka mukaan asettelu on rakennettu. Tuotteet tulostetaan kategoriossa taulukon järjestyksessä
@@ -36,35 +51,61 @@ export default function MenuBrowser(props) {
 
   // Tuotteiden valinnan toimintojen hahmottelua
   const [ shoppingCartItems, setShoppingCartItems ] = useState([]);
-  // Funktio, jolla lisätään tuote ostoskoriin tai jos tuote on jo korissa lisätään sen määrää
-  const shoppingCartTesting = (item) => { 
-  let newShoppingCartItems = [...shoppingCartItems];
-  let itemClickedIndex = newShoppingCartItems.findIndex(i => item.productId === i.productId)
-  if (itemClickedIndex !== -1) {
-    let newElement = {...newShoppingCartItems[itemClickedIndex]}
-    newElement.qty += 1;
-    newShoppingCartItems[itemClickedIndex] = newElement;
+//   // Funktio, jolla lisätään tuote ostoskoriin tai jos tuote on jo korissa lisätään sen määrää
+//   const shoppingCartTesting = (item) => { 
+//   let newShoppingCartItems = [...shoppingCartItems];
+//   let itemClickedIndex = newShoppingCartItems.findIndex(i => item.productId === i.productId)
+//   if (itemClickedIndex !== -1) {
+//     let newElement = {...newShoppingCartItems[itemClickedIndex]}
+//     newElement.qty += 1;
+//     newShoppingCartItems[itemClickedIndex] = newElement;
+//   }
+//   else {
+//     let newElement = [...newShoppingCartItems,
+//     {
+//       id : shoppingCartItems.length + 1,
+//       productId : item.productId,
+//       name : item.productName,
+//       price : item.price,
+//       qty : 1
+//     }]
+//     newShoppingCartItems = newElement;
+//   }
+//   setShoppingCartItems(newShoppingCartItems);
+//   console.log(item.productName + " added to cart");
+//   console.log(newShoppingCartItems);
+// }
+
+  function addCartItems( props ){
+    let cartItems = getCartItems();
+
+    // console.log( typeof cartItems);
+    // console.log( JSON.stringify(props));
+    console.log( cartItems );
+
+    cartItems.push(props);
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }
-  else {
-    let newElement = [...newShoppingCartItems,
-    {
-      id : shoppingCartItems.length + 1,
-      productId : item.productId,
-      name : item.productName,
-      price : item.price,
-      qty : 1
-    }]
-    newShoppingCartItems = newElement;
+
+  function getCartItems(){
+    let cartItems = [];
+    if(localStorage.getItem('cartItems') !== null){
+        cartItems = JSON.parse(localStorage.getItem('cartItems'));
+    } 
+      
+    return cartItems;
   }
-  setShoppingCartItems(newShoppingCartItems);
-  console.log(item.productName + " added to cart");
-  console.log(newShoppingCartItems);
-}
-  // Ehkä tyhmä idea, mutta jotta saa näkymän toiminnot toimimaan oikeen käytetään funktion omaa statehookkia ja päivitetään ostoskori vain hallitusti App.js:ään
+
+  function getCartLength(){
+    let cartItems = [];
+    cartItems = JSON.parse(localStorage.getItem('cartItems'));
+    return cartItems.length;
+  }
+  // // Ehkä tyhmä idea, mutta jotta saa näkymän toiminnot toimimaan oikeen käytetään funktion omaa statehookkia ja päivitetään ostoskori vain hallitusti App.js:ään
   // function passShoppingCartToApp() {
   //   props.addItemsToCart(shoppingCartItems)
   // }
-  // Liittyy edelliseen funktioon. Näkymän vaihdon yhteydessä päivitetään ostoskorin sisältö App.js
+  // // Liittyy edelliseen funktioon. Näkymän vaihdon yhteydessä päivitetään ostoskorin sisältö App.js
   // const headerButtonHandler = (buttonValue) => {
   //   passShoppingCartToApp();
   //   props.headerButtons(buttonValue);
@@ -74,7 +115,8 @@ export default function MenuBrowser(props) {
   useEffect(() => {
     getData().then(setMenu);
     getData().then(listCategories).then(setMenuCategory);
-    /* setShoppingCartItems(props.shoppingCart) */
+    setShoppingCartItems(getCartItems());
+    console.log(shoppingCartItems);
     getData().then(listCategories).then((res) => {
       setCategoryQty(res.length);
     });
@@ -82,7 +124,7 @@ export default function MenuBrowser(props) {
 
   // Funktiolla tullaan hakemaan tietokannasta valitun ravintolan menu / tiedot. Testivaiheessa vähän oiotaan mutkia
   async function getData() {
-    console.log(props.restaurantId);
+    // console.log(props.restaurantId);
     const results = await axios.get('http://localhost:8080/menusByRestaurantId/' + restaurant.restaurantId);
     return results.data;
   }
@@ -105,67 +147,12 @@ export default function MenuBrowser(props) {
     return menuCategoryList;
   }
 
-  // Funktiolla lisätään headeriin valintojen postonapit sekä napit menufilttereille
-  // const manageHeaderContent = (props) => {
-  //   // Luodaan napit filtteröintiin ja sen poistoon
-  //   function manageFilterButtons(){
-  //     if (menuCategory.length === 1 &&  categoryQty > 1) {    
-  //       return (
-  //         <button className="styleButton" type="button" onClick={ ()=> getData().then(listCategories).then(setMenuCategory) }>
-  //           <span>{ menuCategory[0] } <FontAwesomeIcon style={{ color: 'crimson' }} icon={ faXmark }/></span>
-  //         </button>
-  //       )
-  //     }
-  //     else if (menuCategory.length > 1 ||  categoryQty > 1) {
-  //       return menuCategories.map((item, index) => {
-  //         return menuCategory.includes(item) ? 
-  //           <button className="styleButton" type="button" key={ index } onClick={ ()=> setMenuCategory( [item] ) }>
-  //             <span>{ item }</span>
-  //           </button> 
-  //           :
-  //           null;
-  //       });
-  //     }
-  //   }
-  //   return (
-  //     <div className="flex">
-  //       <button className="styleButton" type="button" onClick={ ()=> removeSelection("city") }>
-  //         <span>{/* { selectedCity } */} <FontAwesomeIcon style={{ color: 'crimson' }} icon={ faXmark }/></span>
-  //       </button>
-  //       <button className="cityButton" type="button" onClick={ ()=> removeSelection("restaurant") }>
-  //         <span>{/* { selectedRestaurant }  */}<FontAwesomeIcon style={{ color: 'crimson' }} icon={ faXmark }/></span>
-  //       </button>
-  //       <div className="restaurantStyleButtons flex">
-  //         { manageFilterButtons() }
-  //       </div>
-  //     </div>
-  //   )
-  // }
-
-  // Viritelmä valintojen poistoa varten
-  // const removeSelection = (item) => {
-  //   if (shoppingCartItems.length > 0) {   // Jos ostoskoriin on lisätty tavaraa, se tyhjennettään jos peruutetaan ravintola-/kaupinkivalinta
-  //     alert("Ostoskori on tyhjennetty");
-  //     props.addItemsToCart([])
-  //   }
-  //   switch (item) {
-  //     case 'city' :  
-  //       props.unSelectCity("");
-  //       return
-  //     case 'restaurant':
-  //       props.unSelectRestaurant("");
-  //       return
-  //     default : 
-  //       return console.log("react ei ehkä ookkaan niin mukavaa");
-  //   }
-  // }
-
   // Täällä tapahtuu itse ruokalistan käsittely ja "tulostaminen"
   const MenuItemHandler = () => {    
 
     const AddToShopingcart = (props) => { // Tässä luodaan lisää ostoskoriin nappi
       return (
-        <div className="menuHandlebutton" onClick={ ()=> shoppingCartTesting(props.productInfo) }>
+        <div className="menuHandlebutton" onClick={ () => addCartItems(props.productInfo) }>
           <h3> Add to Cart <FontAwesomeIcon icon={ faBasketShopping }/> </h3>
         </div>
       )
@@ -285,12 +272,16 @@ export default function MenuBrowser(props) {
   }
 
   return (
-    <div>{props.isRestaurantSelected( restaurantName )}
+    <div>{props.isRestaurantSelected( restaurantName )} {/* {props.isCitySelected( selectedCity )} */}
+          
       {/* <Header 
         addContentToHeader={ manageHeaderContent } shoppingCartItems={ shoppingCartItems } passShoppingCartToApp={ passShoppingCartToApp }
         logIn={ props.loggedIn } logOut={ props.logOut } onHeaderButtonClick={ headerButtonHandler } onSearchButtonClick={ searchHandler }
       /> */}
       <div className="marginT120">
+        <button onClick={ () => alert(getCartLength()) }>Get Cart Length</button>   {/* Testailua varten napillisia toimintoja, koska olen laiska, enkä jaksa käsin klikkailla selaimen storage valikkoon kokoajan >:D */}
+        <button onClick={ () => alert(JSON.stringify(getCartItems())) }>Get Cart Items</button>   {/* Testailua varten napillisia toimintoja, koska olen laiska, enkä jaksa käsin klikkailla selaimen storage valikkoon kokoajan >:D */}
+        <button onClick={ () => localStorage.clear('cartItems')}>Clear Cart</button>
         <MenuItemHandler/>
         { allergyInfoVisibility ? allergensInfo() : null }
         { moreInfo.visibility ? printMoreInfo() : null }
