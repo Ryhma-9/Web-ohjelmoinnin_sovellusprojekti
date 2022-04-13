@@ -35,13 +35,15 @@ public class Contents {
 
     Contents(){};
 
-    Contents(
+    public Contents(
+        //Long contentsId,
         Long productId,
         int energyContents,
         String ingredients,
         String description,
         String allergens
-    ){
+    ) {
+            //this.contentsId = contentsId;
             this.productId = productId;
             this.energyContents = energyContents;
             this.ingredients = ingredients;

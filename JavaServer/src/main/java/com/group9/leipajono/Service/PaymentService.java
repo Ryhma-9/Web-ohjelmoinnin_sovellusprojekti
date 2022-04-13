@@ -10,7 +10,6 @@ import com.group9.leipajono.repositories.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 
 @Service
 public class PaymentService {
@@ -33,7 +32,7 @@ public class PaymentService {
         return myPaymentRepository.findAll();
     }
 
-    public List<Payment> getPaymentssByOrderNumber(Long orderNumber){
+    public List<Payment> getPaymentsByOrderNumber(Long orderNumber){
         return myPaymentRepository.findPaymentByOrderId(orderNumber);
     }
 
@@ -44,7 +43,7 @@ public class PaymentService {
             myPaymentRepository.save(p);
             return "Payment added successfully";
         }
-        catch (Exception e){
+        catch (Exception e) {
             return "Payment addition failed";
         }        
     }
