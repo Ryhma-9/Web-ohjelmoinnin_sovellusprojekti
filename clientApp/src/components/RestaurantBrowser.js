@@ -23,8 +23,6 @@ export default function RestaurantBrowser(props) {
   // Funktiolla tullaan haetaan tietokannasta valitun kaupungin ravintolat.
   async function getData() {
     const results = await axios.get('http://localhost:8080/restaurantsByCity/'+selectedCity);
-    console.log(results)
-    console.log(results.data)
     return results.data;
   }
 
@@ -124,7 +122,6 @@ export default function RestaurantBrowser(props) {
     }
     let orders =  openOrders();
     let t  = basicDeliveryTime(props.productInfo.restaurantStyle)
-    
     return (
       <div><span>Delivery: { parseInt(t + t * 0.1 * orders) } minutes</span></div>  // tässä lasketaan toimitusaika-arvioon avoimet tilaukset mukaan
     )

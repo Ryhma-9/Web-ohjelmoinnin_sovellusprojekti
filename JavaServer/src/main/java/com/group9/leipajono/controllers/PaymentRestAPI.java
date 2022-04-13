@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+@CrossOrigin
 @RestController
 public class PaymentRestAPI {
     
@@ -19,20 +21,20 @@ public class PaymentRestAPI {
     PaymentService myPaymentService;
 
     @GetMapping("/payments")
-    public List<Payment> getRestaurants(){
+    public List<Payment> getRestaurants() {
         return myPaymentService.getPayments();
     }
     
     @GetMapping("/paymentsbyordernumber/{orderNumber}")
-    public List<Payment> getPaymentssByOrderNumber(@PathVariable Long orderNumber){
-        return myPaymentService.getPaymentssByOrderNumber(orderNumber);
+    public List<Payment> getPaymentsByOrderNumber(@PathVariable Long orderNumber) {
+        return myPaymentService.getPaymentsByOrderNumber(orderNumber);
     }
     
     @PostMapping("addpayment")
     public String addNewPayment(
         @RequestParam Long orderId,
         @RequestParam String paymentMethod,
-        @RequestParam Double totalPrice){
+        @RequestParam Double totalPrice) {
             return myPaymentService.addNewPayment(orderId, paymentMethod, totalPrice);
     }
 

@@ -5,14 +5,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.annotation.PostConstruct;
-
 import com.group9.leipajono.data.Orders;
 import com.group9.leipajono.data.OrdersToClient;
 import com.group9.leipajono.repositories.OrdersRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 @Service
 public class OrdersService {
@@ -23,7 +20,6 @@ public class OrdersService {
     @PostConstruct
     public void init(){
         Orders o = myOrdersRepository.findById(3L).orElse(null);
-
         if(o != null){
             System.out.println("Orders id: " + o.orderId);
         } else {
@@ -59,12 +55,11 @@ public class OrdersService {
         return oc;
     }
     
-    public List<OrdersToClient> getOrdersByCustomerId(Long customerId){
+    public List<OrdersToClient> ordersToOrdersToclientForm(List<Orders> orders){
         List<OrdersToClient> ordersToClient = new ArrayList<>();
-        List<Orders> customersOrders = myOrdersRepository.findOrdersByCustomerId(customerId);
-        Long[] orderNumberListing = new Long[customersOrders.size()];
+        Long[] orderNumberListing = new Long[orders.size()];
         int i = 0;
-        for (Orders o : customersOrders) {
+        for (Orders o : orders) {
             if (Arrays.asList(orderNumberListing).contains(o.getOrderNumber()) == false) {
                 ordersToClient.add(getOrderByOrderNumber(o.getOrderNumber()));
                 orderNumberListing[i] = o.getOrderNumber();
@@ -72,51 +67,26 @@ public class OrdersService {
             }
         }
         return ordersToClient;
+    }
+
+    public List<OrdersToClient> getOrdersByCustomerId(Long customerId){
+        List<Orders> customersOrders = myOrdersRepository.findOrdersByCustomerId(customerId);
+        return ordersToOrdersToclientForm(customersOrders);
     }
 
     public List<OrdersToClient> getOpenOrdersByCustomerId(Long customerId){
-        List<OrdersToClient> ordersToClient = new ArrayList<>();
         List<Orders> customersOrders = myOrdersRepository.findOrdersByCustomerIdAndToBeDelivered(customerId, false);
-        Long[] orderNumberListing = new Long[customersOrders.size()];
-        int i = 0;
-        for (Orders o : customersOrders) {
-            if (Arrays.asList(orderNumberListing).contains(o.getOrderNumber()) == false) {
-                ordersToClient.add(getOrderByOrderNumber(o.getOrderNumber()));
-                orderNumberListing[i] = o.getOrderNumber();
-                i++;
-            }
-        }
-        return ordersToClient;
+        return ordersToOrdersToclientForm(customersOrders);
     }
 
     public List<OrdersToClient> getOrdersByRestaurantId(Long restaurantId){
-        List<OrdersToClient> ordersToClient = new ArrayList<>();
-        List<Orders> customersOrders = myOrdersRepository.findOrdersByCustomerId(restaurantId);
-        Long[] orderNumberListing = new Long[customersOrders.size()];
-        int i = 0;
-        for (Orders o : customersOrders) {
-            if (Arrays.asList(orderNumberListing).contains(o.getOrderNumber()) == false) {
-                ordersToClient.add(getOrderByOrderNumber(o.getOrderNumber()));
-                orderNumberListing[i] = o.getOrderNumber();
-                i++;
-            }
-        }
-        return ordersToClient;
+        List<Orders> restaurantssOrders = myOrdersRepository.findOrdersByCustomerId(restaurantId);
+        return ordersToOrdersToclientForm(restaurantssOrders);
     }
 
     public List<OrdersToClient> getOpenOrdersByRestaurantId(Long restaurantId){
-        List<OrdersToClient> ordersToClient = new ArrayList<>();
-        List<Orders> customersOrders = myOrdersRepository.findOrdersByRestaurantIdAndToBeDelivered(restaurantId, false);
-        Long[] orderNumberListing = new Long[customersOrders.size()];
-        int i = 0;
-        for (Orders o : customersOrders) {
-            if (Arrays.asList(orderNumberListing).contains(o.getOrderNumber()) == false) {
-                ordersToClient.add(getOrderByOrderNumber(o.getOrderNumber()));
-                orderNumberListing[i] = o.getOrderNumber();
-                i++;
-            }
-        }
-        return ordersToClient;
+        List<Orders> restaurantssOrders = myOrdersRepository.findOrdersByRestaurantIdAndToBeDelivered(restaurantId, false);
+        return ordersToOrdersToclientForm(restaurantssOrders);
     }
 
     public int getOpenOrdersQuantityByRestaurantId(Long restaurantId){
@@ -133,7 +103,7 @@ public class OrdersService {
             }
             return "Delivery status updated successfully";
         }
-        catch (Exception e){
+        catch (Exception e) {
             return "Delivery status update failed";
         }      
     }   
@@ -147,7 +117,7 @@ public class OrdersService {
             }
             return "Order added successfully";
         }
-        catch (Exception e){
+        catch (Exception e) {
             return "Order addition failed";
         }        
     }
