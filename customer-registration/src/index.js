@@ -4,11 +4,13 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import CustomerRegistration from './CustomerRegistration';
 import './CustomerRegistration.css'
+import RestaurantRegistration from './RestaurantRegistration';
 
 ReactDOM.render(
   <React.StrictMode>
     
     <CustomerRegistration />
+    <RestaurantRegistration />
   </React.StrictMode>,
   document.getElementById('root')
 );
