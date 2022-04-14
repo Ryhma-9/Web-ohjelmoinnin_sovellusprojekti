@@ -109,4 +109,15 @@ public class ProductService {
             return "Product edit failed";
         }        
     }
+
+    public String deleteContentsByProductId(Long productId) {
+        try {
+            Product p =  myProductRepository.findByProductId(productId);
+            myProductRepository.delete(p);
+            return "Product removed successfully";
+        }
+        catch (Exception e){
+            return "Product removal failed";
+        }        
+    }
 }

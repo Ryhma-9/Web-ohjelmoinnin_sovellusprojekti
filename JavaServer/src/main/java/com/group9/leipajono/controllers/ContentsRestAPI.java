@@ -67,4 +67,9 @@ public class ContentsRestAPI {
             return response;
     }
 
+    @GetMapping("/deletecontentsbyproductid/{id}")
+    public String deleteContentsByProductId(@PathVariable long id) {
+        return myContentsService.deleteContentsByProductId(id);
+    }
+
 }

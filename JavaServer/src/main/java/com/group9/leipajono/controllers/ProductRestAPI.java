@@ -71,6 +71,22 @@ public class ProductRestAPI {
             return myProductService.addNewProduct(productName, price, type);
     }
 
+    @PostMapping("/editproductandcontets")
+    public String editProductAndContens(
+        @RequestParam Long productId,
+        @RequestParam String productName,
+        @RequestParam double price,
+        @RequestParam String[] allergens,
+        @RequestParam String ingredients,
+        @RequestParam int energyContent,
+        @RequestParam String description,
+        @RequestParam String type) {
+            StringBuilder response = new StringBuilder();
+            response.append(myProductService.editProduct(productId, productName, price, type) + " and ");
+            response.append(myContentsService.editContents(productId, energyContent, ingredients, description, allergens));
+            return ""+response;
+    }
+
     @PostMapping("/editproduct")
     public String editProduct(
         @RequestParam Long productId,
@@ -78,6 +94,18 @@ public class ProductRestAPI {
         @RequestParam double price,
         @RequestParam String type) {
             return myProductService.editProduct(productId, productName, price, type);
+    }
+
+    @GetMapping("/deleteproductandcontentsbyproductid/{id}")
+    public String deleteProductAndContentsByProductId(@PathVariable long id) {
+        StringBuilder response = new StringBuilder();
+        response.append(myProductService.deleteContentsByProductId(id) + " and " + myContentsService.deleteContentsByProductId(id));
+        return ""+response;
+    }
+
+    @GetMapping("/deleteproductbyproductid/{id}")
+    public String deleteContentsByProductId(@PathVariable long id) {
+        return myProductService.deleteContentsByProductId(id);
     }
 
 }

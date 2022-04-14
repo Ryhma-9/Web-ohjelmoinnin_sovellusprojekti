@@ -39,7 +39,6 @@ public class ContentsService {
     public String addNewContents(Long productId, int energyContent, String ingredients, String description, String[] allergens) {
         try {
             for (int i = 0; i < allergens.length; i++) {
-                //Contents c = new Contents(myContentsRepository.getMaxContentsId()+1, productId, energyContent, ingredients, description, allergens[i]);
                 Contents c = new Contents(productId, energyContent, ingredients, description, allergens[i]);
                 myContentsRepository.save(c);
             }
@@ -52,10 +51,8 @@ public class ContentsService {
 
     public String editContents(Long productId, int energyContent, String ingredients, String description, String[] allergens) {
         try {
-            List<Contents> contents = myContentsRepository.findByProductId(productId);
-            myContentsRepository.deleteAll(contents);
+            deleteContentsByProductId(productId);
             for (int i = 0; i < allergens.length; i++) {
-                //Contents c = new Contents(myContentsRepository.getMaxContentsId()+1, productId, energyContent, ingredients, description, allergens[i]);
                 Contents c = new Contents(productId, energyContent, ingredients, description, allergens[i]);
                 myContentsRepository.save(c);
             }
@@ -65,4 +62,17 @@ public class ContentsService {
             return "Contents addition failed";
         }        
     }
+
+    public String deleteContentsByProductId(Long productId) {
+        try {
+            List<Contents> contents = myContentsRepository.findByProductId(productId);
+            myContentsRepository.deleteAll(contents);
+            return "Contents removed successfully";
+        }
+        catch (Exception e){
+            return "Contents removal failed";
+        }        
+    }
+
+
 }
