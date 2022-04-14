@@ -33,7 +33,7 @@ function App() {
                               shoppingCart={ shoppingCartItems } /> } />
           <Route path="/restaurantbrowser" element={<RestaurantBrowser isCitySelected = { (selectedCity) => { setSelectedCity(selectedCity)} }/>}/>
           <Route path="/menubrowser" element={<MenuBrowser isRestaurantSelected = { (selectedRestaurant) => { setSelectedRestaurant(selectedRestaurant)}}/>}/>
-          <Route path="/shoppingcart" element={<ShoppingCart  Shoppings={ (shoppingCartItems) => { setShoppingCartItems(shoppingCartItems)}}/>} />
+          <Route path="/shoppingcart" element={<ShoppingCart  /* Shoppings={ (shoppingCartItems) => { setShoppingCartItems(shoppingCartItems)}} *//>} />
           <Route path="/payment" element={ <Payment  />}/>
         </Routes>
       </BrowserRouter>

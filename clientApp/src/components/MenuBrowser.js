@@ -50,7 +50,7 @@ export default function MenuBrowser(props) {
   // }
 
   // Tuotteiden valinnan toimintojen hahmottelua
-  const [ shoppingCartItems, setShoppingCartItems ] = useState([]);
+  // const [ shoppingCartItems, setShoppingCartItems ] = useState([]);
 //   // Funktio, jolla lisätään tuote ostoskoriin tai jos tuote on jo korissa lisätään sen määrää
 //   const shoppingCartTesting = (item) => { 
 //   let newShoppingCartItems = [...shoppingCartItems];
@@ -82,15 +82,18 @@ export default function MenuBrowser(props) {
     // console.log( typeof cartItems);
     // console.log( JSON.stringify(props));
     console.log( cartItems );
+    
 
     cartItems.push(props);
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+    sessionStorage.setItem('cartLength', cartItems.length);
   }
 
   function getCartItems(){
     let cartItems = [];
-    if(localStorage.getItem('cartItems') !== null){
-        cartItems = JSON.parse(localStorage.getItem('cartItems'));
+
+    if(sessionStorage.getItem('cartItems') !== null){
+        cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
     } 
       
     return cartItems;
@@ -98,7 +101,7 @@ export default function MenuBrowser(props) {
 
   function getCartLength(){
     let cartItems = [];
-    cartItems = JSON.parse(localStorage.getItem('cartItems'));
+    cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
     return cartItems.length;
   }
   // // Ehkä tyhmä idea, mutta jotta saa näkymän toiminnot toimimaan oikeen käytetään funktion omaa statehookkia ja päivitetään ostoskori vain hallitusti App.js:ään
@@ -115,8 +118,8 @@ export default function MenuBrowser(props) {
   useEffect(() => {
     getData().then(setMenu);
     getData().then(listCategories).then(setMenuCategory);
-    setShoppingCartItems(getCartItems());
-    console.log(shoppingCartItems);
+    // setShoppingCartItems(getCartItems());
+    // console.log(shoppingCartItems);
     getData().then(listCategories).then((res) => {
       setCategoryQty(res.length);
     });
@@ -281,7 +284,7 @@ export default function MenuBrowser(props) {
       <div className="marginT120">
         <button onClick={ () => alert(getCartLength()) }>Get Cart Length</button>   {/* Testailua varten napillisia toimintoja, koska olen laiska, enkä jaksa käsin klikkailla selaimen storage valikkoon kokoajan >:D */}
         <button onClick={ () => alert(JSON.stringify(getCartItems())) }>Get Cart Items</button>   {/* Testailua varten napillisia toimintoja, koska olen laiska, enkä jaksa käsin klikkailla selaimen storage valikkoon kokoajan >:D */}
-        <button onClick={ () => localStorage.clear('cartItems')}>Clear Cart</button>
+        <button onClick={ () => sessionStorage.clear('cartItems')}>Clear Cart</button>
         <MenuItemHandler/>
         { allergyInfoVisibility ? allergensInfo() : null }
         { moreInfo.visibility ? printMoreInfo() : null }

@@ -18,7 +18,7 @@ export default function Header(props) {
   function itemsInCart() {
 
     // let cartItems = [];
-    // cartItems = JSON.parse(localStorage.getItem('cartItems'));
+    // cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
     // let sum = cartItems.length;
     // props.shoppingCartItems.forEach(function(item){
     //   sum += item.qty;
@@ -30,9 +30,9 @@ export default function Header(props) {
   // console.log(props.isCitySelected);
   // console.log(props.isRestaurantSelected);
 
-  localStorage.setItem('selectedCity', props.isCitySelected);
+  sessionStorage.setItem('selectedCity', props.isCitySelected);
   
-  localStorage.setItem('selectedRestaurant', props.isRestaurantSelected);
+  sessionStorage.setItem('selectedRestaurant', props.isRestaurantSelected);
 
   
 
@@ -54,7 +54,7 @@ export default function Header(props) {
     <div className="stickyHeader flex ">
 
       <div className="logoContainer W230">
-        <Link to="/" onClick={localStorage.clear}>
+        <Link to="/" onClick={sessionStorage.clear}>
           <img className="logo" alt="LOGO PLACEHOLDER"  width="100%" src="placeholder.jpg"/>
           </Link>
       </div>
@@ -105,8 +105,8 @@ export default function Header(props) {
           </div>
         </div>
         <div className="headerLower">
-          <p>{localStorage.getItem('selectedCity')}</p>
-          <p>{localStorage.getItem('selectedRestaurant')}</p>
+          <p>{sessionStorage.getItem('selectedCity')}</p>
+          <p>{sessionStorage.getItem('selectedRestaurant')}</p>
           {/* <p>{ props.isCitySelected }</p>
           <p>{ props.isRestaurantSelected }</p> */}
           {/* <AddLowerHeaderContent city={props.isCitySelected}/* content={ props.addContentToHeader } */}
