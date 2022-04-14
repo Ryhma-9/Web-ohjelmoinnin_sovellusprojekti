@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class Restaurant {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "restaurantid")
     public Long restaurantId;
 
@@ -49,6 +49,7 @@ public class Restaurant {
     public Restaurant(){}
 
     public Restaurant(
+        Long restaurantId,
         String restaurantName, 
         String restaurantAddress, 
         String restaurantUserName, 
@@ -60,6 +61,7 @@ public class Restaurant {
         String openinghours,
         int restaurantRating
         ) {
+            this.restaurantId = restaurantId;
             this.restaurantName = restaurantName;
             this.restaurantAddress = restaurantAddress;
             this.restaurantUserName = restaurantUserName;
@@ -76,4 +78,43 @@ public class Restaurant {
         return restaurantCity;
     }
 
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
+    }
+
+    public void setRestaurantAddress(String restaurantAddress) {
+        this.restaurantAddress = restaurantAddress;
+    }
+
+    public void setRestaurantUserName(String restaurantUserName) {
+        this.restaurantUserName = restaurantUserName;
+    }
+
+    public void setRestaurantEmail(String restaurantEmail) {
+        this.restaurantEmail = restaurantEmail;
+    }
+
+    public void setRestaurantPhoneNumber(String restaurantPhoneNumber) {
+        this.restaurantPhoneNumber = restaurantPhoneNumber;
+    }
+
+    public void setRestaurantStyle(String restaurantStyle) {
+        this.restaurantStyle = restaurantStyle;
+    }
+
+    public void setRestaurantPriceRange(String restaurantPriceRange) {
+        this.restaurantPriceRange = restaurantPriceRange;
+    }
+
+    public void setRestaurantCity(String restaurantCity) {
+        this.restaurantCity = restaurantCity;
+    }
+
+    public void setOpeninghours(String openinghours) {
+        this.openinghours = openinghours;
+    }
+
+    public void setRestaurantRating(int restaurantRating) {
+        this.restaurantRating = restaurantRating;
+    }
 }

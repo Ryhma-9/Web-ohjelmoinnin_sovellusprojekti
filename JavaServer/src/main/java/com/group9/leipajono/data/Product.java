@@ -28,11 +28,13 @@ public class Product {
     public Product(){}
 
     public Product(
+        Long productId,
         String productName,
         Double price,
         String type
         // Types_enum type
     ){
+            this.productId = productId;
             this.productName = productName;
             this.price = price;
             this.type = type;
@@ -42,12 +44,24 @@ public class Product {
         return productName;
     }
 
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
     public Double getPrice() {
         return price;
     }
 
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     public String getType() {
         return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
 }

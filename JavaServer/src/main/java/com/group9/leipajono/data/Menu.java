@@ -27,7 +27,7 @@ public class Menu {
 
     Menu(){};
 
-    Menu(
+    public Menu(
         Long restaurantId,
         Long productId,
         Long menuNumber
@@ -37,7 +37,25 @@ public class Menu {
             this.menuNumber = menuNumber;
     }
 
+    public Menu(
+        Long restaurantId,
+        Long menuNumber
+    ){
+            this.restaurantId = restaurantId;
+            this.productId = null;
+            this.menuNumber = menuNumber;
+    }
+
+
     public Long getProductId() {
         return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public void setMenuNumber(Long menuNumber) {
+        this.menuNumber = menuNumber;
     }
 }
