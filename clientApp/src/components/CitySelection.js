@@ -3,6 +3,7 @@ import './Shop.css';
 import { useEffect, useState } from 'react';
 import Header from './Header';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 export default function CitySelection(props) {
@@ -20,19 +21,19 @@ export default function CitySelection(props) {
     return results.data;
   }
 
-  // Hakutoiminnon eventhandler-funktio
-  const searchHandler = (searchBarText) => {
-    getData().then( function(res){ setCityList( searchEngine(res,searchBarText) ) });
-  }
+  // // Hakutoiminnon eventhandler-funktio
+  // const searchHandler = (searchBarText) => {
+  //   getData().then( function(res){ setCityList( searchEngine(res,searchBarText) ) });
+  // }
 
-  // Hakufunktio, jolla haetaan siihen syötetyn tietueen oliot, joiden arvoista löytyy annettu hakusana
-  const searchEngine = (citys, searchArgument) => {
-    var search = searchArgument.toString().toLowerCase().trim();
-    var searchResult = citys.filter(item => {
-      return Object.keys(item).some(key => item[key].toString().toLowerCase().includes(search));
-    });
-    return searchResult;
-  }
+  // // Hakufunktio, jolla haetaan siihen syötetyn tietueen oliot, joiden arvoista löytyy annettu hakusana
+  // const searchEngine = (citys, searchArgument) => {
+  //   var search = searchArgument.toString().toLowerCase().trim();
+  //   var searchResult = citys.filter(item => {
+  //     return Object.keys(item).some(key => item[key].toString().toLowerCase().includes(search));
+  //   });
+  //   return searchResult;
+  // }
 
   // Funktio, jolla voi luoda random rgb-värin. Kunhan huviksi värkkäilin ja lisäsin muotoilun, joka arpoo jokaiselle kaupunkiboksille eri värin
   function randomColor() {
@@ -45,17 +46,19 @@ export default function CitySelection(props) {
   
   return (
     <div>
-      <Header 
+      {/* <Header 
         onSearchButtonClick={ searchHandler } logIn={ props.loggedIn } logOut={ props.logOut } 
         onHeaderButtonClick={ props.headerButtons } shoppingCartItems={ props.shoppingCart }
-      />
+      /> */}
       <div className="marginT120 flex cityBoxContainer">
         { 
           cityList.map((item, index) => {
             return ( 
-              <div className="citySelectionBox" style={{ backgroundColor: randomColor() }} key={index} onClick={ ()=> props.onSelectClick(item) }>
-                <h2 className="marginT40p">{ item }</h2>
-              </div>
+              <Link to="restaurantbrowser" state={ item }>
+                <div className="citySelectionBox" style={{ backgroundColor: randomColor() }} key={index} /* onClick={ ()=> props.onSelectClick(item.city) } */>
+                    <h2 className="marginT40p">{ item }</h2>
+                </div>
+              </Link>
             )
           })
         }

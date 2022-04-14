@@ -14,7 +14,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+<<<<<<< HEAD
+import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
+
+=======
+@CrossOrigin
+>>>>>>> ed35d5cf03e2038fedbb863eea0024ab74173e13
 @RestController
 public class MenuRestAPI {
 
