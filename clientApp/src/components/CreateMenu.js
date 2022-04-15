@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function CreateMenu() {
+export default function Ruokalistanluonti() {
     
     function lisays() {
         document.getElementById("lisays").innerHTML = "Tuote lisätty!";
@@ -46,12 +46,14 @@ export default function CreateMenu() {
            <label>Kuvaus:</label><input></input>
         
        <div className='vaihdabutton'> 
-         <button onClick={lisays}>Lisää tuote</button> <p id="lisays"></p> <br></br>
-         
+         <button className='vaihdabutton' onClick={lisays}>Lisää tuote</button> 
          <button>Luo ruokalista</button> <br></br>
-         
+         <p id="lisays"></p> 
          
             </div>  
+            <div className='textarea'>
+              <textarea className='menutextarea'></textarea>
+            </div>
         
 </div>
     </div>
