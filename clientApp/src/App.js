@@ -37,6 +37,7 @@ function App() {
           <Route path="/payment" element={ <Payment  />}/>
         </Routes>
       </BrowserRouter>
+      <img alt="joo" width="100%" src="https://res.cloudinary.com/dxpi72meg/image/upload/v1650015027/oki1x60wfsmh8vv2lrkx.jpg"/>
     </div>
   )
 }

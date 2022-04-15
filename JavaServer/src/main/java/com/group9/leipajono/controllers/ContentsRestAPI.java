@@ -7,12 +7,7 @@ import com.group9.leipajono.data.MenuItem;
 import com.group9.leipajono.Service.ContentsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
@@ -50,7 +45,7 @@ public class ContentsRestAPI {
             return response;
     }
 
-    @PostMapping("/editcontets")
+    @PutMapping("/editcontets")
     public String editContents(
         @RequestParam Long productId,
         @RequestParam int energyContent,
@@ -67,7 +62,7 @@ public class ContentsRestAPI {
             return response;
     }
 
-    @GetMapping("/deletecontentsbyproductid/{id}")
+    @DeleteMapping("/deletecontentsbyproductid/{id}")
     public String deleteContentsByProductId(@PathVariable long id) {
         return myContentsService.deleteContentsByProductId(id);
     }

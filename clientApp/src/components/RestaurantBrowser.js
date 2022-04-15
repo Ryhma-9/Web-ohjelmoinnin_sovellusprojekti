@@ -145,7 +145,7 @@ export default function RestaurantBrowser(props) {
       <div><span>Delivery: { parseInt(t + t * 0.1 * orders) } minutes</span></div>  // tässä lasketaan toimitusaika-arvioon avoimet tilaukset mukaan
     )
   }
-
+  console.log(restaurantList)
   return (
     <div>{ props.isCitySelected( city )}
       {/* <Header /* onSearchButtonClick={ searchHandler }  addContentToHeader={ manageHeaderContent } shoppingCartItems={ props.shoppingCart }

@@ -6,20 +6,10 @@ import com.group9.leipajono.data.Restaurant;
 import com.group9.leipajono.Service.RestaurantService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
-
-<<<<<<< HEAD
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
 
-=======
-@CrossOrigin
->>>>>>> ed35d5cf03e2038fedbb863eea0024ab74173e13
 @RestController
 public class RestaurantRestAPI {
     
@@ -82,7 +72,7 @@ public class RestaurantRestAPI {
             );
     }
 
-    @PostMapping("/editrestaurant")
+    @PutMapping("/editrestaurant")
     public String editRestaurant(
         @RequestParam Long restaurantId,
         @RequestParam String restaurantName,

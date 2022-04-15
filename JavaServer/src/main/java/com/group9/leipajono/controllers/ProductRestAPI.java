@@ -5,15 +5,12 @@ import java.util.List;
 import com.group9.leipajono.data.Product;
 import com.group9.leipajono.data.MenuItem;
 import com.group9.leipajono.Service.ProductService;
+import com.group9.leipajono.Service.PictureService;
 import com.group9.leipajono.Service.ContentsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin
 @RestController
@@ -23,6 +20,8 @@ public class ProductRestAPI {
     ProductService myProductService;
     @Autowired
     ContentsService myContentsService;
+    @Autowired
+    PictureService myPictureService;
 
     @GetMapping("/products")
     public List<Product> getProducts() {
@@ -71,7 +70,7 @@ public class ProductRestAPI {
             return myProductService.addNewProduct(productName, price, type);
     }
 
-    @PostMapping("/editproductandcontets")
+    @PutMapping("/editproductandcontets")
     public String editProductAndContens(
         @RequestParam Long productId,
         @RequestParam String productName,
@@ -87,7 +86,7 @@ public class ProductRestAPI {
             return ""+response;
     }
 
-    @PostMapping("/editproduct")
+    @PutMapping("/editproduct")
     public String editProduct(
         @RequestParam Long productId,
         @RequestParam String productName,
@@ -96,16 +95,21 @@ public class ProductRestAPI {
             return myProductService.editProduct(productId, productName, price, type);
     }
 
-    @GetMapping("/deleteproductandcontentsbyproductid/{id}")
+    @DeleteMapping("/deleteproductandcontentsbyproductid/{id}")
     public String deleteProductAndContentsByProductId(@PathVariable long id) {
         StringBuilder response = new StringBuilder();
         response.append(myProductService.deleteContentsByProductId(id) + " and " + myContentsService.deleteContentsByProductId(id));
         return ""+response;
     }
 
-    @GetMapping("/deleteproductbyproductid/{id}")
+    @DeleteMapping("/deleteproductbyproductid/{id}")
     public String deleteContentsByProductId(@PathVariable long id) {
         return myProductService.deleteContentsByProductId(id);
+    }
+
+@PostMapping("/kuvatesti")
+    public String addNewPicture(@RequestParam("file") MultipartFile file) {
+            return myPictureService.postPicture(file);
     }
 
 }
