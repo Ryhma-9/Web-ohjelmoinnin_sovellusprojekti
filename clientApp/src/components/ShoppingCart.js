@@ -7,43 +7,95 @@ import { Link, useLocation } from 'react-router-dom';
 export default function ShoppingCart(props) {
     
     const location = useLocation();
-    let cartItems = getCartItemsFromStorage();
-    const idList = [];
+    let idList = [];
+    let itemBanList = [];
     let cartItemsQty = 0;
-    idList.push(-1);
     let totalPrice = 0;
+    let cartItems = getCartItemsFromStorage();
 
     function getCartItemsFromStorage(){
         let cartItems = [];
         if(sessionStorage.getItem('cartItems') !== null){
             cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
         } 
-      
+        idGetter( cartItems );
+        
         return cartItems;
     }
 
-    function getCartItemsQuantity(){
-        cartItemsQty = sessionStorage.getItem('cartItemsLength');
-        return cartItemsQty;
-    }
+    // function cartItemSorter( cartItems){
+    //     let newCartItems = [...cartItems];
+    //     console.log(newCartItems);
+    //     let newnewCartItems = [];
 
-    function printIdList(){
-        for(let i = 0; i < idList.length; i++){
-            console.log("idList[" + i + "] = " + idList[i]);
-        }
-    }
+    //     newCartItems.forEach(item => {
+    //         let maxQty = 0;
+    //         let maxItem = item;
+    //         let flag = false;
 
-    function checkIdList(item){
+    //         idList.forEach(id => {
+    //             if(id === item.productId){
+    //             console.log("id === item.productId");
+    //             console.log(maxItem);
+    //             maxItem.qty = maxItem.qty + 1;
+    //             maxQty = maxItem.qty;
+    //             console.log("item.qty: " + item.qty);
+    //             flag = true;
+    //             console.log("flag = " + flag);
+    //             }
+    //         })
+    //         if(flag === false){
+    //             console.log("flag is false");
+    //             item.qty = 1;
+    //             console.log("item.qty: " + item.qty);
+    //             idList.push(item.productId);
+    //             console.log("item pushed into idList: " + idList[idList.length - 1]);
+    //         }
+    //         if(item.qty > maxQty){
+    //             console.log("item.qty > maxQty");
+    //             maxQty = item.qty;
+    //             maxItem = item;
+    //             console.log(maxItem);
+    //         }
+    //         newnewCartItems.push(maxItem);
+    //     });
+    //     console.log(newnewCartItems);
+    //     return newnewCartItems;
+    // }
+
+    function idGetter( cartItems ){
+
+        cartItems.forEach(item => {
+            idList.push(item.productId);
+        });
+    }
+    // function filterProducts(searchInput){
+    //     const filteredData = allProducts.filter(item => {
+    //         return Object.keys(item).some(key =>
+    //             item[key].toString().toLowerCase().includes(searchInput.toLowerCase())
+    //         );
+    //     });
+    //     setProducts(filteredData);
+    // }
+
+    // let filteredUserNames = allCustomers.filter(item=> item.userName).map(field=>field.userName);
+
+    function getCartItemsQuantity( id ){
+        console.log(id);
+        let count = 0;
         idList.forEach(i => {
-            if(item.productId === i){
-                return true;
-            } else {
-                return false;
-            }
-        });     
+            if(id === i) count++;
+            console.log(count);
+        });
+        return count;
     }
-    
 
+    // function printIdList(){
+    //     for(let i = 0; i < idList.length; i++){
+    //         console.log("idList[" + i + "] = " + idList[i]);
+    //     }
+    // }
+    
     function printItemInfo(item){
         console.log("productId: " + item.productId);
         console.log("productName: " + item.productName);
@@ -54,59 +106,46 @@ export default function ShoppingCart(props) {
         console.log("qty: " + item.qty)
     }
 
-
-    function quantityAdder(item){
-        let flag = false;
-        item.qty = 1;
-
-        idList.forEach(i => {
-            if(i === item.productId){
-                flag = true;
-            }
-        });
-
-        if(flag === true){
-            let newItem = item;
-            newItem.qty++;
-            
-        } else {
-            item.qty = 1;
-            idList.push(item.productId);
-        }
-
-        return item;
-    }
-
-    
-
     function totalItemPriceCalculator(price, qty) {
         let totalItemPrice = price * qty;
         totalPrice += totalItemPrice;
         return totalItemPrice;
     } 
 
-    const sortedList = cartItems.map((item) => {
+    function banCheck( id ){
+        console.log(itemBanList);
+        let resultFlag = false;
 
-        let newItem = quantityAdder( item );
-        // printItemInfo(item);
-        console.log("newItem: ");
-        console.log(newItem);
-        printIdList();
-
-        return newItem;
-    })
+        itemBanList.forEach(i => {
+            if(id === i){
+                resultFlag = true;
+            }
+        });
+        console.log(resultFlag);
+        return resultFlag;
+    }
     
-    const listItems = sortedList.map((item) => {
-        if(checkIdList(item)) {return null;}
-        else {
-            return ( <tr>
-                <td id="itemName"> { item.productName } </td> 
-                <td>{ item.price }</td>
-                <td>{ item.qty }</td>
-                <td> {totalItemPriceCalculator(item.price, item.qty)} {" €"}</td>
-            </tr>);
-        }
+    const listItems = cartItems.map((item) => {
+
+        idList.forEach(id => {
+            if(id === item.productId);
+        });
         
+        let quantity = getCartItemsQuantity( item.productId );
+        let banCheckFlag = banCheck(item.productId);
+
+
+        if(item !== null && banCheckFlag === false){
+            itemBanList.push(item.productId);
+            return ( <tr>
+                <td id="itemName" key="productId"> { item.productName } </td> 
+                <td>{ item.price }</td>
+                <td>{ quantity }</td>
+                <td> {totalItemPriceCalculator(item.price, quantity)} {" €"}</td>
+            </tr>); 
+        }
+        return;
+            
     });
 
     return (

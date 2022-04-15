@@ -30,8 +30,8 @@ export default function Header(props) {
   // console.log(props.isCitySelected);
   // console.log(props.isRestaurantSelected);
 
-  sessionStorage.setItem('selectedCity', props.isCitySelected);
   
+  sessionStorage.setItem('selectedCity', props.isCitySelected);
   sessionStorage.setItem('selectedRestaurant', props.isRestaurantSelected);
 
   

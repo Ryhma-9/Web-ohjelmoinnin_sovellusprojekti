@@ -16,13 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
-<<<<<<< HEAD
-import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
-
-=======
-@CrossOrigin
->>>>>>> ed35d5cf03e2038fedbb863eea0024ab74173e13
 @RestController
 public class CustomerRestAPI {
     @Autowired
