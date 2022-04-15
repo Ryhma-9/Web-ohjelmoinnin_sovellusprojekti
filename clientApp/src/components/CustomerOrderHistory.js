@@ -3,7 +3,7 @@ import React from 'react'
 export default function CustomerOrderHistory() {
     return (
     <div className='Main2'>
-        <h1>Ravintolan profiili</h1>
+        <h1>Asiakas profiili</h1>
         
     <div className='form'>
           
