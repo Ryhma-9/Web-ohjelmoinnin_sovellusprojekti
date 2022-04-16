@@ -70,6 +70,34 @@ public class ProductRestAPI {
             return myProductService.addNewProduct(productName, price, type);
     }
 
+    @PostMapping("/kuvatesti")
+    public String addNewPicture(@RequestParam("file") MultipartFile file) {
+        return myPictureService.postPicture(file);
+    }
+
+    @PostMapping("/addproductcontentsandpicture")
+    public String addNewProductContentsAndPicture(
+            @RequestParam String productName,
+            @RequestParam double price,
+            @RequestParam String[] allergens,
+            @RequestParam String ingredients,
+            @RequestParam int energyContent,
+            @RequestParam String description,
+            @RequestParam String type,
+            @RequestParam("file") MultipartFile file) {
+        String imgUrl = myPictureService.postPicture(file);
+        if (imgUrl == "Picture upload failed") {
+            return imgUrl;
+        }
+        else {
+            StringBuilder response = new StringBuilder();
+            response.append("Picture uploaded successfully, ");
+            response.append(myProductService.addNewProduct2(productName, price, type, imgUrl) + " and ");
+            response.append(myContentsService.addNewContents(myProductService.getLastProductId(), energyContent, ingredients, description, allergens));
+            return ""+response;
+        }
+    }
+
     @PutMapping("/editproductandcontets")
     public String editProductAndContens(
         @RequestParam Long productId,
@@ -105,11 +133,6 @@ public class ProductRestAPI {
     @DeleteMapping("/deleteproductbyproductid/{id}")
     public String deleteContentsByProductId(@PathVariable long id) {
         return myProductService.deleteContentsByProductId(id);
-    }
-
-@PostMapping("/kuvatesti")
-    public String addNewPicture(@RequestParam("file") MultipartFile file) {
-            return myPictureService.postPicture(file);
     }
 
 }

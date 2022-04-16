@@ -52,7 +52,7 @@ public class MenuItem {
         this.type = type;
         this.productImg = productImg;
     }
-
+/*
     public MenuItem(
             Long productId,
             String productName,
@@ -68,7 +68,7 @@ public class MenuItem {
         this.description = "initialized";
         this.type = type;
         this.productImg = null;
-    }
+    }*/
 
     public Long getProductId() {
         return productId;

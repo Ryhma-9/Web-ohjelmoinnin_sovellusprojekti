@@ -87,6 +87,41 @@ public class RestaurantService {
             }        
     }
 
+    public String addNewRestaurantAndPicture(
+            String restaurantName,
+            String restaurantAddress,
+            String restaurantUserName,
+            String restaurantEmail,
+            String restaurantPhoneNumber,
+            String restaurantStyle,
+            String restaurantPriceRange,
+            String restaurantCity,
+            String openinghours,
+            int restaurantRating,
+            String restaurantImg) {
+            try {
+                Restaurant r = new Restaurant(
+                    myRestaurantRepository.getMaxRestaurantId()+1,
+                    restaurantName,
+                    restaurantAddress, 
+                    restaurantUserName,
+                    restaurantEmail,
+                    restaurantPhoneNumber, 
+                    restaurantStyle, 
+                    restaurantPriceRange,
+                    restaurantCity,
+                    openinghours,
+                    restaurantRating,
+                    restaurantImg
+                );
+                myRestaurantRepository.save(r);
+                return "Restaurant added successfully";
+            }
+            catch (Exception e) {
+                return "Restaurant addition failed";
+            }        
+    }
+
     public String editRestaurant(
         Long restaurantId,
         String restaurantName,
