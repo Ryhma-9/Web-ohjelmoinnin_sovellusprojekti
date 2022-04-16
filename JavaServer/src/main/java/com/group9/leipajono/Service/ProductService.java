@@ -64,7 +64,7 @@ public class ProductService {
 
     public MenuItem getProductAndContentsById(long id) {
         Product p = myProductRepository.findByProductId(id);
-        MenuItem mi = new MenuItem(id, p.getProductName(), p.getPrice(), p.getType());
+        MenuItem mi = new MenuItem(id, p.getProductName(), p.getPrice(), p.getType(), p.getProductImg());
         List<Contents> contents = myContentsRepository.findByProductId(id);
         String[] allergens = new String[contents.size()];
         int i = 0;
@@ -94,6 +94,17 @@ public class ProductService {
         catch (Exception e) {
             return "Product addition failed";
         }        
+    }
+
+    public String addNewProduct2(String productName, Double price, String type, String imgUrl) {
+        try {
+            Product p = new Product(myProductRepository.getMaxProductId()+1, productName, price, type, imgUrl);
+            myProductRepository.save(p);
+            return "Product added successfully";
+        }
+        catch (Exception e) {
+            return "Product addition failed";
+        }
     }
 
     public String editProduct(Long productId, String productName, Double price, String type) {

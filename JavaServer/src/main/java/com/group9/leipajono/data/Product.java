@@ -25,6 +25,10 @@ public class Product {
     public String type;
     // public Types_enum type;
 
+    @Column(name="productimg")
+    public String productImg;
+
+
     public Product(){}
 
     public Product(
@@ -38,6 +42,22 @@ public class Product {
             this.productName = productName;
             this.price = price;
             this.type = type;
+            this.productImg = null;
+    }
+
+    public Product(
+            Long productId,
+            String productName,
+            Double price,
+            String type,
+            // Types_enum type
+            String productImg
+    ){
+        this.productId = productId;
+        this.productName = productName;
+        this.price = price;
+        this.type = type;
+        this.productImg = productImg;
     }
 
     public String getProductName() {
@@ -64,4 +84,11 @@ public class Product {
         this.type = type;
     }
 
+    public String getProductImg() {
+        return productImg;
+    }
+
+    public void setProductImg(String productImg) {
+        this.productImg = productImg;
+    }
 }
