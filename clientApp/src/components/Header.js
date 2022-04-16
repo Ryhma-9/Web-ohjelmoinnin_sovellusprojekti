@@ -54,7 +54,7 @@ export default function Header(props) {
     <div className="stickyHeader flex ">
 
       <div className="logoContainer W230">
-        <Link to="/" onClick={sessionStorage.clear}>
+        <Link to="/" /* onClick={sessionStorage.clear} */>
           <img className="logo" alt="LOGO PLACEHOLDER"  width="100%" src="placeholder.jpg"/>
           </Link>
       </div>

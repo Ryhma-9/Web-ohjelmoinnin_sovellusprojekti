@@ -1,30 +1,33 @@
-import React from 'react'
+import React, { useState} from 'react'
 import './Shop.css';
 import Header from './Header'
 import './Shop.css'
-import { Route, Link } from 'react-router-dom'
+import { Route, Link, useLocation } from 'react-router-dom'
+import PaymentMethodView from './PaymentMethodView'
 
 
 export default function Payment(props) {
+    
+    const [ trigger, setTrigger] = useState(false);
+    // const location = useLocation();
+    // const delivBool = location.state;
+    // console.log("delivBool");
+    // console.log(props.delivery);
+    // console.log("delivBool");
+    console.log("payment trigger");
+    console.log(trigger);
 
-    function noVisa() {
-        alert('EI KÄY VISA!!');
-    }
-
-    function noCash() {
-        alert('EI KÄY KÄTEINEN!!');
-    }
 
   return (
     <div className='payment'>
-        {console.log(props)}
         {/* <Header shoppingCartItems={ props.shoppingCartItems } logIn={ props.loggedIn } logOut={ props.logOut } onHeaderButtonClick={ props.headerButtons } prevScene = { props.prevScene }/> */}
-        <div><h2>Anna visa tai heitä käteistä</h2></div>
+        <div><h2>Please provide a Visa or throw some cash</h2></div>
+        <div><h3>Your total price is: { sessionStorage.getItem('totalPrice') }</h3><br/></div>
+        <div><p>Delivery is {  }</p></div>
+        <PaymentMethodView trigger={ trigger } triggerer={() => setTrigger(!trigger)} />
         <div className='paymentbuttons'>
-            <button onClick={noVisa}>Visa</button>
-            <button onClick={noCash}>Käteistä</button>
+            <button onClick={ () => setTrigger(!trigger) }>Choose your method of payment</button>
         </div>
-        
     </div>
   )
 }

@@ -3,17 +3,21 @@ import './Shop.css';
 import Header from './Header';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import axios from 'axios';
 
-export default function ShoppingCart(props) {
+export default function ShoppingCart() {
     
+    let orderId = 0;
+
     const location = useLocation();
     let idList = [];
     let itemBanList = [];
-    let cartItemsQty = 0;
     let totalPrice = 0;
     let cartItems = getCartItemsFromStorage();
 
-    function getCartItemsFromStorage(){
+    const [ delivery, setDelivery ] = useState(false);
+
+    function getCartItemsFromStorage(){     //Hakee ostoskorin sisällön sessionStoragesta
         let cartItems = [];
         if(sessionStorage.getItem('cartItems') !== null){
             cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
@@ -23,80 +27,34 @@ export default function ShoppingCart(props) {
         return cartItems;
     }
 
-    // function cartItemSorter( cartItems){
-    //     let newCartItems = [...cartItems];
-    //     console.log(newCartItems);
-    //     let newnewCartItems = [];
 
-    //     newCartItems.forEach(item => {
-    //         let maxQty = 0;
-    //         let maxItem = item;
-    //         let flag = false;
-
-    //         idList.forEach(id => {
-    //             if(id === item.productId){
-    //             console.log("id === item.productId");
-    //             console.log(maxItem);
-    //             maxItem.qty = maxItem.qty + 1;
-    //             maxQty = maxItem.qty;
-    //             console.log("item.qty: " + item.qty);
-    //             flag = true;
-    //             console.log("flag = " + flag);
-    //             }
-    //         })
-    //         if(flag === false){
-    //             console.log("flag is false");
-    //             item.qty = 1;
-    //             console.log("item.qty: " + item.qty);
-    //             idList.push(item.productId);
-    //             console.log("item pushed into idList: " + idList[idList.length - 1]);
-    //         }
-    //         if(item.qty > maxQty){
-    //             console.log("item.qty > maxQty");
-    //             maxQty = item.qty;
-    //             maxItem = item;
-    //             console.log(maxItem);
-    //         }
-    //         newnewCartItems.push(maxItem);
-    //     });
-    //     console.log(newnewCartItems);
-    //     return newnewCartItems;
-    // }
-
-    function idGetter( cartItems ){
+    function idGetter( cartItems ){         //Listaa cartItems-taulukon esineiden id-numerot idList-taulukkoon
 
         cartItems.forEach(item => {
             idList.push(item.productId);
         });
     }
-    // function filterProducts(searchInput){
-    //     const filteredData = allProducts.filter(item => {
-    //         return Object.keys(item).some(key =>
-    //             item[key].toString().toLowerCase().includes(searchInput.toLowerCase())
-    //         );
-    //     });
-    //     setProducts(filteredData);
-    // }
+    
 
-    // let filteredUserNames = allCustomers.filter(item=> item.userName).map(field=>field.userName);
-
-    function getCartItemsQuantity( id ){
-        console.log(id);
+    function getCartItemsQuantity( id ){    //Laskee kunkin ostoskärry-tuotteen lukumäärän
         let count = 0;
         idList.forEach(i => {
             if(id === i) count++;
-            console.log(count);
         });
         return count;
     }
 
-    // function printIdList(){
-    //     for(let i = 0; i < idList.length; i++){
-    //         console.log("idList[" + i + "] = " + idList[i]);
-    //     }
+    // function createOrder(){
+    //     const body = [restaurant.restaurantId, ]
+    //     await axios.post('http://localhost:8080/addorder');
     // }
+
+    // async function getData() {
+    //     const results = await axios.get('http://localhost:8080/restaurantcities');
+    //     return results.data;
+    //   }
     
-    function printItemInfo(item){
+    function printItemInfo(item){           //Debuggaukseen käytetty funktio. Tulostaa konsolille tuotteen infot.
         console.log("productId: " + item.productId);
         console.log("productName: " + item.productName);
         console.log("price: " + item.price);
@@ -106,15 +64,14 @@ export default function ShoppingCart(props) {
         console.log("qty: " + item.qty)
     }
 
-    function totalItemPriceCalculator(price, qty) {
-        let totalItemPrice = price * qty;
-        totalPrice += totalItemPrice;
+    function totalItemPriceCalculator(price, qty) {     //Laskee kaikkien ostoskärryssä olevien, saman id:n omaavien tuotteiden yhteishinnan
+        let totalItemPrice = price * qty;                 
         return totalItemPrice;
     } 
 
-    function banCheck( id ){
-        console.log(itemBanList);
-        let resultFlag = false;
+    function banCheck( id ){                            //Tarkistaa onko tietty tuote tulostuskieltolistalla. Kun menuBrowser-näkymässä klikataan tuotetta,  
+        console.log(itemBanList);                       //lisätään se sessionStorageen omalle rivilleen. Tämä funktio rajaa, että jokaista productId-numeroa kohden 
+        let resultFlag = false;                         //tulostetaan shoppingCart-näkymään vain yksi rivi, johon perään on ilmoitettu tuotteiden lukumäärä. 
 
         itemBanList.forEach(i => {
             if(id === i){
@@ -124,8 +81,13 @@ export default function ShoppingCart(props) {
         console.log(resultFlag);
         return resultFlag;
     }
+    function refreshPage(){
+        console.log("päpäpäpä")
+        sessionStorage.clear('cartItems');
+        window.location.reload(false);
+    }
     
-    const listItems = cartItems.map((item) => {
+    const listItems = cartItems.map((item) => {         //Tulostaa tuotteen tiedot shoppingCart-näkymään. 
 
         idList.forEach(id => {
             if(id === item.productId);
@@ -133,25 +95,26 @@ export default function ShoppingCart(props) {
         
         let quantity = getCartItemsQuantity( item.productId );
         let banCheckFlag = banCheck(item.productId);
+        let totalPricePerUnit = totalItemPriceCalculator(item.price, quantity);
 
+        if(item !== null && banCheckFlag === false){        //banCheckFlagilla tarkistetaan, ettei samaa tuotetta tulosteta moneen kertaan.
+            totalPrice += totalPricePerUnit;
+            sessionStorage.setItem('totalPrice', totalPrice);
 
-        if(item !== null && banCheckFlag === false){
             itemBanList.push(item.productId);
             return ( <tr>
                 <td id="itemName" key="productId"> { item.productName } </td> 
                 <td>{ item.price }</td>
                 <td>{ quantity }</td>
-                <td> {totalItemPriceCalculator(item.price, quantity)} {" €"}</td>
+                <td>{ totalPricePerUnit } {" €"}</td>
             </tr>); 
         }
-        return;
-            
+        return;    
     });
 
+
     return (
-        <div>
-            {/* <Header shoppingCartItems={ props.shoppingCartItems } logIn={ props.loggedIn } logOut={ props.logOut } onHeaderButtonClick={ props.headerButtons } prevScene = { props.prevScene }
-            /> */}
+        <div > 
             <div className="shoppingCartView">
                 <h1>Ostoskori</h1>
                     <table id="shoppingCartTable">
@@ -171,16 +134,22 @@ export default function ShoppingCart(props) {
                                 <td>Total Price: </td>
                                 <td></td>
                                 <td></td>
-                                <td> {totalPrice} {" €"}</td>
+                                <td>{ totalPrice }{" €"}</td>
                             </tr>
                             <tr>
-                                <td></td>    
+                                <td><button onClick={ () => refreshPage()} >Clear Cart</button></td>    
                                 <td></td>
-                                <td></td>
-                                <td><Link to="/payment"><button id="btnpay">Maksamaan</button></Link></td>
+                                <td><div className="kotiinkuljetus">
+                                    Kotiinkuljetus 
+                                    <input 
+                                        onChange={ () => setDelivery(delivery)}
+                                        id="kotiinkuljetus" 
+                                        type="checkbox" />
+                                    </div>
+                                </td>
+                                <td><Link to="/payment" props={ delivery }><button id="btnpay" /* onClick={ createOrder() } */>Maksamaan</button></Link></td>
                             </tr>
                         </tbody>
-                        
                     </table>
             </div>
         </div>

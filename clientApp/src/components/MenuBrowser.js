@@ -10,12 +10,15 @@ import { useLocation } from 'react-router-dom'
 
 export default function MenuBrowser(props) {
 
-  let selectedCity = "";
-
   const location = useLocation();
   const restaurant = location.state;
   const restaurantName = location.state.restaurantName;
-  const restaurantCity = location.state.restaurantCity;
+
+  // const restaurantCity = location.state.restaurantCity;
+
+
+
+
   // console.log("sessionstorage" + sessionStorage.getItem('selectedCity'))
 
   // if (sessionStorage.getItem('selectedCity' !== ""))
@@ -131,35 +134,7 @@ export default function MenuBrowser(props) {
     const results = await axios.get('http://localhost:8080/menuitemsbyrestaurantid/' + restaurant.restaurantId);
     return results.data;
   }
-
-  const [ shoppingCartItems, setShoppingCartItems ] = useState([]);
-  // Funktio, jolla lisätään tuote ostoskoriin tai jos tuote on jo korissa lisätään sen määrää
   
-//   const shoppingCartTesting = (item) => { 
-//   let newShoppingCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
-//   let itemClickedIndex = newShoppingCartItems.findIndex(i => item.productId === i.productId)
-//   if (itemClickedIndex !== -1) {
-//     let newElement = {...newShoppingCartItems[itemClickedIndex]}
-//     newElement.qty += 1;
-//     newShoppingCartItems[itemClickedIndex] = newElement;
-//   }
-//   else {
-//     let newElement = [...newShoppingCartItems,
-//     {
-//       id : shoppingCartItems.length + 1,
-//       productId : item.productId,
-//       name : item.productName,
-//       price : item.price,
-//       qty : 1
-//     }]
-//     newShoppingCartItems = newElement;
-//   }
-//   setShoppingCartItems(newShoppingCartItems);
-//   JSON.stringify(sessionStorage.setItem('cartItems', newShoppingCartItems));
-//   console.log(item.productName + " added to cart");
-//   console.log(newShoppingCartItems);
-// }
-//   // Listataan menun tuotekategoriat
   function listCategories(data) {
     let menuCategoryList =[];
     let categoryList = new Set()
@@ -300,6 +275,7 @@ export default function MenuBrowser(props) {
     </div>
     )
   }
+
 
   return (
     <div>{props.isRestaurantSelected( restaurantName )} {/* {props.isCitySelected( selectedCity )} */}

@@ -34,6 +34,7 @@ public class RestaurantRestAPI {
         Restaurant restaurant = myRestaurantService.getRestaurantById(id);
         return restaurant;
     }
+    
 
     @GetMapping("/restaurantcities")
     public String[] getCities() {

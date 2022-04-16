@@ -14,8 +14,10 @@ export default function RestaurantBrowser(props) {
   // sessionStorage.setItem('selectedCity', props.city);
 
   const location = useLocation();
-  const city = location.state;
-  let selectedCity = "";
+  let city = location.state;
+  if(city === null) city = sessionStorage.getItem('selectedCity');
+
+  /* let selectedCity = ""; */
 
   // if (sessionStorage.getItem('selectedCity' === ""))
   // {
@@ -113,7 +115,7 @@ export default function RestaurantBrowser(props) {
     return (
       <div className="flex">
         <button className="cityButton" type="button" onClick={ ()=> removeSelection("") }>
-          <span>{ selectedCity } <FontAwesomeIcon style={{ color: 'crimson' }} icon={ faXmark }/></span>
+          {/* <span>{ selectedCity } <FontAwesomeIcon style={{ color: 'crimson' }} icon={ faXmark }/></span> */}
         </button>
         <div className="restaurantStyleButtons flex">
           { manageRestaurantStyleButtons() }
