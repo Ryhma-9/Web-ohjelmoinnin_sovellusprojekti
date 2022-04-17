@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import './LogInBox.css';
 import jwt_decode from "jwt-decode";
+import { Link } from 'react-router-dom';
 
 export default function CustomerProfile(props) {
 const [userName, setUserName] = useState("");
@@ -36,6 +37,9 @@ return (props.trigger) ? (
         </div>
         <div>
         <button className="check-btn" onClick={() => { handleToken() } }>Check User Information</button>
+        </div>
+        <div>
+          <Link to="/restaurantprofile"><button className="edit-btn" >Edit profile</button></Link>
         </div>
         {props.children}
       </div> 

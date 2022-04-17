@@ -74,7 +74,7 @@ export default function Header(props) {
 
       <div className="logoContainer W230">
         <Link to="/" onClick={sessionStorage.clear}>
-          <img className="logo" alt="LOGO PLACEHOLDER"  width="100%" src="placeholder.jpg"/>
+          <img className="logo" alt="LOGO PLACEHOLDER"  width="100%" src="leipä.png"/>
           </Link>
       </div>
       <div>
