@@ -1,9 +1,11 @@
 package com.group9.leipajono.controllers;
 
 import java.util.List;
+
 import com.group9.leipajono.Service.PictureService;
 import com.group9.leipajono.data.Restaurant;
 import com.group9.leipajono.Service.RestaurantService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -136,4 +138,5 @@ public class RestaurantRestAPI {
                 restaurantRating
             );
     }
+
 }

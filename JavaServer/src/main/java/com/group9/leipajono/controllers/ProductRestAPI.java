@@ -1,11 +1,13 @@
 package com.group9.leipajono.controllers;
 
 import java.util.List;
+
 import com.group9.leipajono.data.Product;
 import com.group9.leipajono.data.MenuItem;
 import com.group9.leipajono.Service.ProductService;
 import com.group9.leipajono.Service.PictureService;
 import com.group9.leipajono.Service.ContentsService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -132,4 +134,5 @@ public class ProductRestAPI {
     public String deleteContentsByProductId(@PathVariable long id) {
         return myProductService.deleteContentsByProductId(id);
     }
+
 }

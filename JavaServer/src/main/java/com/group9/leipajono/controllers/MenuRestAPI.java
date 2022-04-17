@@ -1,9 +1,11 @@
 package com.group9.leipajono.controllers;
 
 import java.util.List;
+
 import com.group9.leipajono.data.Menu;
 import com.group9.leipajono.data.MenuItem;
 import com.group9.leipajono.Service.MenuService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,4 +67,5 @@ public class MenuRestAPI {
         @RequestParam Long menuNumber) {
             return myMenuService.removeMenuFromProduct(restaurantId, productId, menuNumber);
     }
+
 }

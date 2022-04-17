@@ -19,3 +19,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT coalesce(max(p.id), 0) FROM Product p")
     Long getMaxProductId();
 }
+
+

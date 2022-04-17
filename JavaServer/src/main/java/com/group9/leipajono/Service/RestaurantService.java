@@ -2,9 +2,12 @@ package com.group9.leipajono.Service;
 
 import java.util.List;
 import java.util.Arrays;
+
 import javax.annotation.PostConstruct;
+
 import com.group9.leipajono.data.Restaurant;
 import com.group9.leipajono.repositories.RestaurantRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
