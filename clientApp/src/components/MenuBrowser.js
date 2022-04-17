@@ -10,12 +10,19 @@ import { useLocation } from 'react-router-dom'
 
 export default function MenuBrowser(props) {
 
-  let selectedCity = "";
-
+  
   const location = useLocation();
   const restaurant = location.state;
+  const restaurantId = location.state.restaurantId;
   const restaurantName = location.state.restaurantName;
-  const restaurantCity = location.state.restaurantCity;
+
+  console.log(restaurant.restaurantId);
+
+  // const restaurantCity = location.state.restaurantCity;
+
+
+
+
   // console.log("sessionstorage" + sessionStorage.getItem('selectedCity'))
 
   // if (sessionStorage.getItem('selectedCity' !== ""))
@@ -131,8 +138,7 @@ export default function MenuBrowser(props) {
     const results = await axios.get('http://localhost:8080/menuitemsbyrestaurantid/' + restaurant.restaurantId);
     return results.data;
   }
-
-  // Listataan menun tuotekategoriat
+  
   function listCategories(data) {
     let menuCategoryList =[];
     let categoryList = new Set()
@@ -273,6 +279,7 @@ export default function MenuBrowser(props) {
     </div>
     )
   }
+
 
   return (
     <div>{props.isRestaurantSelected( restaurantName )} {/* {props.isCitySelected( selectedCity )} */}
