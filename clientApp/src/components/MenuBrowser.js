@@ -252,7 +252,7 @@ export default function MenuBrowser(props) {
           SE = Sesame seeds
           SO = Soybeans
           SU = Sulfur dioxide and sulphites
-          t  = Tree nuts
+          T  = Tree nuts
         `}</pre>
         <div>
           <button className="" onClick={ ()=> setAllergyInfoVisibility(false) }> OK </button>

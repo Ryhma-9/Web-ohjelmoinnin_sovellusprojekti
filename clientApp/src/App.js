@@ -6,6 +6,7 @@ import RestaurantBrowser from './components/RestaurantBrowser';
 import MenuBrowser from './components/MenuBrowser';
 import ShoppingCart from './components/ShoppingCart';
 import Payment from './components/Payment';
+import Testinurkka from './components/Testinurkka';
 import Header from './components/Header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faInfo } from '@fortawesome/free-solid-svg-icons'
@@ -35,9 +36,10 @@ function App() {
           <Route path="/menubrowser" element={<MenuBrowser isRestaurantSelected = { (selectedRestaurant) => { setSelectedRestaurant(selectedRestaurant)}}/>}/>
           <Route path="/shoppingcart" element={<ShoppingCart  /* Shoppings={ (shoppingCartItems) => { setShoppingCartItems(shoppingCartItems)}} *//>} />
           <Route path="/payment" element={ <Payment  />}/>
+          <Route path="/testi" element={ <Testinurkka  />}/>
         </Routes>
       </BrowserRouter>
-      <img alt="joo" width="100%" src="https://res.cloudinary.com/dxpi72meg/image/upload/v1650015027/oki1x60wfsmh8vv2lrkx.jpg"/>
+      
     </div>
   )
 }
