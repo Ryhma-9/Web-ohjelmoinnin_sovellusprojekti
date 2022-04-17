@@ -88,6 +88,7 @@ public class RestaurantRestAPI {
             @RequestParam String restaurantPriceRange,
             @RequestParam String restaurantCity,
             @RequestParam String openinghours,
+            @RequestParam int restaurantRating,
             @RequestParam("file") MultipartFile file) {
         String imgUrl = myPictureService.postPicture(file);
         if (imgUrl == "Picture upload failed") {
@@ -104,7 +105,7 @@ public class RestaurantRestAPI {
                     restaurantPriceRange,
                     restaurantCity,
                     openinghours,
-                    0,
+                    restaurantRating,
                     imgUrl
             );
         }

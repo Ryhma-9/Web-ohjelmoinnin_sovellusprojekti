@@ -13,10 +13,10 @@ public class PictureService {
 
     public String postPicture(MultipartFile file) {
         Cloudinary c = new Cloudinary(ObjectUtils.asMap(
-            "cloud_name", "PIILOTETTU, LÖYTYY TEAMSISTA",
-            "api_key", "PIILOTETTU, LÖYTYY TEAMSISTA",
-            "api_secret", "PIILOTETTU, LÖYTYY TEAMSISTA",
-            "secure", true
+                "cloud_name", "PIILOTETTU, LÖYTYY TEAMSISTA",
+                "api_key", "PIILOTETTU, LÖYTYY TEAMSISTA",
+                "api_secret", "PIILOTETTU, LÖYTYY TEAMSISTA",
+                "secure", true
         ));
         String imageUrl = "";
         try {
