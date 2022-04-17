@@ -157,7 +157,7 @@ export default function RestaurantBrowser(props) {
         { // Ravintoloiden listauksen mappauksen yhteyteen on lisätty ravintolatyylifiltteröinti
           restaurantList.filter(item => item.restaurantStyle.includes(restauranStyle.length === 1 ? restauranStyle : "")).map((item, index) => {
             return( 
-              <Link to="/menubrowser" state={ item } props={ item }>
+              <Link to="/menubrowser" state={ item } >
                 <div className="restaurantInfoContainer flex" key={index} /* onClick={ ()=> props.onSelectClick(item) } */ >
                   <div className="restaurantImg">
                     <img alt={ item.name } width="100%" src={ item.restaurantImg }/>

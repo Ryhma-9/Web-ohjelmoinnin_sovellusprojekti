@@ -1,7 +1,6 @@
 import React from 'react'
 import './Shop.css';
 import { useEffect, useState } from 'react';
-import Header from './Header';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 

@@ -10,9 +10,13 @@ import { useLocation } from 'react-router-dom'
 
 export default function MenuBrowser(props) {
 
+  
   const location = useLocation();
   const restaurant = location.state;
+  const restaurantId = location.state.restaurantId;
   const restaurantName = location.state.restaurantName;
+
+  console.log(restaurant.restaurantId);
 
   // const restaurantCity = location.state.restaurantCity;
 

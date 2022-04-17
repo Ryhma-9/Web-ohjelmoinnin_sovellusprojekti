@@ -1,29 +1,61 @@
 import React from 'react';
-import axios from 'axios'
 
 export default function PaymentMethodView(props){
 
-  console.log("props.trigger: ");
-  console.log(props.trigger);
+  console.log("props.bankselecttrigger: ");
+  console.log(props.bankselecttrigger);
+
+  const banks = [
+    {
+      name: "Nuurdea"
+    },
+    {
+      name: "Dogebank"
+    },
+    {
+      name: "DönskseBank"
+    },
+    {
+      name: "HosuusPankki"
+    },
+    {
+      name: "JyystöPankki"
+    },
+    {
+      name: "Ääs-Pankki"
+    },
+    {
+      name: "Peran rehellinen rahanlainaamo"
+    },
+    {
+      name: "Joku muu, mikä?"
+    }
+  ];
 
 
-  return (props.trigger) ? (
+
+  function paymentMethodHandler(){
+    props.bankselector(!props.bankselecttrigger);
+    props.processingview(!props.processingviewtrigger);
+    // closeTimer();
+  }
+
+  return (props.bankselecttrigger) ? (
     <div className="popup">
         <div className="popup-inner" >
           <h2>Payment Methods</h2>
             <div className="paymentMethodContainer">
-              <div className="paymentMethodElement">Nurdea</div>
-              <div className="paymentMethodElement">Dogebank</div>
-              <div className="paymentMethodElement">DönskseBank</div>
-              <div className="paymentMethodElement">HosuusPankki</div>
-
-              <div className="paymentMethodElement">JyystöPankki</div>
-              <div className="paymentMethodElement">Ääs-Pankki</div>
-              <div className="paymentMethodElement">Pöp-Pankki</div>
-              <div className="paymentMethodElement">Jokuvittu</div>
-
+              {
+                banks.map(bank => {
+                  return (
+                    <div className="paymentMethodElement" onClick={() => paymentMethodHandler()}>
+                      <p>{bank.name}</p>
+                    </div>
+                  )
+                })
+              }
             </div>
-            <button className="btn-close" onClick={() => props.triggerer(!props.trigger)}>Close</button>
+            <button className="btn-close" onClick={() => props.bankselector(!props.bankselecttrigger)}>Close</button>
         </div> 
     </div>
   ) : "";

@@ -447,6 +447,19 @@ img{
     text-align: center;
 }
 
+.popup-inner-small {
+    position: relative;
+    width: 15%;
+    min-height: 150px;
+    background-color: #fff;
+    border: 1px solid #999;
+    border-radius:4px;
+    margin: 20px auto;
+    padding: 20px;
+    overflow: auto;
+    text-align: center;
+}
+
 .btn-close {
     cursor: pointer;
     border: 1px solid #999;
