@@ -22,16 +22,17 @@ export default function Header(props) {
 
   const [jwtToken, setJwtToken] = useState(null);
 
-  function printToken(){
-    props.loggedIn( jwtToken );
-  }
   let counter = 1;
   if (jwtToken !== null && counter === 1){ 
-    printToken();
+    deliverTokenToApp();
     counter++; 
   }
   function setCounter(){
     counter = 1;
+    deliverTokenToApp();
+  }
+  function deliverTokenToApp(){
+    props.loggedIn( jwtToken );
   }
 
   // Tällä funktiolla haetaan ostoskorin tuotteet ja lasketaan tuotteiden lukumäärä
@@ -93,7 +94,7 @@ export default function Header(props) {
           <div className="menuElement W230 shoppingCart">
             <Link to="/shoppingcart" ><button className="shoppingCartButton" type="button" 
               /* onClick={ ()=> props.passShoppingCartToApp ? [props.passShoppingCartToApp(), props.onHeaderButtonClick("ShopingCart")] : props.onHeaderButtonClick("ShopingCart") } */>
-                <span>Shoping Cart <FontAwesomeIcon icon={ faShoppingCart }/>{ itemsInCart() > 0 && itemsInCart() !== null  ? 
+                <span>Shopping Cart <FontAwesomeIcon icon={ faShoppingCart }/>{ itemsInCart() > 0 && itemsInCart() !== null  ? 
                   <span className="shoppinCartItems">{ itemsInCart() }</span> 
                   : 
                   null }
@@ -144,4 +145,3 @@ export default function Header(props) {
     </div>
   )
 }
-

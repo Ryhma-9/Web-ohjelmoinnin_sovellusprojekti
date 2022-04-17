@@ -72,7 +72,7 @@ public class CustomerRestAPI {
     @GetMapping("/private")
     public ResponseEntity<Customer> getPrivate(@RequestHeader("authorization") String bearer){
         Customer custo = customerSecurity.validateBearerToken(bearer);
-        
+        System.out.println("tultiin privaattiin alueeseen");
         if (custo.role == Role.ADMIN || custo.role == Role.RESTAURANT){
             return new ResponseEntity<>(custo, HttpStatus.OK);
         }

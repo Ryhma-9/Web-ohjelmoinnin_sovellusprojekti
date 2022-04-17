@@ -2,12 +2,9 @@ package com.group9.leipajono.Service;
 
 import java.util.List;
 import java.util.Arrays;
-
 import javax.annotation.PostConstruct;
-
 import com.group9.leipajono.data.Restaurant;
 import com.group9.leipajono.repositories.RestaurantRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -78,6 +75,41 @@ public class RestaurantService {
                     restaurantCity,
                     openinghours,
                     restaurantRating
+                );
+                myRestaurantRepository.save(r);
+                return "Restaurant added successfully";
+            }
+            catch (Exception e) {
+                return "Restaurant addition failed";
+            }        
+    }
+
+    public String addNewRestaurantAndPicture(
+            String restaurantName,
+            String restaurantAddress,
+            String restaurantUserName,
+            String restaurantEmail,
+            String restaurantPhoneNumber,
+            String restaurantStyle,
+            String restaurantPriceRange,
+            String restaurantCity,
+            String openinghours,
+            int restaurantRating,
+            String restaurantImg) {
+            try {
+                Restaurant r = new Restaurant(
+                    myRestaurantRepository.getMaxRestaurantId()+1,
+                    restaurantName,
+                    restaurantAddress, 
+                    restaurantUserName,
+                    restaurantEmail,
+                    restaurantPhoneNumber, 
+                    restaurantStyle, 
+                    restaurantPriceRange,
+                    restaurantCity,
+                    openinghours,
+                    restaurantRating,
+                    restaurantImg
                 );
                 myRestaurantRepository.save(r);
                 return "Restaurant added successfully";

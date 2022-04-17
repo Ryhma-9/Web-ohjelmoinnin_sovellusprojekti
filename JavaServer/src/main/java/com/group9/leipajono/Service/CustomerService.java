@@ -1,13 +1,11 @@
 package com.group9.leipajono.Service;
 
-import javax.annotation.PostConstruct;
 import com.group9.leipajono.data.Customer;
 import com.group9.leipajono.repositories.CustomerRepository;
 import com.group9.leipajono.security.PasswordEncoder;
 import com.group9.leipajono.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

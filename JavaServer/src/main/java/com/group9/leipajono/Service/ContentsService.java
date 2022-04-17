@@ -1,9 +1,7 @@
 package com.group9.leipajono.Service;
 
 import java.util.List;
-
 import javax.annotation.PostConstruct;
-
 import com.group9.leipajono.data.Contents;
 import com.group9.leipajono.repositories.ContentsRepository;
 import org.hibernate.mapping.Array;

@@ -1,12 +1,9 @@
 package com.group9.leipajono.Service;
 
 import java.util.List;
-
 import javax.annotation.PostConstruct;
-
 import com.group9.leipajono.data.Payment;
 import com.group9.leipajono.repositories.PaymentRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.sql.Timestamp;

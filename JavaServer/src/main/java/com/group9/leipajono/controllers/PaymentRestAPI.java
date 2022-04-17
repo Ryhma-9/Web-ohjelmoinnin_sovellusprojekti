@@ -1,10 +1,8 @@
 package com.group9.leipajono.controllers;
 
 import java.util.List;
-
 import com.group9.leipajono.data.Payment;
 import com.group9.leipajono.Service.PaymentService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,5 +35,4 @@ public class PaymentRestAPI {
         @RequestParam Double totalPrice) {
             return myPaymentService.addNewPayment(orderId, paymentMethod, totalPrice);
     }
-
 }
