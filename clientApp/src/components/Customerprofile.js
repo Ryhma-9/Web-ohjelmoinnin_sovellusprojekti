@@ -1,33 +1,54 @@
-import React from 'react'
+import React, {useState} from 'react'
+import './LogInBox.css';
+import jwt_decode from "jwt-decode";
+import { Link } from 'react-router-dom';
 
-export default function Customerprofile() {
-    return (
-        <div className='Main2'>
-            <h1>Asiakas profiili</h1>
-        
-        <div className='form'>
-          
-          <div className='formbuttons'>
-          <button>Muokkaa tietoja</button>
-          <button>Tilaushistoria</button>
-          <button><b>Takaisin</b></button>
+export default function CustomerProfile(props) {
+const [userName, setUserName] = useState("");
+const [role, setRole] = useState("");
+const [customerId, setCustomerId] = useState("");
+var jwtToken = sessionStorage.getItem("token");
+
+function handleToken(){
+  var decoded = jwt_decode(jwtToken);
+  console.log(decoded);
+  setUserName(decoded.sub);
+  setRole(decoded.role);
+  setCustomerId(decoded.customerid)
+}
+
+return (props.trigger) ? (
+  <div className="popup">
+      <div className="popup-inner">
+      <h2>User Information</h2>
+        <form>
+          <div>
+            Username: <br/>
+            {userName}
           </div>
-            <div className='forminner'>
-               <div><label>Nimi:</label></div><input></input>
-           <label>Osoite:</label><input></input>
-           <label>Puhelin:</label><input></input>
-           <label>Käyttäjänimi:</label><input></input>
-           <label>Salasana:</label><input></input>
-            
-           <div className='vaihdabutton'> 
-             <button>Vaihda tiedot</button> <br></br>
-             
-             
-                </div>  
-            
-    </div>
+          <div>
+            Role: <br/>
+            {role}
+          </div>
+          <div>
+            Customer ID: <br/>
+            {customerId}
+          </div>
+        </form>
+        <div>
+        <button className="close-btn" onClick={() => props.setTrigger(false)}>Close</button>
         </div>
+        <div>
+        <button className="logout-btn" onClick={() => { sessionStorage.removeItem("token") ; props.setTrigger(false); }}>Logout</button>
         </div>
-      )
-    }
-    
+        <div>
+        <button className="check-btn" onClick={() => { handleToken() } }>Check User Information</button>
+        </div>
+        <div>
+          <Link to="/restaurantprofile"><button className="edit-btn" >Edit profile</button></Link>
+        </div>
+        {props.children}
+      </div> 
+  </div>
+) : "";
+}

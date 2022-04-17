@@ -10,10 +10,10 @@ import Header from './components/Header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faInfo } from '@fortawesome/free-solid-svg-icons'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import RestaurantProfile from './components/RestaurantProfile';
 
 
 function App() {
-
   // Jotain toiminnallisuutta kaupungin valinnan hallintaan
   const [ selectedCity, setSelectedCity ] = useState(""); // valittu kaupunki
   const [ selectedRestaurant, setSelectedRestaurant ] = useState(""); // Ravintolan valintatieto
@@ -23,6 +23,7 @@ function App() {
   // const [ shoppingCartItems, setShoppingCartItems ] = useState([]);    // Ostoskorin sisältö tallennetaan tähän. Ainakin testien ajaksi
   
   sessionStorage.setItem('totalPrice', 0);
+  var jwtToken = sessionStorage.getItem("token");
 
   return (
     <div>
@@ -37,6 +38,7 @@ function App() {
           <Route path="/menubrowser" element={<MenuBrowser isRestaurantSelected = { (selectedRestaurant) => { setSelectedRestaurant(selectedRestaurant)}}/>}/>
           <Route path="/shoppingcart" element={<ShoppingCart shoppingcartitemqtylist = {shoppingCartItemQtyList} deliverystatus={deliveryStatus} shoppingcartidqtylist = { (shoppingCartItemQtyList) => { setShoppingCartItemQtyList(shoppingCartItemQtyList) }} deliverystatustoggle = { (deliveryStatus) => {setDeliveryStatus(!deliveryStatus)}}/>}/>
           <Route path="/payment" element={ <Payment deliverystatuscheck = {deliveryStatus} shoppingcartitemqtylist = {shoppingCartItemQtyList}/>}/>
+          <Route path="/restaurantprofile" element={ <RestaurantProfile/>}/>
         </Routes>
       </BrowserRouter>
     </div>

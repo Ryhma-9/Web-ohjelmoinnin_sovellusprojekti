@@ -46,6 +46,9 @@ public class Restaurant {
     @Column(name = "restaurantrating")
     public int restaurantRating;
 
+    @Column(name = "restaurantimg")
+    public String restaurantImg;
+
     public Restaurant(){}
 
     public Restaurant(
@@ -72,6 +75,35 @@ public class Restaurant {
             this.restaurantCity = restaurantCity;
             this.openinghours = openinghours;
             this.restaurantRating = restaurantRating;
+            this.restaurantImg = null;
+    }
+
+    public Restaurant(
+            Long restaurantId,
+            String restaurantName,
+            String restaurantAddress,
+            String restaurantUserName,
+            String restaurantEmail,
+            String restaurantPhoneNumber,
+            String restaurantStyle,
+            String restaurantPriceRange,
+            String restaurantCity,
+            String openinghours,
+            int restaurantRating,
+            String restaurantImg
+    ) {
+        this.restaurantId = restaurantId;
+        this.restaurantName = restaurantName;
+        this.restaurantAddress = restaurantAddress;
+        this.restaurantUserName = restaurantUserName;
+        this.restaurantEmail = restaurantEmail;
+        this.restaurantPhoneNumber = restaurantPhoneNumber;
+        this.restaurantStyle = restaurantStyle;
+        this.restaurantPriceRange = restaurantPriceRange;
+        this.restaurantCity = restaurantCity;
+        this.openinghours = openinghours;
+        this.restaurantRating = restaurantRating;
+        this.restaurantImg = restaurantImg;
     }
 
     public String getRestaurantCity() {
@@ -116,5 +148,13 @@ public class Restaurant {
 
     public void setRestaurantRating(int restaurantRating) {
         this.restaurantRating = restaurantRating;
+    }
+
+    public String getRestaurantImg() {
+        return restaurantImg;
+    }
+
+    public void setRestaurantImg(String restaurantImg) {
+        this.restaurantImg = restaurantImg;
     }
 }

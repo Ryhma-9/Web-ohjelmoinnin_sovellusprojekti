@@ -1,13 +1,11 @@
 package com.group9.leipajono.Service;
 
-import javax.annotation.PostConstruct;
 import com.group9.leipajono.data.Customer;
 import com.group9.leipajono.repositories.CustomerRepository;
 import com.group9.leipajono.security.PasswordEncoder;
 import com.group9.leipajono.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,25 +15,47 @@ public class CustomerService extends PasswordEncoder {
     @Autowired
     CustomerRepository customerRepo;
 
-    @PostConstruct
-    public void init(){
+    public String findCustomerByName(String userName){
+        String result = customerRepo.findCustomerByName(userName);
+        return result;
+    }
 
-    
-        Customer c = new Customer("Kalja", "Kaljanen", "Kaljatie 6", "kaljanen@gmail.com", "05066666666", "Kalja", passwordEncoder("Kalja"), Role.ADMIN);
-        customerRepo.save(c);
-        System.out.println("*******************************"+c.password);
+    public Integer createCustomer(String userNameInput, String passwordInput, String emailInput, String addressInput, String firstNameInput, String lastNameInput, String roleInput, String phoneNumberInput){
+        if (roleInput.equals("admin")){
+            Customer c = new Customer(firstNameInput, lastNameInput, addressInput, emailInput, phoneNumberInput, userNameInput, passwordEncoder(passwordInput), Role.ADMIN);
+            try{
+                customerRepo.save(c);
+                System.out.println("Uuden ADMININ lisäys onnistui");
+                return 1;
+            }catch(Error e){
+                System.out.println("Uuden ADMININ lisäys ei onnistunut");
+                return 0;
+            }
+        }
+        else if (roleInput.equals("restaurant")){
+            Customer c = new Customer(firstNameInput, lastNameInput, addressInput, emailInput, phoneNumberInput, userNameInput, passwordEncoder(passwordInput), Role.RESTAURANT);
+            try{
+                customerRepo.save(c);
+                System.out.println("Uuden RESTAURANTIN lisäys onnistui");
+                return 1;
+            }catch(Error e){
+                System.out.println("Uuden RESTAURANTIN lisäys ei onnistunut");
+                return 0;
+            }
+        }
+        else if (roleInput.equals("customer")){
+            Customer c = new Customer(firstNameInput, lastNameInput, addressInput, emailInput, phoneNumberInput, userNameInput, passwordEncoder(passwordInput), Role.CUSTOMER);
+            try{
+                customerRepo.save(c);
+                System.out.println("Uuden CUSTOMERIN lisäys onnistui");
+                return 1;
+            }catch(Error e){
+                System.out.println("Uuden CUSTOMERIN lisäys ei onnistunut");
+                return 0;
+            }
+        }
+        else { System.out.println("Minkään roolin lisäys ei onnistunut"); return 0; }
 
-        // Customer c = customerRepo.findById(3L).orElse(null);
-        // if (c!=null){
-        //     c.firstName = "Tero";
-        //     c.lastName = "Vahasarja";
-        //     c.address = "Kuninkaiden laakso 666";
-        //     c.phoneNumber = "43453453234";
-        //     c.userId = "Terbinaattori";
-        //     c.email = "drttdsrdrtzdrt@gmail.com";
-        //     System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+ c.firstName + c.lastName);
-        //     customerRepo.save(c);
-        // }     
     }
     public List<Customer> getCustomers(){
         return customerRepo.findAll();

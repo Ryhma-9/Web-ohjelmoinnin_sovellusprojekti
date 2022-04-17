@@ -7,12 +7,7 @@ import com.group9.leipajono.data.MenuItem;
 import com.group9.leipajono.Service.MenuService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
@@ -57,7 +52,7 @@ public class MenuRestAPI {
             return myMenuService.addProductToMenu(restaurantId, productId, menuNumber);
     }
 
-    @PostMapping("removeproductfrommenu")
+    @PutMapping("removeproductfrommenu")
     public String removeProductFromMenu(
         @RequestParam Long restaurantId,
         @RequestParam Long productId,
@@ -65,7 +60,7 @@ public class MenuRestAPI {
             return myMenuService.removeProductFromMenu(restaurantId, productId, menuNumber);
     }
 
-    @PostMapping("removemenufromproduct")
+    @PutMapping("removemenufromproduct")
     public String removeMenuFromProduct(
         @RequestParam Long restaurantId,
         @RequestParam Long productId,
