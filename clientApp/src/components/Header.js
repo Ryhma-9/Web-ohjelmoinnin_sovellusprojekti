@@ -52,7 +52,7 @@ export default function Header(props) {
   // console.log(props.isRestaurantSelected);
 
   sessionStorage.setItem('selectedCity', props.isCitySelected);
-  
+
   sessionStorage.setItem('selectedRestaurant', props.isRestaurantSelected);
 
   const [ dropDownMenu, setDropDownMenu ] = useState(false);  // Tällä ohjataan profiilialasvetovalikon näkyvyyttä

@@ -25,6 +25,7 @@ try{
     setLogInProcessState("logInSuccess");  
     console.log(result);  
     const receivedJWT = result.data.token;
+    sessionStorage.setItem('token', receivedJWT);
     console.log(receivedJWT);  
     props.logIn(receivedJWT);
     setTimeout(() => {

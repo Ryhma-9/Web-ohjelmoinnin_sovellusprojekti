@@ -30,11 +30,11 @@ function App() {
     <div>
       <BrowserRouter>
       <div className="header">
-        <Header loggedIn={ logInFunction } logOut={ setLogIn } isCitySelected={ selectedCity } isRestaurantSelected={ selectedRestaurant }/* unSelectCity={ citySelectHandler } */ shoppingCart={ shoppingCartItems }/>
+        <Header loggedIn={ logInFunction } logOut={ setLogIn } isCitySelected={ selectedCity }
+        isRestaurantSelected={ selectedRestaurant }/* unSelectCity={ citySelectHandler } */ shoppingCart={ shoppingCartItems }/>
       </div>
         <Routes>
-          <Route path="/" element={<CitySelection loggedIn={ logIn } logOut={ setLogIn } 
-                              shoppingCart={ shoppingCartItems } /> } />
+          <Route path="/" element={<CitySelection  shoppingCart={ shoppingCartItems } /> } />
           <Route path="/restaurantbrowser" element={<RestaurantBrowser isCitySelected = { (selectedCity) => { setSelectedCity(selectedCity)} }/>}/>
           <Route path="/menubrowser" element={<MenuBrowser isRestaurantSelected = { (selectedRestaurant) => { setSelectedRestaurant(selectedRestaurant)}}/>}/>
           <Route path="/shoppingcart" element={<ShoppingCart  /* Shoppings={ (shoppingCartItems) => { setShoppingCartItems(shoppingCartItems)}} *//>} />
