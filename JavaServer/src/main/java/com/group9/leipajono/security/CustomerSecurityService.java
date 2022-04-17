@@ -45,9 +45,11 @@ public class CustomerSecurityService {
     }
     public String createToken(Customer c){
         Algorithm alg = Algorithm.HMAC256(jwtSecret);
+        System.out.println(customerService.findCustomerByName(c.userName));
         return JWT.create()
         .withSubject(c.userName)
         .withClaim("role", c.role.toString())
+        .withClaim("customerid", customerService.findCustomerByName(c.userName))
         .sign(alg);
     }
 

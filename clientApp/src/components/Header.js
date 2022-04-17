@@ -20,20 +20,7 @@ export default function Header(props) {
   const [showSignUpView, setShowSignUpView] = useState(false);
   const [showProfileView, setShowProfileView] = useState(false);
 
-  const [jwtToken, setJwtToken] = useState(null);
-
-  let counter = 1;
-  if (jwtToken !== null && counter === 1){ 
-    deliverTokenToApp();
-    counter++; 
-  }
-  function setCounter(){
-    counter = 1;
-    deliverTokenToApp();
-  }
-  function deliverTokenToApp(){
-    props.loggedIn( jwtToken );
-  }
+  var jwtToken = sessionStorage.getItem("token");
 
   // Tällä funktiolla haetaan ostoskorin tuotteet ja lasketaan tuotteiden lukumäärä
   function itemsInCart() {
@@ -137,9 +124,9 @@ export default function Header(props) {
       <div>
        
       </div>
-          <LoginView trigger={showLoginView} setTrigger={setShowLoginView} logIn = {newJwt => setJwtToken(newJwt)} />
+          <LoginView trigger={showLoginView} setTrigger={setShowLoginView} />
           <SignupView trigger={showSignUpView} setTrigger={setShowSignUpView} />
-          <CustomerProfile trigger={showProfileView} setTrigger={setShowProfileView} jwt = {jwtToken} setCounter = { setCounter } setJwtToken = { setJwtToken} />
+          <CustomerProfile trigger={showProfileView} setTrigger={setShowProfileView} />
         </div>
       </div> 
     </div>

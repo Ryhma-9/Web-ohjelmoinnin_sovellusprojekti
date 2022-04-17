@@ -128,7 +128,7 @@ export default function MenuBrowser(props) {
   // Funktiolla tullaan hakemaan tietokannasta valitun ravintolan menu / tiedot. Testivaiheessa vähän oiotaan mutkia
   async function getData() {
     // console.log(props.restaurantId);
-    const results = await axios.get('http://localhost:8080/menusByRestaurantId/' + restaurant.restaurantId);
+    const results = await axios.get('http://localhost:8080/menuitemsbyrestaurantid/' + restaurant.restaurantId);
     return results.data;
   }
 
