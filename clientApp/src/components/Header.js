@@ -39,7 +39,7 @@ export default function Header(props) {
   // console.log(props.isRestaurantSelected);
 
   sessionStorage.setItem('selectedCity', props.isCitySelected);
-  
+
   sessionStorage.setItem('selectedRestaurant', props.isRestaurantSelected);
 
   const [ dropDownMenu, setDropDownMenu ] = useState(false);  // Tällä ohjataan profiilialasvetovalikon näkyvyyttä
@@ -61,7 +61,7 @@ export default function Header(props) {
 
       <div className="logoContainer W230">
         <Link to="/" onClick={sessionStorage.clear}>
-          <img className="logo" alt="LOGO PLACEHOLDER"  width="100%" src="placeholder.jpg"/>
+          <img className="logo" alt="LOGO PLACEHOLDER"  width="100%" src="leipä.png"/>
           </Link>
       </div>
       <div>

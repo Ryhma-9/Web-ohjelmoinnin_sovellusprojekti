@@ -10,6 +10,7 @@ import Header from './components/Header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faInfo } from '@fortawesome/free-solid-svg-icons'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import RestaurantProfile from './components/RestaurantProfile';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/menubrowser" element={<MenuBrowser isRestaurantSelected = { (selectedRestaurant) => { setSelectedRestaurant(selectedRestaurant)}}/>}/>
           <Route path="/shoppingcart" element={<ShoppingCart  /* Shoppings={ (shoppingCartItems) => { setShoppingCartItems(shoppingCartItems)}} *//>} />
           <Route path="/payment" element={ <Payment  />}/>
+          <Route path="/restaurantprofile" element={ <RestaurantProfile/>}/>
         </Routes>
       </BrowserRouter>
     </div>
