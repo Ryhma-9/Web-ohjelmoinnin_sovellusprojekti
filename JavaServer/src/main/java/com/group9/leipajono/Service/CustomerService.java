@@ -15,6 +15,11 @@ public class CustomerService extends PasswordEncoder {
     @Autowired
     CustomerRepository customerRepo;
 
+    public String findCustomerByName(String userName){
+        String result = customerRepo.findCustomerByName(userName);
+        return result;
+    }
+
     public Integer createCustomer(String userNameInput, String passwordInput, String emailInput, String addressInput, String firstNameInput, String lastNameInput, String roleInput, String phoneNumberInput){
         if (roleInput.equals("admin")){
             Customer c = new Customer(firstNameInput, lastNameInput, addressInput, emailInput, phoneNumberInput, userNameInput, passwordEncoder(passwordInput), Role.ADMIN);

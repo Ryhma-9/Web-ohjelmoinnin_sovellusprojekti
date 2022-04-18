@@ -23,11 +23,8 @@ try{
     }
   }); // tallennetaan pyyntö muuttujaan, koska async-toiminto
     setLogInProcessState("logInSuccess");  
-    console.log(result);  
     const receivedJWT = result.data.token;
-    sessionStorage.setItem('token', receivedJWT);
-    console.log(receivedJWT);  
-    props.logIn(receivedJWT);
+    sessionStorage.setItem("token", receivedJWT);
     setTimeout(() => {
       props.setTrigger(false);
       setLogInProcessState("idle"); 
