@@ -31,6 +31,9 @@ public class Orders {
     @Column(name = "quantity")
     public Long quantity;
 
+    @Column(name = "date")
+    public String date;
+
     public Long getOrderId() {
         return orderId;
     }
@@ -63,6 +66,14 @@ public class Orders {
         return quantity;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public Orders(){}
 
     public Orders(
@@ -72,7 +83,8 @@ public class Orders {
         Long productId,
         Boolean toBeDelivered,
         Long orderNumber,
-        Long quantity){
+        Long quantity,
+        String date){
             this.orderId = orderId;
             this.customerId = customerId;
             this.restaurantId = restaurantId;
@@ -80,5 +92,6 @@ public class Orders {
             this.toBeDelivered = toBeDelivered;
             this.orderNumber = orderNumber;
             this.quantity = quantity;
+            this.date = date;
         }
 }

@@ -8,6 +8,9 @@ import Payment from './components/Payment';
 import Header from './components/Header';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import RestaurantProfile from './components/Restaurantprofile';
+import MenuEdit from './components/MenuEdit';
+import RestaurantEdit from './components/RestaurantEdit';
+import OrderHistory from './components/OrderHistory';
 
 
 function App() {
@@ -36,10 +39,12 @@ function App() {
           <Route path="/shoppingcart" element={<ShoppingCart  deliverystatus={deliveryStatus}  deliverystatustoggle = { (deliveryStatus) => {setDeliveryStatus(!deliveryStatus)}}/>}/>
           <Route path="/payment" element={ <Payment deliverystatuscheck = {deliveryStatus} selectedrestaurantid = { selectedRestaurantId }/>}/>
           <Route path="/restaurantprofile" element={ <RestaurantProfile/>}/>
+          <Route path='/menuedit' element={<MenuEdit/>}/>
+          <Route path='/restaurantedit' element={<RestaurantEdit/>}/>
+          <Route path='/orderhistory' element={<OrderHistory/>}/>
         </Routes>
       </BrowserRouter>
     </div>
   )
 }
 
-export default App;

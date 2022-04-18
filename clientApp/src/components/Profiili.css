@@ -13,7 +13,8 @@
   margin: 80px;
   justify-content: center;
   border-style: solid;
-  width: fit-content;
+  width: 1000px;
+  margin-top: 200px;
    
 }
 .forminner {
@@ -24,6 +25,7 @@
   margin: 10px;
   width: 400px;
   padding: 10px;
+  margin-left: 300px;
   
 }
 input {
@@ -47,12 +49,12 @@ button {
   display: flex;
   flex-direction: column;
   text-align: left;
-  justify-content: left;
+  
   margin: 10px;
-  margin-right: 200px;
+ 
   width: 200px;
   padding: 10px;
-  justify-content: left;
+  
   
 }
 .menutextarea {
@@ -67,4 +69,19 @@ button {
 }
 .historytextarea {
   height: 300px;
+}
+.menuedit {
+  margin-left: 400px;
+
+}
+.forminner2 {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  justify-content: center;
+  margin: 10px;
+  width: 400px;
+  padding: 10px;
+  padding-top: 10px;
+  
 }

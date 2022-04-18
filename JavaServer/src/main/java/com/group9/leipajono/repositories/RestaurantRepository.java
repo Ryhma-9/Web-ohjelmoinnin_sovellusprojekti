@@ -12,4 +12,5 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     List<Restaurant> findRestaurantsByRestaurantCity(String restaurantCity);
     @Query("SELECT coalesce(max(r.restaurantId), 0) FROM Restaurant r")
     Long getMaxRestaurantId();
+    Restaurant findRestaurantByRestaurantUserName(String userName);
 }
