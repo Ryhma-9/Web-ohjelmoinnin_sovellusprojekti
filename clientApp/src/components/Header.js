@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import SignupView from './SignupView';
 import LoginView from './LoginView';
-import CustomerProfile from './CustomerProfile';
+import CustomerProfile from './Customerprofile';
 
 
 export default function Header(props) {
