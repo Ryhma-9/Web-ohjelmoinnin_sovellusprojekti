@@ -18,7 +18,8 @@ export default function RestaurantProfile() {
       
       <div className='formbuttons'>
       <Link to="/restaurantprofile"><button>Edit profile</button></Link>
-      <Link to="/menuedit"><button>Menu options</button></Link>
+      <Link to="/restaurantedit"><button>Create Restaurant</button></Link>
+      <Link to="/menuedit"><button>Create Menu</button></Link>
       <button>Order history</button>
       <Link to="/"><button><b>Go back</b></button></Link>
       </div>

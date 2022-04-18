@@ -12,6 +12,7 @@ import { faCircleInfo, faInfo } from '@fortawesome/free-solid-svg-icons'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import RestaurantProfile from './components/RestaurantProfile';
 import MenuEdit from './components/MenuEdit';
+import RestaurantEdit from './components/RestaurantEdit';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
           <Route path="/payment" element={ <Payment deliverystatuscheck = {deliveryStatus} shoppingcartitemqtylist = {shoppingCartItemQtyList}/>}/>
           <Route path="/restaurantprofile" element={ <RestaurantProfile/>}/>
           <Route path='/menuedit' element={<MenuEdit/>}/>
+          <Route path='/restaurantedit' element={<RestaurantEdit/>}/>
         </Routes>
       </BrowserRouter>
     </div>
