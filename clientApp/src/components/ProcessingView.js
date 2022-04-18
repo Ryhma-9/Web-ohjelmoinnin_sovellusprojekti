@@ -15,7 +15,7 @@ export default function ProcessingView(props){
   let textContentVariable = null;
   switch(textState)
   {
-    case "processing":
+    default:
       textContentVariable = <div><p>Processing...</p></div>
       break;
     case "payment_complete":
@@ -48,8 +48,8 @@ useEffect(()=>{
   
   
   return (props.processingviewtrigger) ? (
-    <div className="popup">
-        <div className="popup-inner-small" >
+    <div className="popup-shop">
+        <div className="popup-shop-inner-small" >
           <h2>Payment Methods</h2>
             <div className="paymentMethodContainer">
               { textContentVariable }

@@ -41,8 +41,8 @@ export default function PaymentMethodView(props){
   }
 
   return (props.bankselecttrigger) ? (
-    <div className="popup">
-        <div className="popup-inner" >
+    <div className="popup-shop">
+        <div className="popup-shop-inner" >
           <h2>Payment Methods</h2>
             <div className="paymentMethodContainer">
               {
