@@ -172,7 +172,7 @@ export default function MenuEdit() {
       <Link to="/restaurantprofile"><button>Edit profile</button></Link>
       <Link to="/restaurantedit"><button>Create Restaurant</button></Link>
       <Link to="/menuedit"><button>Create Menu</button></Link>
-      <button>Order history</button>
+      <Link to="/orderhistory"><button>Order history</button></Link>
       <Link to="/"><button><b>Go back</b></button></Link>
       </div>
       <div className='forminner'>

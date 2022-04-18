@@ -6,11 +6,14 @@ import RestaurantBrowser from './components/RestaurantBrowser';
 import MenuBrowser from './components/MenuBrowser';
 import ShoppingCart from './components/ShoppingCart';
 import Payment from './components/Payment';
-import Testinurkka from './components/Testinurkka';
 import Header from './components/Header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faInfo } from '@fortawesome/free-solid-svg-icons'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import RestaurantProfile from './components/RestaurantProfile';
+import MenuEdit from './components/MenuEdit';
+import RestaurantEdit from './components/RestaurantEdit';
+import OrderHistory from './components/OrderHistory';
 
 
 function App() {
@@ -36,7 +39,10 @@ function App() {
           <Route path="/menubrowser" element={<MenuBrowser isRestaurantSelected = { (selectedRestaurant) => { setSelectedRestaurant(selectedRestaurant)}}/>}/>
           <Route path="/shoppingcart" element={<ShoppingCart  /* Shoppings={ (shoppingCartItems) => { setShoppingCartItems(shoppingCartItems)}} *//>} />
           <Route path="/payment" element={ <Payment  />}/>
-          <Route path="/testi" element={ <Testinurkka  />}/>
+          <Route path="/restaurantprofile" element={ <RestaurantProfile/>}/>
+          <Route path='/menuedit' element={<MenuEdit/>}/>
+          <Route path='/restaurantedit' element={<RestaurantEdit/>}/>
+          <Route path='/orderhistory' element={<OrderHistory/>}/>
         </Routes>
       </BrowserRouter>
       

@@ -2,6 +2,7 @@ import React , { useEffect, useState } from 'react';
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import './orderHistory.css';
+import { Route, Link, } from 'react-router-dom';
 
 export default function OrderHistory() {
   const [ role, setRole ] = useState();
@@ -173,6 +174,15 @@ export default function OrderHistory() {
   }
   
   return (
+  <div className='form'>
+  <div className='formbuttons'>
+    <Link to="/restaurantprofile"><button>Edit profile</button></Link>
+    <Link to="/restaurantedit"><button>Create Restaurant</button></Link>
+    <Link to="/menuedit"><button>Create Menu</button></Link>
+    <Link to="/orderhistory"><button>Order history</button></Link>
+    <Link to="/"><button><b>Go back</b></button></Link>
+    </div>
+  <div className='forminner'>
     <div className='marginT120'>
       <h1>Order History</h1>
       <div className=''>
@@ -186,6 +196,8 @@ export default function OrderHistory() {
         </div>
         { orderInfo.visibility ? ordersInfo() : null } 
       </div>
+    </div>
+    </div>
     </div>
   )
 }
