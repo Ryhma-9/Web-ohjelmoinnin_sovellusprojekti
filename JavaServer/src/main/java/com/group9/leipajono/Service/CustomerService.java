@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 @Service
 public class CustomerService extends PasswordEncoder {
@@ -27,7 +28,8 @@ public class CustomerService extends PasswordEncoder {
 
     public Integer createCustomer(String userNameInput, String passwordInput, String emailInput, String addressInput, String firstNameInput, String lastNameInput, String roleInput, String phoneNumberInput){
         if (roleInput.equals("admin")){
-            Customer c = new Customer(firstNameInput, lastNameInput, addressInput, emailInput, phoneNumberInput, userNameInput, passwordEncoder(passwordInput), Role.ADMIN);
+            Random r = new Random();
+            Customer c = new Customer(1300L ,firstNameInput, lastNameInput, addressInput, emailInput, phoneNumberInput, userNameInput, passwordEncoder(passwordInput), Role.ADMIN);
             try{
                 customerRepo.save(c);
                 System.out.println("Uuden ADMININ lisäys onnistui");
@@ -38,7 +40,7 @@ public class CustomerService extends PasswordEncoder {
             }
         }
         else if (roleInput.equals("restaurant")){
-            Customer c = new Customer(firstNameInput, lastNameInput, addressInput, emailInput, phoneNumberInput, userNameInput, passwordEncoder(passwordInput), Role.RESTAURANT);
+            Customer c = new Customer(1600L, firstNameInput, lastNameInput, addressInput, emailInput, phoneNumberInput, userNameInput, passwordEncoder(passwordInput), Role.RESTAURANT);
             try{
                 customerRepo.save(c);
                 System.out.println("Uuden RESTAURANTIN lisäys onnistui");
@@ -49,7 +51,7 @@ public class CustomerService extends PasswordEncoder {
             }
         }
         else if (roleInput.equals("customer")){
-            Customer c = new Customer(firstNameInput, lastNameInput, addressInput, emailInput, phoneNumberInput, userNameInput, passwordEncoder(passwordInput), Role.CUSTOMER);
+            Customer c = new Customer(1500L, firstNameInput, lastNameInput, addressInput, emailInput, phoneNumberInput, userNameInput, passwordEncoder(passwordInput), Role.CUSTOMER);
             try{
                 customerRepo.save(c);
                 System.out.println("Uuden CUSTOMERIN lisäys onnistui");

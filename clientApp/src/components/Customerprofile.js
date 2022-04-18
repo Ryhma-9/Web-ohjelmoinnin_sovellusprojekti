@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 export default function CustomerProfile(props) {
 const [userName, setUserName] = useState("");
 const [role, setRole] = useState("");
+const [customerId, setCustomerId] = useState("");
+var jwtToken = sessionStorage.getItem("token");
 
 useEffect(() => {
 function handleToken(){
@@ -32,12 +34,16 @@ return (props.trigger) ? (
             Role: <br/>
             {role}
           </div>
+          <div>
+            Customer ID: <br/>
+            {customerId}
+          </div>
         </form>
         <div>
         <button className="close-btn" onClick={() => props.setTrigger(false)}>Close</button>
         </div>
         <div>
-        <button className="logout-btn" onClick={() => { props.setJwtToken(null); props.setCounter(); props.setTrigger(false); }}>Logout</button>
+        <button className="logout-btn" onClick={() => { sessionStorage.removeItem("token") ; props.setTrigger(false); }}>Logout</button>
         </div>
         <div>
           <Link to="/restaurantprofile"><button className="edit-btn" onClick={() => { props.setTrigger(false);}} >Edit profile</button></Link>

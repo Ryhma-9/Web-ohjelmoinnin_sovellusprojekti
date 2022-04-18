@@ -74,11 +74,6 @@ function clearInputValues(){
   setRole("");
   setAddress("");
 }
-// const options = [
-//   { value: 'admin', label: 'Admin' },
-//   { value: 'restaurant', label: 'Restaurant' },
-//   { value: 'customer', label: 'Customer' },
-// ];
   return (props.trigger) ? (
     <div className="popup">
         <div className="popup-inner">
