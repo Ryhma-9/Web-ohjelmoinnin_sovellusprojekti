@@ -12,7 +12,7 @@ import com.group9.leipajono.enums.Role;
 @Entity
 @Table(name = "users")
 public class Customer {
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userid")
     public Long userId;
     // public Long count = 2L;
@@ -42,6 +42,28 @@ public class Customer {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     public Role role;
+
+    public Customer(
+        Long userId,
+        String firstName, 
+        String lastName, 
+        String address, 
+        String email, 
+        String phoneNumber, 
+        String userName, 
+        String password, 
+        Role role) 
+    {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.userName = userName;
+        this.password = password;
+        this.role = role;
+    }
 
     public Customer(
         String firstName, 

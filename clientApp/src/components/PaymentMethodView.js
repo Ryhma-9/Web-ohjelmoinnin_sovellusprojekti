@@ -1,11 +1,8 @@
 import React from 'react';
 
-export default function PaymentMethodView(props){
+export default function PaymentMethodView(props){       //Popup-ikkuna maksumenetelmän valintaa varten
 
-  console.log("props.bankselecttrigger: ");
-  console.log(props.bankselecttrigger);
-
-  const banks = [
+  const banks = [                               //Hard-koodattuja pankkeja maksutapahtumia varten
     {
       name: "Nuurdea"
     },
@@ -32,21 +29,19 @@ export default function PaymentMethodView(props){
     }
   ];
 
-
-
-  function paymentMethodHandler(){
+  function paymentMethodHandler(  ){            //Käsittelijä maksumetodin valinnalle
     props.bankselector(!props.bankselecttrigger);
     props.processingview(!props.processingviewtrigger);
-    // closeTimer();
   }
 
   return (props.bankselecttrigger) ? (
-    <div className="popup-shop">
+    <div className="popup-shop"> 
         <div className="popup-shop-inner" >
           <h2>Payment Methods</h2>
             <div className="paymentMethodContainer">
               {
                 banks.map(bank => {
+
                   return (
                     <div className="paymentMethodElement" onClick={() => paymentMethodHandler()}>
                       <p>{bank.name}</p>

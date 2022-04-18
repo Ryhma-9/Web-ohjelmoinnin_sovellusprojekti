@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
-export default function ProcessingView(props){
+export default function ProcessingView(props){                    //Popup ikkuna ilmaisemaan maksutapahtuman tilaa
   
-  // let text = (<p>Processing...</p>)
+  let navigation = useNavigate();
 
-  const [ textState , setTextState ] = useState("processing")
+  const [ textState , setTextState ] = useState("processing")     //Valitaan ruudulle tulostettava tilateksti: "processing" tai "Payment complete"
 
   const styleObj = {
     color:'green',
     fontSize:'large'
   }
 
-  let textContentVariable = null;
+  function buttonClickHandler(){                                  //'Close' napin toimintojen määrittelyä. Nappi sulkee popup-ikkunan ja siirtää käyttäjän aloitussivulle
+    props.processingview(!props.processingviewtrigger)            //Nappi ilmestyy näytölle maksutapahtuman käsittelyn jälkeen
+    navigation("/");
+  }
+
+  let textContentVariable = null;                                 //Määrittelee ikkunaan tulevan sisällön
   switch(textState)
   {
     default:
@@ -24,20 +30,19 @@ export default function ProcessingView(props){
                               <br/>
                               <button 
                                 className="btn-close" 
-                                onClick={() => props.processingview(!props.processingviewtrigger)}>
+                                onClick={ () => buttonClickHandler() }>
                                   Close
                               </button>
                             </div>
       break;
   }
 
-  function timeOutValue(){
-    return Math.round((Math.random() * 1000 + 1000))
+  function timeOutValue(){                                        //Ajastin simuloimaan maksutapahtumaan kuluvaa aikaa. Antaa myös asiakkaalle tilaisuuden 
+    return Math.round((Math.random() * 1000 + 1000))              //lukea tilatietoa ikkunasta. Ajan kuluttua 'close'-nappi ilmestyy ruudulle.
   }
 
-useEffect(()=>{
-    // console.log("using efffect")
-    // console.log(textState)
+useEffect(()=>{                                                   //Hookki onnistuneen maksutapahtuman käsittelyä varten. Assettaa myös tilamuuttujan 'paymentsuccesfull' trueksi 'Payment'-komponentin käyttöön.
+    if(props.paymentsuccesfull === true) setTextState(() => "payment_complete");
     const timer = setTimeout(() => {
       setTextState(() => "payment_complete");
       props.setpaymentsuccesfull(true);

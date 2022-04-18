@@ -44,6 +44,7 @@ public class CustomerRestAPI {
     @PostMapping("/signup")
     public ResponseEntity<Map<String,String>> signup(@RequestBody Map<String,String> credentials){
         Integer responseInteger = customerService.createCustomer(
+            
             credentials.get("userName"),
             credentials.get("password"),
             credentials.get("email"),
