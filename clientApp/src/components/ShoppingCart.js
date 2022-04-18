@@ -6,23 +6,10 @@ import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 export default function ShoppingCart(props) {
-    
-    let orderId = 0;
 
-    console.log(props)
+    const [ delivery, setDelivery ] = useState(false);      //Tilamuuttuja kotiinkuljetusta varten
 
-    const [ delivery, setDelivery ] = useState(false);
-    // console.log("props.shopåpingcartqtuölist");
-    // console.log(() => props.shoppingcartitemqtylist);
-    // console.log("props.delivery");
-    // console.log(props.delivery);
-
-    // const location = useLocation();
-    // const delivery = location.state.delivery;
-
-    // console.log(() => props.deliverystatustoggle(props.deliveryStatus))
-
-    let idList = [];
+    let idList = [];                                        //Muuttujien määrittelyjä
     let idQtyList = [];
     let itemBanList = [];
     let totalPrice = 0;
@@ -31,7 +18,7 @@ export default function ShoppingCart(props) {
     console.log(delivery);
 
 
-    function getCartItemsFromStorage(){     //Hakee ostoskorin sisällön sessionStoragesta
+    function getCartItemsFromStorage(){                     //Hakee ostoskorin sisällön sessionStoragesta
         let cartItems = [];
         if(sessionStorage.getItem('cartItems') !== null){
             cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
@@ -42,7 +29,7 @@ export default function ShoppingCart(props) {
     }
 
 
-    function idGetter( cartItems ){         //Listaa cartItems-taulukon esineiden id-numerot idList-taulukkoon
+    function idGetter( cartItems ){                     //Listaa cartItems-taulukon esineiden id-numerot idList-taulukkoon
 
         cartItems.forEach(item => {
             idList.push(item.productId);
@@ -50,7 +37,7 @@ export default function ShoppingCart(props) {
     }
     
 
-    function getCartItemsQuantity( id ){    //Laskee kunkin ostoskärry-tuotteen lukumäärän
+    function getCartItemsQuantity( id ){                //Laskee kunkin ostoskärry-tuotteen lukumäärän
         let count = 0;
         idList.forEach(i => {
             if(id === i) count++;
@@ -58,33 +45,13 @@ export default function ShoppingCart(props) {
         return count;
     }
 
-    // function createOrder(){
-    //     const body = [restaurant.restaurantId, ]
-    //     await axios.post('http://localhost:8080/addorder');
-    // }
-
-    // async function getData() {
-    //     const results = await axios.get('http://localhost:8080/restaurantcities');
-    //     return results.data;
-    //   }
-    
-    // function printItemInfo(item){           //Debuggaukseen käytetty funktio. Tulostaa konsolille tuotteen infot.
-    //     console.log("productId: " + item.productId);
-    //     console.log("productName: " + item.productName);
-    //     console.log("price: " + item.price);
-    //     console.log("allergens: " + item.allergens);
-    //     console.log("energy Content: " + item.energyContent);
-    //     console.log("description: " + item.description);
-    //     console.log("qty: " + item.qty)
-    // }
-
     function totalItemPriceCalculator(price, qty) {     //Laskee kaikkien ostoskärryssä olevien, saman id:n omaavien tuotteiden yhteishinnan
         let totalItemPrice = price * qty;                 
         return totalItemPrice;
     } 
 
     function banCheck( id ){                            //Tarkistaa onko tietty tuote tulostuskieltolistalla. Kun menuBrowser-näkymässä klikataan tuotetta,  
-        // console.log(itemBanList);                       //lisätään se sessionStorageen omalle rivilleen. Tämä funktio rajaa, että jokaista productId-numeroa kohden 
+                                                        //lisätään se sessionStorageen omalle rivilleen. Tämä funktio rajaa, että jokaista productId-numeroa kohden 
         let resultFlag = false;                         //tulostetaan shoppingCart-näkymään vain yksi rivi, johon perään on ilmoitettu tuotteiden lukumäärä. 
 
         itemBanList.forEach(i => {
@@ -92,12 +59,10 @@ export default function ShoppingCart(props) {
                 resultFlag = true;
             }
         });
-        // console.log(resultFlag);
         return resultFlag;
     }
-    function refreshPage(){
-        // console.log("päpäpäpä")
-        sessionStorage.clear('cartItems');
+    function clearCartItems(){                          //Functio ostoskorin tyhjentämiselle ja sivun päivittämiselle
+        sessionStorage.removeItem('cartItems');
         window.location.reload(false);
     }
     
@@ -117,12 +82,12 @@ export default function ShoppingCart(props) {
 
             itemBanList.push(item.productId);
 
-            idQtyList.push({
+            idQtyList.push({                                //Lista, johon säilötään kunkin ostoksen id ja lukumäärä
                 productId:item.productId,
                 productQty:quantity
             })
 
-            return ( <tr>
+            return ( <tr>                                   
                 <td id="itemName" key="productId"> { item.productName } </td> 
                 <td>{ item.price }</td>
                 <td>{ quantity }</td>
@@ -132,21 +97,22 @@ export default function ShoppingCart(props) {
         return;    
     });
 
-    function handleCheck(){
+    function handleCheckMarkChange(){                       //Funktio kotiinkuljetusvalinnan hallintaan
         setDelivery(!delivery);
         props.deliverystatustoggle(delivery);
     }
 
-    function handleChecked(){
+    function handleChecked(){                               //Funktio kotiinkuljetusvalinnan hallintaan
         let check = props.deliverystatus ? true : false; 
-        console.log("check = " + check);
         return check;
     }
 
+    sessionStorage.setItem('idQtyList', JSON.stringify(idQtyList));
+
     return (
-        <div > {/* {props.deliverystatustoggle( props.deliveryStatus )} */}
+        <div > 
             <div className="shoppingCartView">
-                <h1>Ostoskori</h1>
+                <h1>Shopping Cart</h1>
                     <table id="shoppingCartTable">
                         <thead>
                             <tr>
@@ -167,13 +133,12 @@ export default function ShoppingCart(props) {
                                 <td>{ totalPrice }{" €"}</td>
                             </tr>
                             <tr>
-                                <td><button onClick={ () => refreshPage()} >Clear Cart</button></td>    
+                                <td><button onClick={ () => clearCartItems()} >Clear Cart</button></td>    
                                 <td></td>
                                 <td><div className="kotiinkuljetus">
                                     Kotiinkuljetus 
                                     <input 
-                                        // checked={ () => props.deliverystatus } 
-                                        onChange={ () => handleCheck()}
+                                        onChange={ () => handleCheckMarkChange()}
                                         checked={ handleChecked() }
                                         id="kotiinkuljetus" 
                                         type="checkbox" />

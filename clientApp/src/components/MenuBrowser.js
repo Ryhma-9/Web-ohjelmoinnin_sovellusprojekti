@@ -2,7 +2,7 @@ import React from 'react'
 import './Shop.css';
 import { useEffect, useState } from 'react';
 import Header from './Header';
-import axios from 'axios';
+import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark, faBasketShopping, faInfo } from '@fortawesome/free-solid-svg-icons'
 import { useLocation } from 'react-router-dom'
@@ -13,10 +13,9 @@ export default function MenuBrowser(props) {
   
   const location = useLocation();
   const restaurant = location.state;
-  const restaurantId = location.state.restaurantId;
   const restaurantName = location.state.restaurantName;
 
-  console.log(restaurant.restaurantId);
+  // console.log(restaurant);
 
   // const restaurantCity = location.state.restaurantCity;
 
@@ -93,7 +92,6 @@ export default function MenuBrowser(props) {
 
     cartItems.push(props);
     sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
-    sessionStorage.setItem('cartLength', cartItems.length);
   }
 
   function getCartItems(){
@@ -106,11 +104,7 @@ export default function MenuBrowser(props) {
     return cartItems;
   }
 
-  function getCartLength(){
-    let cartItems = [];
-    cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
-    return cartItems.length;
-  }
+
   // // Ehkä tyhmä idea, mutta jotta saa näkymän toiminnot toimimaan oikeen käytetään funktion omaa statehookkia ja päivitetään ostoskori vain hallitusti App.js:ään
   // function passShoppingCartToApp() {
   //   props.addItemsToCart(shoppingCartItems)
@@ -280,18 +274,16 @@ export default function MenuBrowser(props) {
     )
   }
 
-
   return (
-    <div>{props.isRestaurantSelected( restaurantName )} {/* {props.isCitySelected( selectedCity )} */}
-          
+    <div>{props.isRestaurantSelected( restaurantName )} 
+         {props.isRestaurantIdSelected( restaurant.restaurantId )}
       {/* <Header 
         addContentToHeader={ manageHeaderContent } shoppingCartItems={ shoppingCartItems } passShoppingCartToApp={ passShoppingCartToApp }
         logIn={ props.loggedIn } logOut={ props.logOut } onHeaderButtonClick={ headerButtonHandler } onSearchButtonClick={ searchHandler }
       /> */}
       <div className="marginT120">
-        <button onClick={ () => alert(getCartLength()) }>Get Cart Length</button>   {/* Testailua varten napillisia toimintoja, koska olen laiska, enkä jaksa käsin klikkailla selaimen storage valikkoon kokoajan >:D */}
         <button onClick={ () => alert(JSON.stringify(getCartItems())) }>Get Cart Items</button>   {/* Testailua varten napillisia toimintoja, koska olen laiska, enkä jaksa käsin klikkailla selaimen storage valikkoon kokoajan >:D */}
-        <button onClick={ () => sessionStorage.clear('cartItems')}>Clear Cart</button>
+        <button onClick={ () => sessionStorage.removeItem('cartItems')}>Clear Cart</button>
         <MenuItemHandler/>
         { allergyInfoVisibility ? allergensInfo() : null }
         { moreInfo.visibility ? printMoreInfo() : null }

@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import SignupView from './SignupView';
 import LoginView from './LoginView';
-import CustomerProfile from './CustomerProfile';
+import CustomerProfile from './Customerprofile';
 
 
 export default function Header(props) {
@@ -19,6 +19,8 @@ export default function Header(props) {
   const [showLoginView, setShowLoginView] = useState(false); //login ja signup -popuppien statehookit
   const [showSignUpView, setShowSignUpView] = useState(false);
   const [showProfileView, setShowProfileView] = useState(false);
+
+  
 
   var jwtToken = sessionStorage.getItem("token");
 
@@ -35,12 +37,11 @@ export default function Header(props) {
     // return sum;
   }
 
-  // console.log(props.isCitySelected);
-  // console.log(props.isRestaurantSelected);
-
   sessionStorage.setItem('selectedCity', props.isCitySelected);
 
   sessionStorage.setItem('selectedRestaurant', props.isRestaurantSelected);
+
+  let restaurant = props.isRestaurantSelected;
 
   const [ dropDownMenu, setDropDownMenu ] = useState(false);  // Tällä ohjataan profiilialasvetovalikon näkyvyyttä
   const DropDownMenu = () => {    // En osannu käyttää valmiita kirjastoja / ne jotka sain toimaan oli kökköjä niin tässä ite värkätty alavetovalikko
@@ -60,7 +61,7 @@ export default function Header(props) {
     <div className="stickyHeader flex ">
 
       <div className="logoContainer W230">
-        <Link to="/"/*  onClick={sessionStorage.clear} */>
+        <Link to="/">
           <img className="logo" alt="LOGO PLACEHOLDER"  width="100%" src="leipä.png"/>
           </Link>
       </div>
@@ -79,8 +80,7 @@ export default function Header(props) {
             </form> : null
           }   
           <div className="menuElement W230 shoppingCart">
-            <Link to="/shoppingcart" ><button className="shoppingCartButton" type="button" 
-              /* onClick={ ()=> props.passShoppingCartToApp ? [props.passShoppingCartToApp(), props.onHeaderButtonClick("ShopingCart")] : props.onHeaderButtonClick("ShopingCart") } */>
+            <Link to="/shoppingcart" ><button className="shoppingCartButton" type="button">
                 <span>Shopping Cart <FontAwesomeIcon icon={ faShoppingCart }/>{ itemsInCart() > 0 && itemsInCart() !== null  ? 
                   <span className="shoppinCartItems">{ itemsInCart() }</span> 
                   : 
@@ -89,7 +89,7 @@ export default function Header(props) {
             </button></Link>
           </div>
           <div className="menuElement W230 profile">
-            { jwtToken !== null ?         // Renderöidään kirjaudupainike, jos käyttäjä on kirjautunut renderöidään profiilipainike
+            { jwtToken !== null ?               // Renderöidään kirjaudupainike, jos käyttäjä on kirjautunut renderöidään profiilipainike
               <button className="profileButton" type="button" 
                 onClick={ () => setShowProfileView(true) }>
                 <span>Profile <FontAwesomeIcon icon={ faUser }/> < FontAwesomeIcon icon={ dropDownMenu ? faAngleUp : faAngleDown }/> </span>
@@ -111,16 +111,10 @@ export default function Header(props) {
               </div>
             }
           </div>
-          <div>
-          {/* <button className='takaisinButton'>Takaisin</button> */}
-          </div>
         </div>
         <div className="headerLower">
-          <p>{sessionStorage.getItem('selectedCity')}</p>
-          <p>{sessionStorage.getItem('selectedRestaurant')}</p>
-          {/* <p>{ props.isCitySelected }</p>
-          <p>{ props.isRestaurantSelected }</p> */}
-          {/* <AddLowerHeaderContent city={props.isCitySelected}/* content={ props.addContentToHeader } */}
+          <Link to="/restaurantbrowser"><p>{sessionStorage.getItem('selectedCity')}</p></Link>
+          <p>{restaurant}</p>
       <div>
        
       </div>
