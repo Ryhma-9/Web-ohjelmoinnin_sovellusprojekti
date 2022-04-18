@@ -11,7 +11,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faInfo } from '@fortawesome/free-solid-svg-icons'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import RestaurantProfile from './components/RestaurantProfile';
-import MenuEdit from './MenuEdit';
+import MenuEdit from './components/MenuEdit';
+
 
 function App() {
   // Jotain toiminnallisuutta kaupungin valinnan hallintaan
