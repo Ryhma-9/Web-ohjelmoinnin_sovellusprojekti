@@ -10,6 +10,7 @@ import './Profiili.css'
 import jwt_decode from "jwt-decode";
 
 export default function RestaurantProfile() {
+  
   const userLoggedIn = 'peksi';
   const CreateRestaurantTypeOptions = () => {
     const options = [
