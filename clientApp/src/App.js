@@ -10,7 +10,7 @@ import Header from './components/Header';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faInfo } from '@fortawesome/free-solid-svg-icons'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
-import RestaurantProfile from './components/RestaurantProfile';
+import RestaurantProfile from './components/Restaurantprofile';
 
 
 function App() {
