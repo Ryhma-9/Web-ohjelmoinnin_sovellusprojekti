@@ -2,27 +2,28 @@ package com.group9.leipajono.data;
 
 public class OrdersToClient {
 
-    private Long customerId;
-    private Long restaurantId;
+    private String customerName;
+    private String restaurantName;
     private Boolean toBeDelivered;
     private Long orderNumber;
     private Long[] productIds;
     private Long[] quantities;
+    private String date;
 
-    public Long getCustomerId() {
-        return customerId;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
-    public Long getRestaurantId() {
-        return restaurantId;
+    public String getRestaurantName() {
+        return restaurantName;
     }
 
-    public void setRestaurantId(Long restaurantId) {
-        this.restaurantId = restaurantId;
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
     }
 
     public Boolean getToBeDelivered() {
@@ -57,20 +58,30 @@ public class OrdersToClient {
         this.quantities = quantities;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public OrdersToClient(){}
 
     public OrdersToClient(
-        Long customerId,
-        Long restaurantId, 
+        String customerName,
+        String restaurantName,
         Long[] productIds,
         Boolean toBeDelivered,
         Long orderNumber,
-        Long[] quantities){
-            this.customerId = customerId;
-            this.restaurantId = restaurantId;
+        Long[] quantities,
+        String date){
+            this.customerName = customerName;
+            this.restaurantName = restaurantName;
             this.productIds = productIds;
             this.toBeDelivered = toBeDelivered;
             this.orderNumber = orderNumber;
             this.quantities = quantities;
+            this.date = date;
     }
 }

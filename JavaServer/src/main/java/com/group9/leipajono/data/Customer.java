@@ -13,8 +13,8 @@ import com.group9.leipajono.enums.Role;
 @Table(name = "users")
 public class Customer {
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    // @Column(name = "customerid")
-    // public Long customerId;
+    @Column(name = "userid")
+    public Long userId;
     // public Long count = 2L;
 
     @Column(name = "firstname")

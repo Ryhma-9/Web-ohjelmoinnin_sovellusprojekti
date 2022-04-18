@@ -2,18 +2,12 @@ package com.group9.leipajono.Service;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import javax.annotation.PostConstruct;
 import com.group9.leipajono.data.Menu;
 import com.group9.leipajono.data.MenuItem;
 import com.group9.leipajono.repositories.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Service
 public class MenuService {
@@ -111,6 +105,5 @@ public class MenuService {
         return "Menu removal failed";
     }        
   }
-}
   
-
+}

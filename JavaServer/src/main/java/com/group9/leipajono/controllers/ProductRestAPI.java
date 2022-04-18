@@ -47,6 +47,12 @@ public class ProductRestAPI {
         return product;
     }
 
+    @GetMapping("/productsandcontentsbyids/")
+    public List<MenuItem> getProductsAndContentsByIds(@RequestParam Long[] productIds) {
+        List<MenuItem> products = myProductService.getProductsAndContentsByIds(productIds);
+        return products;
+    }
+
     @PostMapping("/addproductandcontets")
     public String addNewProductAndContens(
         @RequestParam String productName,

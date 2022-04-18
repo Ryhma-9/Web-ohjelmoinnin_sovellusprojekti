@@ -13,6 +13,7 @@ import com.group9.leipajono.repositories.ContentsRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class ProductService {
@@ -83,6 +84,14 @@ public class ProductService {
         }
         mi.setAllergens(allergens);
         return mi;
+    }
+
+    public List<MenuItem> getProductsAndContentsByIds(Long[] productIds) {
+        List<MenuItem> products = new ArrayList<>();
+        for (int i = 0; i < productIds.length; i++) {
+            products.add(getProductAndContentsById(productIds[i]));
+        }
+        return products;
     }
 
     public String addNewProduct(String productName, Double price, String type) {

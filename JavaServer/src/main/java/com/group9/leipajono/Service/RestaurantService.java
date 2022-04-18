@@ -36,6 +36,10 @@ public class RestaurantService {
         return myRestaurantRepository.findRestaurantByRestaurantId(restaurantId);
     }
 
+    public Restaurant getRestaurantsByUserName(String userName){
+        return myRestaurantRepository.findRestaurantByRestaurantUserName(userName);
+    }
+
     public String[] getRestaurantsCities() {
         List<Restaurant> restaurants = getRestaurants();
         String[] cities = new String[restaurants.size()];
