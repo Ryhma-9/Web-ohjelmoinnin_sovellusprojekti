@@ -11,34 +11,34 @@ import jwt_decode from "jwt-decode";
 
 export default function RestaurantProfile() {
   return (
-    <div className='Main2'>
-        <h1>Ravintolan profiili</h1>
+    
+       
     
     <div className='form'>
       
       <div className='formbuttons'>
-      <button>Muokkaa tietoja</button>
-      <Link to="/menuedit"><button>Ruokalistan muokkaus</button></Link>
-      <button>Tilaushistoria</button>
-      <button><b>Takaisin</b></button>
+      <Link to="/restaurantprofile"><button>Edit profile</button></Link>
+      <Link to="/menuedit"><button>Menu options</button></Link>
+      <button>Order history</button>
+      <Link to="/"><button><b>Go back</b></button></Link>
       </div>
         <div className='forminner'>
-           <div><label>Nimi:</label></div><input></input>
-           <label>Osoite:</label><input></input>
-           <label>Tyyli:</label><input></input>
-           <label>Hintataso:</label><input></input>
-           <label>Käyttäjänimi:</label><input></input>
-           <label>Salasana:</label><input></input>
+           <div><label>Product name: </label></div><input></input>
+           <label>Address: </label><input></input>
+           <label>Style: </label><input></input>
+           <label>Price level: </label><input></input>
+           <label>Username: </label><input></input>
+           <label>Password: </label><input></input>
         
        <div className='vaihdabutton'> 
-         <button>Vaihda tiedot</button> <br></br>
+         <button>Change Information</button> <br></br>
          
          
             </div>  
         
 </div>
     </div>
-    </div>
+    
   )
 }
 
