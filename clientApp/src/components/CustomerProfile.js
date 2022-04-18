@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react'
+import React, {useState} from 'react'
 import './LogInBox.css';
 import jwt_decode from "jwt-decode";
 import { Link } from 'react-router-dom';
@@ -9,17 +9,13 @@ const [role, setRole] = useState("");
 const [customerId, setCustomerId] = useState("");
 var jwtToken = sessionStorage.getItem("token");
 
-useEffect(() => {
 function handleToken(){
-  if (jwtToken != null){
   var decoded = jwt_decode(jwtToken);
   console.log(decoded);
   setUserName(decoded.sub);
   setRole(decoded.role);
   setCustomerId(decoded.customerid)
-}}
-handleToken();
-});
+}
 
 return (props.trigger) ? (
   <div className="popup">
@@ -46,7 +42,10 @@ return (props.trigger) ? (
         <button className="logout-btn" onClick={() => { sessionStorage.removeItem("token") ; props.setTrigger(false); }}>Logout</button>
         </div>
         <div>
-          <Link to="/restaurantprofile"><button className="edit-btn" onClick={() => { props.setTrigger(false);}} >Edit profile</button></Link>
+        <button className="check-btn" onClick={() => { handleToken() } }>Check User Information</button>
+        </div>
+        <div>
+          <Link to="/restaurantprofile"><button className="edit-btn" >Edit profile</button></Link>
         </div>
         {props.children}
       </div> 
