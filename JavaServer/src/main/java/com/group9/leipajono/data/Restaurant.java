@@ -110,6 +110,10 @@ public class Restaurant {
         return restaurantCity;
     }
 
+    public String getRestaurantName() {
+        return restaurantName;
+    }
+
     public void setRestaurantName(String restaurantName) {
         this.restaurantName = restaurantName;
     }

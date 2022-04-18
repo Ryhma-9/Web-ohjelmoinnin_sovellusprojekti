@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin
+
 @RestController
 public class RestaurantRestAPI {
     
@@ -34,7 +35,6 @@ public class RestaurantRestAPI {
         Restaurant restaurant = myRestaurantService.getRestaurantById(id);
         return restaurant;
     }
-    
 
     @GetMapping("/restaurantcities")
     public String[] getCities() {
@@ -49,6 +49,13 @@ public class RestaurantRestAPI {
             System.out.println("Hei maailma, terveisiä ravintolasta " + r.restaurantName);
         }
         return restaurants;
+    }
+
+    @GetMapping("/restaurantsbyusername/{UserName}")
+    public Restaurant getRestaurantsByUserName(@PathVariable String UserName) {
+        return  myRestaurantService.getRestaurantsByUserName(UserName);
+
+
     }
 
     @PostMapping("/addrestaurant")

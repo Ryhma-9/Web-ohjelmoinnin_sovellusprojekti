@@ -1,6 +1,7 @@
 package com.group9.leipajono.Service;
 
 import com.group9.leipajono.data.Customer;
+import com.group9.leipajono.data.Restaurant;
 import com.group9.leipajono.repositories.CustomerRepository;
 import com.group9.leipajono.security.PasswordEncoder;
 import com.group9.leipajono.enums.Role;
@@ -18,6 +19,10 @@ public class CustomerService extends PasswordEncoder {
     public String findCustomerByName(String userName){
         String result = customerRepo.findCustomerByName(userName);
         return result;
+    }
+
+    public Customer getCustomerById(Long userId){
+        return customerRepo.findByUserId(userId);
     }
 
     public Integer createCustomer(String userNameInput, String passwordInput, String emailInput, String addressInput, String firstNameInput, String lastNameInput, String roleInput, String phoneNumberInput){
@@ -69,7 +74,6 @@ public class CustomerService extends PasswordEncoder {
         Map<String, Object> json = new HashMap<>();
         json.put("username", c.userName);
         json.put("firstname", c.firstName);
-
         return json;
     }
 }
