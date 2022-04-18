@@ -1,0 +1,70 @@
+
+.Main {
+  text-align: center;
+  
+}
+.label{
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+.form {
+  padding: 10px;
+ display: flex;
+  margin: 80px;
+  justify-content: center;
+  border-style: solid;
+  width: fit-content;
+   
+}
+.forminner {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  justify-content: center;
+  margin: 10px;
+  width: 400px;
+  padding: 10px;
+  
+}
+input {
+  height: 20px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+.vaihdabutton{
+  margin-top: 10px;
+justify-content: center;
+margin: 10px;
+}
+button {
+  width: 150px;
+  height: 30px;
+  
+  margin-bottom: 10px;
+  
+}
+.formbuttons {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  justify-content: left;
+  margin: 10px;
+  margin-right: 200px;
+  width: 200px;
+  padding: 10px;
+  justify-content: left;
+  
+}
+.menutextarea {
+  width: 382px;
+  height: auto;
+}
+.textarea {
+  width: 500px;
+  height: 60px;
+ 
+  
+}
+.historytextarea {
+  height: 300px;
+}

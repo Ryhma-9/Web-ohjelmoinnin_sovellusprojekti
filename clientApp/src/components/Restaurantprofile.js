@@ -6,11 +6,43 @@ import { useState } from 'react';
 import axios from 'axios';
 import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
 import './RestaurantProfile.css'
-
+import './Profiili.css'
+import jwt_decode from "jwt-decode";
 
 export default function RestaurantProfile() {
+  return (
+    <div className='Main2'>
+        <h1>Ravintolan profiili</h1>
+    
+    <div className='form'>
+      
+      <div className='formbuttons'>
+      <button>Muokkaa tietoja</button>
+      <Link to="/menuedit"><button>Ruokalistan muokkaus</button></Link>
+      <button>Tilaushistoria</button>
+      <button><b>Takaisin</b></button>
+      </div>
+        <div className='forminner'>
+           <div><label>Nimi:</label></div><input></input>
+           <label>Osoite:</label><input></input>
+           <label>Tyyli:</label><input></input>
+           <label>Hintataso:</label><input></input>
+           <label>Käyttäjänimi:</label><input></input>
+           <label>Salasana:</label><input></input>
+        
+       <div className='vaihdabutton'> 
+         <button>Vaihda tiedot</button> <br></br>
+         
+         
+            </div>  
+        
+</div>
+    </div>
+    </div>
+  )
+}
 
-  const [selectedOptions, setSelectedOptions] = useState([]);
+/*    const [selectedOptions, setSelectedOptions] = useState([]);
   function onChange(value, event) {
     if (event.action === "select-option" && event.option.value === "*") {
       this.setState(this.options);
@@ -201,61 +233,33 @@ export default function RestaurantProfile() {
   }
 
   return (
-    <div className='restaurantprofileEdit'>
+    <div className='Main2'>
+        <h1>Ravintolan profiili</h1>
+    
+    <div className='form'>
       
-      
-      <h2>Add new product</h2>
-      <form onSubmit={ onProductAddition }>
-        <div className=""><div className=''>Product name: </div> <input type="text" name="productName"/></div>
-        <div className=""><div className=''>Price: </div> <input type="text" name="price"/></div>
-        <div className=""><div className=''>Allergens: </div> <AllergenSelect /></div>
-        <div className=""><div className=''>Product ingredients: </div> <input type="text" name="ingredients"/></div>
-        <div className=""><div className=''>Energy content: </div> <input type="number" name="energyContent"/></div>
-        <div className=" "><div className=''>Product description: </div> <input type="text" name="description"/></div>
-        <div className="">
-          <div className=''>Product type: </div>
-          <select className="" name="type" >
-            <CreateProductTypeOptions /> 
-          </select>
-        </div>
-        <div className="">
-          <div className=''>Product picture: </div>
-          <input type="file"
-            name="productPicture"
-            accept=".jpg, .jpeg, .png"
-            onChange={ handleFileChange }>
-          </input>
-          <div className=''>Picture must be in jpg or png format </div>
-        </div>
-        <button className=''>Add product</button>
-      </form>
-      <br></br><br></br><br></br>
-      <h2>Add new restaurant</h2>
-      <form onSubmit={ onResturantAddition }>
-        <div className=""><div className=''>Restaurant name: </div> <input type="text" name="restaurantName"/></div>
-        <div className=""><div className=''>Restaurant address: </div> <input type="text" name="restaurantAddress"/></div>
-        <div className=""><div className=''>City: </div> <input type="text" name="restaurantCity"/></div>
-        <div className=""><div className=''>Email: </div> <input type="text" name="restaurantEmail"/></div>
-        <div className=""><div className=''>Phonenumber: </div> <input type="text" name="restaurantPhoneNumber"/></div>
-        <div className=""><div className=''>Price range: </div> <input type="text" name="restaurantPriceRange"/></div>
-        <div className=""><div className=''>Opening hours: </div> <input type="text" name="openinghours"/></div>
-        <div className="">
-          <div className=''>Restaurant style: </div>
-          <select className="" name="restaurantStyle" >
-            <CreateRestaurantTypeOptions /> 
-          </select>
-        </div>
-        <div className="">
-          <div className=''>Restaurant picture: </div>
-          <input type="file"
-            name="restaurantPicture"
-            accept=".jpg, .jpeg, .png"
-            onChange={ handleFileChange }>
-          </input>
-          <div className=''>Picture must be in jpg or png format </div>
-        </div>
-        <button className=''>Add restaurant</button>
-        </form>
+      <div className='formbuttons'>
+      <button>Muokkaa tietoja</button>
+      <Link to="/menuedit"><button>Ruokalistan muokkaus</button></Link>
+      <button>Tilaushistoria</button>
+      <button><b>Takaisin</b></button>
+      </div>
+        <div className='forminner'>
+           <div><label>Nimi:</label></div><input></input>
+           <label>Osoite:</label><input></input>
+           <label>Tyyli:</label><input></input>
+           <label>Hintataso:</label><input></input>
+           <label>Käyttäjänimi:</label><input></input>
+           <label>Salasana:</label><input></input>
+        
+       <div className='vaihdabutton'> 
+         <button>Vaihda tiedot</button> <br></br>
+         
+         
+            </div>  
+        
+</div>
+    </div>
     </div>
   )
-}
+}*/
