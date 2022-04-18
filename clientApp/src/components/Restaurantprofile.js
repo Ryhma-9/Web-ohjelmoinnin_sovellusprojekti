@@ -2,15 +2,14 @@ import React from 'react';
 import './Shop.css';
 import Header from './Header';
 import { Route, Link, } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
 import './RestaurantProfile.css'
 import './Profiili.css'
 import jwt_decode from "jwt-decode";
 import Constants from './Constants.json'
-
-export default function RestaurantProfile() {
+export default function RestaurantProfile(props) {
 
   const [restaurantName, setrestaurantName] = useState();
   const [restaurantAddress, setrestaurantAddress] = useState();
@@ -21,7 +20,7 @@ export default function RestaurantProfile() {
   const [restaurantPriceRange, setrestaurantPriceRange] = useState();
   const [restaurantCity, setrestaurantCity] = useState();
   const [openinghours, setopeninghours] = useState();
-  
+  var jwtToken = sessionStorage.getItem("token");
   
   const restaurantNamechange = (event) => {
     setrestaurantName(event.target.value);
@@ -48,10 +47,11 @@ export default function RestaurantProfile() {
     setrestaurantStyle(event.target.value);
   }
 
-  const results = axios.get(Constants.API_ADDRESS ,{
+  const results = axios.get(Constants.API_ADDRESS + '/restaurantbyid',
+  {
 
   });
-
+  console.log(results);
   const userLoggedIn = 'peksi';
   const CreateRestaurantTypeOptions = () => {
     const options = [
@@ -67,6 +67,16 @@ export default function RestaurantProfile() {
       })
     )
   }
+  useEffect(() => {
+    function handleToken(){
+      if (jwtToken != null){
+      var decoded = jwt_decode(jwtToken);
+      console.log(decoded);
+      setrestaurantName(decoded.sub);
+      
+    }}
+    handleToken();
+    });
     const onRestaurantAddition = (event) => {
         event.preventDefault();
         let formData = new FormData();
