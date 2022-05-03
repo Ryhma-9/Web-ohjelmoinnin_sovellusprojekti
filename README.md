@@ -7,3 +7,15 @@ Ryhmä koostuu neljästä opiskelijasta, joista kukin on vastuussa koko ohjelmis
  
 
 Kasperi Kettuaho on vastuussa sovelluksen ulkoasusta ja käyttöliittymästä, Samuli Salmen vastuualueena on PostgreSQL-tietokannan toteutus sekä erinäisiä ominaisuuksia palvelin- ja React-puolella. Sauli Partanen vastaa ohjelman kirjautumisesta, rekisteröitymisestä, JWT-tunnisteen käyttöönotosta sekä edellä mainittujen toteutuksesta tietokantaan, palvelimeen ja Reactiin. Tero Vähäsarja vastaa ravintola- ja menutietojen näkymästä ja niiden toteutumisesta ohjelman eri tasoilla. Kaikki ryhmäläiset ovat vastuussa ohjelman yhteen saattamisesta ja toiminnasta.   
+# Sovellus
+Leipäjono-sovelluksen tarkoitus on muistuttaa Foodora- tai Wolt-palvelua. Ohjelma on täten sovellus, jolla käyttäjä pystyy selaamaan ravintoloita kaupungin perusteella (kuva 1), valita mieleisensä ruokapaikan (kuva 3) ja lisätä eri annoksia ja/tai juomia ostoskoriin. Käyttöliittymässä on tietoa ruokien ainesosista, allergeeneistä, energiasisällöstä ja hinnasta (kuva 4). Lopuksi ostoskorin tuotteet voi tilata kotiin tai ruuan voi hakea ravintolasta (Kuva 5).  
+# kuvia
+Ohjelma toimii kaikkineen ominaisuuksineen pilvipalvelujen kautta, eli se ei vaadi toimiakseen mitään muuta kuin toimivan internet-yhteyden. Mikäli verkkosivua, palvelinta tai tietokantaa haluaa muuttaa, täytyy muutokset tehdä lähdekoodiin, minkä jälkeen uuden version voi nostaa uudelleen pilvipalveluun. 
+
+ 
+
+Ohjelman toimii monitasoisesti. Näkyvä osa (engl. frontend) on toteutettu Reactilla, joka on avoimen lähdekoodin JavaScript-kirjasto. React on tehokas työkalu käyttöliittymien ja verkkosivujen rakentamiseen, minkä avulla luotiin dynaaminen ja nopea sivusto. Ohjelman palvelin on rakennettu Spring-sovelluskehykselle, joka perustuu Java-ohjelmointikieleen. 
+
+
+
+Sovelluksen arkkitehtuuri, eli niin sanottu MVC-arkkitehtuuri (engl. model, view, controller) kuvastaa ohjelman eri komponenttien vuorovaikutusta (kuva 6). Leipäjonon tapauksessa graafin view-näkymä on siis verkkosivusto, joka lähettää käyttäjän pyyntöjä Spring Boot -palvelimen kontrollerille. Kontrolleri manipuloi vuorostaan datamalleja, eli tietokantaa, joka taas päivittää verkkosivun näkymää
