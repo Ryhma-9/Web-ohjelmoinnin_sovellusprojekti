@@ -54,3 +54,9 @@ Ohjelmassa hyödynnetään erillistä tietokantaa, johon palvelin on yhteydessä
 ![Picture8](https://user-images.githubusercontent.com/91842220/166520410-879bc21b-768e-483c-942a-2fd3a1c61ae4.png)
 
 *KUVA 8. ER-kaavio tietokantarakenteesta*
+
+# Liitteet
+
+Linkki Heroku-palvelussa käynnissä olevaan demosovellukseen: https://leipajono-app.herokuapp.com/ 
+
+Linkki stoplight.io sivulle ohjelman rajapintasuunnitelmaan: https://nalkajono.stoplight.io/docs/leip-jono/branches/main/YXBpOjU2ODk2OTM1-my-new-api  
