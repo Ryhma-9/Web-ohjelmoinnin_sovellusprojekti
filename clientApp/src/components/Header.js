@@ -26,15 +26,6 @@ export default function Header(props) {
 
   // Tällä funktiolla haetaan ostoskorin tuotteet ja lasketaan tuotteiden lukumäärä
   function itemsInCart() {
-
-    // let cartItems = [];
-    // cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
-    // let sum = cartItems.length;
-    // props.shoppingCartItems.forEach(function(item){
-    //   sum += item.qty;
-    // });
-    // console.log(sum);
-    // return sum;
   }
 
   sessionStorage.setItem('selectedCity', props.isCitySelected);
