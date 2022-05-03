@@ -29,6 +29,7 @@ Leipäjono-sovelluksen tarkoitus on muistuttaa Foodora- tai Wolt-palvelua. Ohjel
 ![Picture5](https://user-images.githubusercontent.com/91842220/166520143-ec7710b0-3d58-4bd2-89db-7ece291ecbfb.png)
 
 *KUVA 5. Ostoskori*
+
 Ohjelma toimii kaikkineen ominaisuuksineen pilvipalvelujen kautta, eli se ei vaadi toimiakseen mitään muuta kuin toimivan internet-yhteyden. Mikäli verkkosivua, palvelinta tai tietokantaa haluaa muuttaa, täytyy muutokset tehdä lähdekoodiin, minkä jälkeen uuden version voi nostaa uudelleen pilvipalveluun. 
 
  
