@@ -11,24 +11,10 @@ import { faStar as farStar } from '@fortawesome/free-regular-svg-icons'
 
 export default function RestaurantBrowser(props) {
 
-  // sessionStorage.setItem('selectedCity', props.city);
-
   const location = useLocation();
   let city = location.state;
   if(city === null) city = sessionStorage.getItem('selectedCity');
 
-  /* let selectedCity = ""; */
-
-  // if (sessionStorage.getItem('selectedCity' === ""))
-  // {
-  //   selectedCity = props.city;
-  //   sessionStorage.setItem('selectedCity', selectedCity);
-  // } else {
-  //   selectedCity = sessionStorage.getItem('selectedCity');
-  // }
-  
-  
-  // console.log(sessionStorage.getItem('selectedCity'))
   const [ restaurantList, setRestaurantList ] = useState([]);   // Tähän asetetaan näytölle tulostettavat ravintolat
   const [ restauranStyle, setRestauranStyle ] = useState([]);   // Tähän asetetaan käyttäjän tekemä ravintolatyyppifiltteröinti
 
@@ -54,20 +40,6 @@ export default function RestaurantBrowser(props) {
     });
     setRestauranStyle(restauranStyleList);
   }
-
-  // Hakutoiminnon eventhandler-funktio. Funktiolla tällä hetkellä päivitetään hardkoodatuista ravintoloista suoritettu haku headerin hakukenttään annetun teksin perusteella
-  // const searchHandler = (searchBarText) => {
-  //   getData().then( function(res){ setRestaurantList( searchEngine(res,searchBarText) ) });
-  // }
-
-  // // Hakufunktio, jolla haetaan siihen syötetyn tietueen oliot, joiden arvoista löytyy annettu hakusana
-  // const searchEngine = (restaurants, searchArgument) => {
-  //   var search = searchArgument.toString().toLowerCase().trim();
-  //   var searchResult = restaurants.filter(item => {
-  //     return Object.keys(item).some(key => item[key].toString().toLowerCase().includes(search));
-  //   });
-  //   return searchResult;
-  // }
 
   // Funktiolla luodaan visuaalinen tähtiarvio 0 - 5 tähteä. Funtio tulostaa olion rating-arvon verran täysiä tähtiä ja 5-rating tyhjiä tähtiä
   const ratings = (props) => {
@@ -115,7 +87,6 @@ export default function RestaurantBrowser(props) {
     return (
       <div className="flex">
         <button className="cityButton" type="button" onClick={ ()=> removeSelection("") }>
-          {/* <span>{ selectedCity } <FontAwesomeIcon style={{ color: 'crimson' }} icon={ faXmark }/></span> */}
         </button>
         <div className="restaurantStyleButtons flex">
           { manageRestaurantStyleButtons() }
@@ -150,15 +121,12 @@ export default function RestaurantBrowser(props) {
 
   return (
     <div>{ props.isCitySelected( city )}
-      {/* <Header /* onSearchButtonClick={ searchHandler }  addContentToHeader={ manageHeaderContent } shoppingCartItems={ props.shoppingCart }
-        logIn={ props.loggedIn } logOut={ props.logOut } onHeaderButtonClick={ props.headerButtons }
-      /> */}
       <div className="marginT120">
         { // Ravintoloiden listauksen mappauksen yhteyteen on lisätty ravintolatyylifiltteröinti
           restaurantList.filter(item => item.restaurantStyle.includes(restauranStyle.length === 1 ? restauranStyle : "")).map((item, index) => {
             return( 
               <Link to="/menubrowser" state={ item } >
-                <div className="restaurantInfoContainer flex" key={index} /* onClick={ ()=> props.onSelectClick(item) } */ >
+                <div className="restaurantInfoContainer flex" key={index} >
                   <div className="restaurantImg">
                     <img alt={ item.name } width="100%" src={ item.restaurantImg }/>
                   </div>
