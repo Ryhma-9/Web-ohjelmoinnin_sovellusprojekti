@@ -15,81 +15,17 @@ export default function MenuBrowser(props) {
   const restaurant = location.state;
   const restaurantName = location.state.restaurantName;
 
-  // console.log(restaurant);
-
-  // const restaurantCity = location.state.restaurantCity;
-
-
-
-
-  // console.log("sessionstorage" + sessionStorage.getItem('selectedCity'))
-
-  // if (sessionStorage.getItem('selectedCity' !== ""))
-  // {
-  //   selectedCity = sessionStorage.getItem('selectedCity');
-
-  // } else {
-
-  //   selectedCity = restaurantCity;
-  //   sessionStorage.setItem('selectedCity', selectedCity);
-  // }
-
-  // console.log(selectedCity);
-  // let selectedCity = props.city;
-  // let selectedRestaurant = props.restaurant.restaurantName;
   let menuCategories = ['appetizer', 'main dish', 'dessert', 'drink', 'extras', 'other'];   // tuotekategoriat, jonka mukaan asettelu on rakennettu. Tuotteet tulostetaan kategoriossa taulukon järjestyksessä
   const [ categoryQty, setCategoryQty ] = useState(1);      // En varmaan vaan osaa, mut joutu tekemään tän Vakioannostyypien määrälle. categoryQty > 1 on tuotekategorioiden filtteröinti käytössä
   const [ menu, setMenu ] = useState([]);                   // Tähän asetetaan näytölle tulostettavat annokset
   const [ menuCategory, setMenuCategory ] = useState([]);   // Ja tähän tuotekategoriat. Tätä käytetään myös tuotekategorioiden filtteröintiin  
 
-  // Hakutoiminnon eventhandler-funktio. Funktiolla tällä hetkellä päivitetään hardkoodatuista ravintoloista suoritettu haku headerin hakukenttään annetun teksin perusteella
-  // const searchHandler = (searchBarText) => {
-  //   getData().then( function(res){ setMenu( searchEngine(res,searchBarText) ) });
-  // }
-  // // Hakufunktio, jolla haetaan siihen syötetyn tietueen oliot, joiden arvoista löytyy annettu hakusana
-  // const searchEngine = (items, searchArgument) => {
-  //   var search = searchArgument.toString().toLowerCase().trim();
-  //   var searchResult = items.filter(item => {
-  //     return Object.keys(item).some(key => item[key].toString().toLowerCase().includes(search));
-  //   });
-  //   return searchResult;
-  // }
-
-  // Tuotteiden valinnan toimintojen hahmottelua
-  // const [ shoppingCartItems, setShoppingCartItems ] = useState([]);
-//   // Funktio, jolla lisätään tuote ostoskoriin tai jos tuote on jo korissa lisätään sen määrää
-//   const shoppingCartTesting = (item) => { 
-//   let newShoppingCartItems = [...shoppingCartItems];
-//   let itemClickedIndex = newShoppingCartItems.findIndex(i => item.productId === i.productId)
-//   if (itemClickedIndex !== -1) {
-//     let newElement = {...newShoppingCartItems[itemClickedIndex]}
-//     newElement.qty += 1;
-//     newShoppingCartItems[itemClickedIndex] = newElement;
-//   }
-//   else {
-//     let newElement = [...newShoppingCartItems,
-//     {
-//       id : shoppingCartItems.length + 1,
-//       productId : item.productId,
-//       name : item.productName,
-//       price : item.price,
-//       qty : 1
-//     }]
-//     newShoppingCartItems = newElement;
-//   }
-//   setShoppingCartItems(newShoppingCartItems);
-//   console.log(item.productName + " added to cart");
-//   console.log(newShoppingCartItems);
-// }
 
   function addCartItems( props ){
     let cartItems = getCartItems();
 
-    // console.log( typeof cartItems);
-    // console.log( JSON.stringify(props));
     console.log( cartItems );
     
-
     cartItems.push(props);
     sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
   }
@@ -104,23 +40,10 @@ export default function MenuBrowser(props) {
     return cartItems;
   }
 
-
-  // // Ehkä tyhmä idea, mutta jotta saa näkymän toiminnot toimimaan oikeen käytetään funktion omaa statehookkia ja päivitetään ostoskori vain hallitusti App.js:ään
-  // function passShoppingCartToApp() {
-  //   props.addItemsToCart(shoppingCartItems)
-  // }
-  // // Liittyy edelliseen funktioon. Näkymän vaihdon yhteydessä päivitetään ostoskorin sisältö App.js
-  // const headerButtonHandler = (buttonValue) => {
-  //   passShoppingCartToApp();
-  //   props.headerButtons(buttonValue);
-  // }
-
   // Näkymän ensimäisen renderöinnin yhteydessä haetaan valitun ravintolan ruokalista, tuotekategoriat, ostoskorin sisältö App.js:stä ja tallennetaan ne useState-hookkeihin
   useEffect(() => {
     getData().then(setMenu);
     getData().then(listCategories).then(setMenuCategory);
-    // setShoppingCartItems(getCartItems());
-    // console.log(shoppingCartItems);
     getData().then(listCategories).then((res) => {
       setCategoryQty(res.length);
     });
@@ -128,7 +51,6 @@ export default function MenuBrowser(props) {
 
   // Funktiolla tullaan hakemaan tietokannasta valitun ravintolan menu / tiedot. Testivaiheessa vähän oiotaan mutkia
   async function getData() {
-    // console.log(props.restaurantId);
     const results = await axios.get('http://localhost:8080/menuitemsbyrestaurantid/' + restaurant.restaurantId);
     return results.data;
   }
@@ -277,10 +199,6 @@ export default function MenuBrowser(props) {
   return (
     <div>{props.isRestaurantSelected( restaurantName )} 
          {props.isRestaurantIdSelected( restaurant.restaurantId )}
-      {/* <Header 
-        addContentToHeader={ manageHeaderContent } shoppingCartItems={ shoppingCartItems } passShoppingCartToApp={ passShoppingCartToApp }
-        logIn={ props.loggedIn } logOut={ props.logOut } onHeaderButtonClick={ headerButtonHandler } onSearchButtonClick={ searchHandler }
-      /> */}
       <div className="marginT120">
         <button onClick={ () => alert(JSON.stringify(getCartItems())) }>Get Cart Items</button>   {/* Testailua varten napillisia toimintoja, koska olen laiska, enkä jaksa käsin klikkailla selaimen storage valikkoon kokoajan >:D */}
         <button onClick={ () => sessionStorage.removeItem('cartItems')}>Clear Cart</button>
