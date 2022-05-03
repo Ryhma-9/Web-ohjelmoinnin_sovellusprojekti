@@ -1,6 +1,7 @@
 # Leipäjono-sovellus 
 
 Leipäjono-applikaatio (kuva 1) on Oulun ammattikorkeakoulun tieto- ja viestintätekniikan toisen vuoden opiskelijoiden kurssityö. Kurssiprojektin aiheena on tehdä web-pohjainen ruokatilaussovellus, kuten Wolt tai Foodora. Mobiilisovellusta ei kurssilla tehdä, vaan toteutus on selainpohjainen. Selainosio toteutetaan React-kirjastolla, kun taas palvelinpuoli toteutetaan Javalla. Kurssiprojektin tehtävänä on luoda toimiva sovellus, mutta myös harjoitella projektin toteutusta ja tiimityöskentelyä, testausta ja dokumentointia. Projektityöskentelyssä oleellisimmat työkalut ovat Kanban, Github-versiohallinta, Stoplight.io sekä Microsoft Teams. Ohjelmointityökaluina käytetään Visual Studio Code -ohjelmistoa. Näiden lisäksi hyödynnettiin Heroku- ja Cloudinary-pilvipalveluita. Käytetyt ohjelmointikielet ovat JavaScript ja Java (lisäksi HTML, CSS, PostgreSQL). 
+![Picture1](https://user-images.githubusercontent.com/91842220/166519533-56bf6e23-fc9d-4d09-9b21-a908381398fc.png)
 # Ryhmä
 Ryhmä koostuu neljästä opiskelijasta, joista kukin on vastuussa koko ohjelmistosta ja sen eri tasoista, eli ryhmäläiset harjoittelevat niin sanottua full stack -kehittämisen lähestymistapaa. Full stack tarkoittaa sitä, että ohjelmistokehittäjä toteuttaa ja suunnittelee ohjelman kaikkia eri osa-alueita, eikä keskity vain yhteen tasoon. Tästä syystä onkin hankalaa eritellä ryhmäläisten vastuualueita, vaikka joitain voidaan näennäisesti määrittää.  
 
@@ -19,3 +20,8 @@ Ohjelman toimii monitasoisesti. Näkyvä osa (engl. frontend) on toteutettu Reac
 
 
 Sovelluksen arkkitehtuuri, eli niin sanottu MVC-arkkitehtuuri (engl. model, view, controller) kuvastaa ohjelman eri komponenttien vuorovaikutusta (kuva 6). Leipäjonon tapauksessa graafin view-näkymä on siis verkkosivusto, joka lähettää käyttäjän pyyntöjä Spring Boot -palvelimen kontrollerille. Kontrolleri manipuloi vuorostaan datamalleja, eli tietokantaa, joka taas päivittää verkkosivun näkymää
+
+
+
+
+Ohjelmassa hyödynnetään erillistä tietokantaa, johon palvelin on yhteydessä.  Projektissamme käytimme PostgreSQL -tietokantaa, joten palvelin on konfiguroitu PostgreSQL:n komennoille. Kuvassa 8 esitetään ER-kaavio ohjelman tallentamien tietojen tarvitseman tietokannan rakenteesta. Käyttäjän näkemän frontend –sovelluksen ja palvelimen välillä tieto liikkuu HTTP-pyynnöillä palvelimen REST-API rajapinnan kautta. Rajapinnan suunnittelu on toteutettu stoplight.io sivuston työkaluilla. Liitteissä on linkki stoplight.io sivustolle rajapintasuunnitelmaan. Käyttäjän sovellukseen syöttämien kuvien tallentamisessa hyödynsimme Cloudinary-pilvipalvelua. Kuvat ladataan määritetylle Cloudinary-tilille ja kuvien URL-osoitteet tallennetaan tietokantaan. 
